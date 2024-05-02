@@ -10,6 +10,9 @@ PVCollada 1.4.1 is a modification of the COLLADA 1.4.1 schema. A PVCollada 1.4.1
 2. <COLLADA><library_visual_scenes><visual_scene><id> is a string (may be empty) in PVCollada 1.4.1, but is required to be a valid xs:ID in COLLADA 1.4.1.
 3. <COLLADA><library_visual_scenes><visual_scene><name> is a string (may be empty) in PVCollada 1.4.1, but is required to be a valid xs:NCName in COLLADA 1.4.1.
 4. PVCollada 1.4.1 adds the following elements:
+
+```xml
+
   - <COLLADA><library_geometries><geometry><mesh><frame_parameters>
         <xs:element name="frame_parameters" minOccurs="0">
             <xs:complexType>
@@ -55,4 +58,5 @@ PVCollada 1.4.1 is a modification of the COLLADA 1.4.1 schema. A PVCollada 1.4.1
             </xs:complexType>
         </xs:element>
 
+```
  
