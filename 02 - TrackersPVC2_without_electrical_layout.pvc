@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <COLLADA xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   version="1.5.0" xmlns="http://www.collada.org/2008/03/COLLADASchema">
   <asset>
@@ -19,15 +19,20 @@
 	    </software>
 		<!-- project tag, child tags for illustrative purpose only -->
 	    <project>
-	      <latitude></latitude>
-		  <longitude></longitude>
+		  <name>Project Name</name>
+		  <drawing>Project drawing</drawing>
+		  <company>Test company</company>
+		  <country>Switzerland</country>
+	      <latitude>10.1</latitude>
+		  <longitude>15.3</longitude>
+		  <elevation>150</elevation>
 	    </project>
 		<!-- components tag -->
 	    <components>
 		  <!-- List of modules -->
 	      <modules>
 		    <!-- module tag, child tags for illustrative purpose only. Would usually contain a link to a PAN file or its content as CDATA -->
-            <module id="ModuleId1">
+            <module id="ModuleModel1">
 	          <manufacturer>Generic</manufacturer>
 			  <name>Generic 300W bifacial</name>
 	        </module>
@@ -46,7 +51,7 @@
   </library_effects>
   <library_geometries>
     <!-- We define a terrain -->
-    <geometry id="Terrain1">
+    <geometry id="TerrainModel1">
       <mesh>
         <source id="terrain1MeshSource">
           <float_array id="terrain1FloatArray" count="12">
@@ -83,7 +88,7 @@
       </extra>
     </geometry>
 	<!-- We define the model for a rack -->
-    <geometry id="Rack1Model">
+    <geometry id="RackModel1">
       <mesh>
         <source id="rack1MeshSource">
           <float_array id="rack1FloatArray" count="12">
@@ -112,15 +117,15 @@
 	    <technique profile="PVCollada-2.0"> 
           <!-- rack tag, child tags for illustrative purpose only -->		
           <rack>
-		    <module_id>ModuleId1</module_id>
+		    <module_id>ModuleModel1</module_id>
             <module_rows>2</module_rows>
-	  	  <module_columns>6</module_columns>
+	  	    <module_columns>6</module_columns>
           </rack>
 		</technique>
       </extra>
     </geometry>
 	<!-- We define the model for joint gaps (contains the geometry of the joint, no need to define it otherwise) -->
-	<geometry id="JointGap1Model">
+	<geometry id="JointGapModel1">
       <mesh>
         <source id="cylinder_positions">
           <float_array id="cylinder_positions_array" count="48">
@@ -164,7 +169,7 @@
       </extra>
     </geometry>	
 	<!-- We define the model for motor gaps (contains the geometry of the motor, no need to define it otherwise) -->
-	<geometry id="MotorGap1Model">
+	<geometry id="MotorGapModel1">
       <mesh>
         <source id="motor_positions">
           <float_array id="motor_positions_array" count="24">
@@ -202,7 +207,7 @@
       </extra>
     </geometry>	
     <!-- We define the model for posts -->	
-    <geometry id="Post1Model">
+    <geometry id="PostModel1">
       <mesh>
         <source id="post_positions">
           <float_array id="post_positions_array" count="48">
@@ -251,7 +256,7 @@
 	  <!-- We instantiate the first post using a translation -->	
 	  <node>
 	    <translate>-200 -100 0</translate>
-	    <instance_geometry url="#Post1Model">
+	    <instance_geometry url="#PostModel1">
           <bind_material>
             <technique_common>
               <instance_material symbol="CommonMaterial" target="#Material1" />
@@ -260,7 +265,7 @@
           <extra>
 		    <technique profile="PVCollada-2.0">
               <!-- instance_post tag -->			
-		      <instance_post sid="post1">
+		      <instance_post id="postInstance1">
 		      </instance_post>
 			</technique>
 		  </extra>
@@ -269,7 +274,7 @@
 	  <!-- We instantiate the first rack using a translation -->
 	  <node>
 	    <translate>0 0 150</translate>
-	    <instance_geometry url="#Rack1Model">
+	    <instance_geometry url="#RackModel1">
           <bind_material>
             <technique_common>
               <instance_material symbol="CommonMaterial" target="#Material1" />
@@ -278,7 +283,7 @@
           <extra>
 		    <technique profile="PVCollada-2.0">  
               <!-- instance_rack tag -->			
-		      <instance_rack sid="rack1">
+		      <instance_rack id="rackInstance1">
 		      </instance_rack>
 			</technique>
 		  </extra>
@@ -287,7 +292,7 @@
 	  <!-- We instantiate the second post using a translation -->	
 	  <node>
 	    <translate>-200 -1400 0</translate>
-	    <instance_geometry url="#Post1Model">
+	    <instance_geometry url="#PostModel1">
           <bind_material>
             <technique_common>
               <instance_material symbol="CommonMaterial" target="#Material1" />
@@ -296,7 +301,7 @@
           <extra>
 		    <technique profile="PVCollada-2.0">   
 			  <!-- instance_post tag -->
-		      <instance_post sid="post2">
+		      <instance_post id="postInstance2">
 		      </instance_post>
 			</technique>
 		  </extra>
@@ -305,7 +310,7 @@
 	  <!-- We instantiate the first joint gap using a translation -->	
       <node>
 	    <translate>-200 -1550 140</translate>
-        <instance_geometry url="#JointGap1Model">
+        <instance_geometry url="#JointGapModel1">
           <bind_material>
             <technique_common>
               <instance_material symbol="CommonMaterial" target="#Material1" />
@@ -314,7 +319,7 @@
           <extra>
 		    <technique profile="PVCollada-2.0">   
 			  <!-- instance_gap tag, might not have any child tags at the start but can be useful in the future  -->
-		      <instance_gap sid="gap1">
+		      <instance_gap id="gapInstance1">
 		      </instance_gap>
 			</technique>
 		  </extra>
@@ -323,7 +328,7 @@
 	  <!-- We instantiate the third post using a translation -->	
 	  <node>
 	    <translate>-200 -1650 0</translate>
-	    <instance_geometry url="#Post1Model">
+	    <instance_geometry url="#PostModel1">
           <bind_material>
             <technique_common>
               <instance_material symbol="CommonMaterial" target="#Material1" />
@@ -332,7 +337,7 @@
           <extra>
 		    <technique profile="PVCollada-2.0">   
 			  <!-- instance_post tag -->
-		      <instance_post sid="post3">
+		      <instance_post id="postInstance3">
 		      </instance_post>
 			</technique>
 		  </extra>
@@ -341,7 +346,7 @@
 	  <!-- We instantiate the second rack using a translation -->
       <node>
 	    <translate>0 -1550 150</translate>
-	    <instance_geometry url="#Rack1Model">
+	    <instance_geometry url="#RackModel1">
           <bind_material>
             <technique_common>
               <instance_material symbol="CommonMaterial" target="#Material1" />
@@ -350,7 +355,7 @@
           <extra>
 		    <technique profile="PVCollada-2.0">   
 			  <!-- instance_rack tag -->
-		      <instance_rack sid="rack2">
+		      <instance_rack id="rackInstance2">
 		      </instance_rack>
 			</technique>
 		  </extra>
@@ -359,7 +364,7 @@
 	  <!-- We instantiate the fourth post using a translation -->	
 	  <node>
 	    <translate>-200 -2950 0</translate>
-	    <instance_geometry url="#Post1Model">
+	    <instance_geometry url="#PostModel1">
           <bind_material>
             <technique_common>
               <instance_material symbol="CommonMaterial" target="#Material1" />
@@ -368,7 +373,7 @@
           <extra>
 		    <technique profile="PVCollada-2.0">  
               <!-- instance_post tag -->			
-		      <instance_post sid="post4">
+		      <instance_post id="postInstance4">
 		      </instance_post>
 			</technique>
 		  </extra>
@@ -377,7 +382,7 @@
 	  <!-- We instantiate the motor gap using a translation -->	
       <node>
 	    <translate>-200 -3150 110</translate>
-        <instance_geometry url="#MotorGap1Model">
+        <instance_geometry url="#MotorGapModel1">
           <bind_material>
             <technique_common>
               <instance_material symbol="CommonMaterial" target="#Material1" />
@@ -386,7 +391,7 @@
           <extra>
 		    <technique profile="PVCollada-2.0">   
 			  <!-- instance_gap tag, might not have any child tags at the start but can be useful in the future  -->
-		      <instance_gap sid="gap2">
+		      <instance_gap id="gapInstance2">
 		      </instance_gap>
 			</technique>
 		  </extra>
@@ -395,7 +400,7 @@
 	  <!-- We instantiate the fifth post using a translation -->	
 	  <node>
 	    <translate>-200 -3350 0</translate>
-	    <instance_geometry url="#Post1Model">
+	    <instance_geometry url="#PostModel1">
           <bind_material>
             <technique_common>
               <instance_material symbol="CommonMaterial" target="#Material1" />
@@ -404,7 +409,7 @@
           <extra>
 		    <technique profile="PVCollada-2.0"> 
               <!-- instance_post tag -->			
-  		      <instance_post sid="post5">
+  		      <instance_post id="postInstance5">
 	          </instance_post>
 			</technique>
 		  </extra>
@@ -413,7 +418,7 @@
 	  <!-- We instantiate the third rack using a translation -->
       <node>
 	    <translate>0 -3250 150</translate>
-	    <instance_geometry url="#Rack1Model">
+	    <instance_geometry url="#RackModel1">
           <bind_material>
             <technique_common>
               <instance_material symbol="CommonMaterial" target="#Material1" />
@@ -422,7 +427,7 @@
           <extra>
 		    <technique profile="PVCollada-2.0"> 
               <!-- instance_rack tag -->			
-		      <instance_rack sid="rack3">
+		      <instance_rack id="rackInstance3">
 		      </instance_rack>
 			</technique>
 		  </extra>
@@ -431,7 +436,7 @@
       <!-- We instantiate the sixth post using a translation -->		  
 	  <node>
 	    <translate>-200 -4650 0</translate>
-	    <instance_geometry url="#Post1Model">
+	    <instance_geometry url="#PostModel1">
           <bind_material>
             <technique_common>
               <instance_material symbol="CommonMaterial" target="#Material1" />
@@ -440,7 +445,7 @@
           <extra>
 		    <technique profile="PVCollada-2.0"> 
               <!-- instance_post tag -->			
-		      <instance_post sid="post6">
+		      <instance_post id="postInstance6">
 		      </instance_post>
 			</technique>
 		  </extra>
@@ -449,7 +454,7 @@
 	  <!-- We instantiate the second joint gap using a translation -->
       <node>
 	    <translate>-200 -4800 140</translate>
-        <instance_geometry url="#JointGap1Model">
+        <instance_geometry url="#JointGapModel1">
           <bind_material>
             <technique_common>
               <instance_material symbol="CommonMaterial" target="#Material1" />
@@ -458,7 +463,7 @@
           <extra>
 		    <technique profile="PVCollada-2.0">  
               <!-- instance_gap tag, might not have any child tags at the start but can be useful in the future  -->			
-		      <instance_gap sid="gap3">
+		      <instance_gap id="gapInstance3">
 		      </instance_gap>
 			</technique>
 		  </extra>
@@ -467,7 +472,7 @@
 	  <!-- We instantiate the seventh post using a translation -->	
 	  <node>
 	    <translate>-200 -4900 0</translate>
-	    <instance_geometry url="#Post1Model">
+	    <instance_geometry url="#PostModel1">
           <bind_material>
             <technique_common>
               <instance_material symbol="CommonMaterial" target="#Material1" />
@@ -476,7 +481,7 @@
           <extra>
 		    <technique profile="PVCollada-2.0">   
 			  <!-- instance_post tag -->
-		      <instance_post sid="post7">
+		      <instance_post id="postInstance7">
 		      </instance_post>
 			</technique>
 		  </extra>
@@ -485,7 +490,7 @@
       <!-- We instantiate the fourth rack using a translation -->	  
       <node>
 	    <translate>0 -4800 150</translate>
-	    <instance_geometry url="#Rack1Model">
+	    <instance_geometry url="#RackModel1">
           <bind_material>
             <technique_common>
               <instance_material symbol="CommonMaterial" target="#Material1" />
@@ -494,7 +499,7 @@
           <extra>
 		    <technique profile="PVCollada-2.0">   
 			  <!-- instance_rack tag -->
-		      <instance_rack sid="rack4">
+		      <instance_rack id="rackInstance4">
 		      </instance_rack>
 			</technique>
 		  </extra>
@@ -503,7 +508,7 @@
 	  <!-- We instantiate the eighth post using a translation -->	
       <node>
 	    <translate>-200 -6100 0</translate>
-	    <instance_geometry url="#Post1Model">
+	    <instance_geometry url="#PostModel1">
           <bind_material>
             <technique_common>
               <instance_material symbol="CommonMaterial" target="#Material1" />
@@ -512,7 +517,7 @@
           <extra>
 		    <technique profile="PVCollada-2.0">   
 			  <!-- instance_post tag -->
-		      <instance_post sid="post8">
+		      <instance_post id="postInstance8">
 		      </instance_post>
 			</technique>
 		  </extra>
@@ -523,16 +528,19 @@
           <!-- table tag, child tags for illustrative purpose only -->		
 		  <table>
             <type>tracker</type>
+			<tilt>0</tilt>
+			<azimuth>0</azimuth>
+			<base_slope></base_slope>
 		  </table>
 		</technique>
       </extra>
 	</node>
   </library_nodes>
   <library_visual_scenes>
-    <visual_scene id="VisualSceneNode" name="Visual Scene">
+    <visual_scene id="VisualSceneModel" name="Visual Scene">
 	  <!-- We instantiate the terrain -->
 	  <node id="TerrainNode1" name="TerrainNode1" sid="TerrainNode1">
-        <instance_geometry url="#Terrain1">
+        <instance_geometry url="#TerrainModel1">
 		  <extra>
 		    <technique profile="PVCollada-2.0">   
 			  <!-- instance_terrain tag, might not have any child tags at the start but can be useful in the future -->
@@ -576,6 +584,6 @@
     </visual_scene>
   </library_visual_scenes>
   <scene>
-    <instance_visual_scene url="#VisualSceneNode" />
+    <instance_visual_scene url="#VisualSceneModel" />
   </scene>
 </COLLADA>
