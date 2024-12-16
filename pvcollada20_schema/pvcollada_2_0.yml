@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 software:
   source:
     type:
@@ -30,3 +31,37 @@ project:
       string
     documentation:
       PVCollada schema version
+=======
+software:
+  source:
+    type:
+      string
+    documentation:
+      software that produced the PVCollada file
+  target:
+    type:
+      string
+    documentation:
+      target software, used when the PVCollada file has software-specific content
+  version:
+    type:
+      string
+    documentation:
+      PVCollada schema version
+project:
+  name:
+    type:
+      string
+    documentation:
+      The name of the project
+  drawing:
+    type:
+      string
+    documentation:
+      target software, used when the PVCollada file has software-specific content
+  version:
+    type:
+      string
+    documentation:
+      PVCollada schema version
+>>>>>>> 0340b0689a3106c5159ae0c7260c27f46c363d46
