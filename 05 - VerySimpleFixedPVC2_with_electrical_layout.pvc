@@ -242,10 +242,10 @@
 			<mesh>
 				<source id="rack1MeshSource">
 					<float_array id="rack1FloatArray" count="12">
-			0 0 0
-            -1500 0 0
-            -1500 -500 200
-            0 -500 200
+			-750 -250 0
+            750 -250 0
+            750 250 0
+            -750 250 0
 		  </float_array>
 					<technique_common>
 						<accessor count="4" source="#rack1FloatArray" stride="3">
@@ -298,9 +298,6 @@
 					<!-- table tag, child tags for illustrative purpose only -->
 					<table>
 						<type>fixed</type>
-						<tilt>21.8</tilt>
-						<azimuth>0</azimuth>
-						<base_slope>0</base_slope>
 					</table>
 				</technique>
 			</extra>
@@ -321,6 +318,9 @@
 			</node>
 			<!-- We instantiate a first fixed tilt table, without any transformation -->
 			<node id="PVnode1" name="PVnode1" sid="PVnode1">
+				<rotate sid="azimuth">0 0 1 45</rotate>
+				<rotate sid="base slope">0 1 0 10</rotate>
+				<rotate sid="tilt">1 0 0 21.8</rotate>
 				<instance_node url="#TableModel1">
 					<extra>
 						<technique profile="PVCollada-2.0">
@@ -337,6 +337,9 @@
 			<!-- We instantiate a second fixed tilt table (with a translation) -->
 			<node id="PVnode2" name="PVnode2" sid="PVnode2">
 				<translate>0 -800 0</translate>
+				<rotate sid="azimuth">0 0 1 45</rotate>
+				<rotate sid="base slope">0 1 0 10</rotate>
+				<rotate sid="tilt">1 0 0 21.8</rotate>
 				<instance_node url="#TableModel1">
 					<extra>
 						<technique profile="PVCollada-2.0">
@@ -356,6 +359,9 @@
 			<!-- We instantiate a third fixed tilt table (with another translation) -->
 			<node id="PVnode3" name="PVnode3" sid="PVnode3">
 				<translate>0 -1600 0</translate>
+				<rotate sid="azimuth">0 0 1 45</rotate>
+				<rotate sid="base slope">0 1 0 10</rotate>
+				<rotate sid="tilt">1 0 0 21.8</rotate>
 				<instance_node url="#TableModel1">
 					<extra>
 						<technique profile="PVCollada-2.0">
