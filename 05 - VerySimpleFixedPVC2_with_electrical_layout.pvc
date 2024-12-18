@@ -277,8 +277,11 @@
 	</library_geometries>
 	<library_nodes>
 		<!-- We define the model for a table with 1 rack -->
-		<node id="TableModel1" sid="TableModel1">
-			<!-- We instantiate the rack model -->
+		<node id="TableModel1" sid="TableModel1">	
+			<rotate sid="azimuth">0 0 1 45</rotate>
+			<rotate sid="base slope">0 1 0 10</rotate>
+			<rotate sid="tilt">1 0 0 21.8</rotate>
+			<!-- We instantiate the rack model -->		
 			<instance_geometry url="#RackModel1">
 				<bind_material>
 					<technique_common>
@@ -318,9 +321,6 @@
 			</node>
 			<!-- We instantiate a first fixed tilt table, without any transformation -->
 			<node id="PVnode1" name="PVnode1" sid="PVnode1">
-				<rotate sid="azimuth">0 0 1 45</rotate>
-				<rotate sid="base slope">0 1 0 10</rotate>
-				<rotate sid="tilt">1 0 0 21.8</rotate>
 				<instance_node url="#TableModel1">
 					<extra>
 						<technique profile="PVCollada-2.0">
@@ -337,9 +337,6 @@
 			<!-- We instantiate a second fixed tilt table (with a translation) -->
 			<node id="PVnode2" name="PVnode2" sid="PVnode2">
 				<translate>0 -800 0</translate>
-				<rotate sid="azimuth">0 0 1 45</rotate>
-				<rotate sid="base slope">0 1 0 10</rotate>
-				<rotate sid="tilt">1 0 0 21.8</rotate>
 				<instance_node url="#TableModel1">
 					<extra>
 						<technique profile="PVCollada-2.0">
@@ -359,9 +356,6 @@
 			<!-- We instantiate a third fixed tilt table (with another translation) -->
 			<node id="PVnode3" name="PVnode3" sid="PVnode3">
 				<translate>0 -1600 0</translate>
-				<rotate sid="azimuth">0 0 1 45</rotate>
-				<rotate sid="base slope">0 1 0 10</rotate>
-				<rotate sid="tilt">1 0 0 21.8</rotate>
 				<instance_node url="#TableModel1">
 					<extra>
 						<technique profile="PVCollada-2.0">
