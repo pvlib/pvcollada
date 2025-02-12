@@ -8,6 +8,28 @@
     <xs:import namespace="http://www.collada.org/2008/03/COLLADASchema"
                schemaLocation="collada_schema_1_5.xsd"/>
 
+
+	<xs:complexType name="module_type">
+		<xs:annotation>
+			<xs:documentation>
+    		Data that describes a PV module.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+            <xs:element name="module_ID" type="xs:string"/>
+            <xs:element name="manufacturer" type="xs:string" minOccurs="0"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="nom_power" type="xs:float"/>
+            <xs:element name="length" type="xs:float"/>
+            <xs:element name="width" type="xs:float"/>
+            <xs:element name="depth" type="xs:float"/>
+            <xs:element name="num_cells" type="xs:positiveInteger" minOccurs="0"/>
+            <xs:element name="num_cells_length" type="xs:positiveInteger" minOccurs="0"/>
+            <xs:element name="num_cells_width" type="xs:positiveInteger" minOccurs="0"/>
+            <xs:element name="num_cells_series" type="xs:positiveInteger" minOccurs="0"/>
+        </xs:sequence>
+   	</xs:complexType>
+
     <xs:element name="software">
         <xs:complexType>
             <xs:sequence>
@@ -23,13 +45,25 @@
                 <xs:element name="name" type="xs:string"/>
                 <xs:element name="drawing" type="xs:string"/>
                 <xs:element name="company" type="xs:string"/>
-                <xs:element name="country" type="xs:string"/>
-                <xs:element name="latitude" type="xs:string"/>
-                <xs:element name="longitude" type="xs:string"/>
-                <xs:element name="elevation" type="xs:string"/>
+                <xs:element name="country" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="en">
+                            ISO 3166 country code.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="latitude" type="xs:float"/>
+                <xs:element name="longitude" type="xs:float"/>
+                <xs:element name="elevation" type="xs:float"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <!-- More TODO -->
+
+	<xs:element name="modules">
+        <xs:sequence>
+        	<xs:element name="module" type="module_type">
+        </xs:sequence>
+   	</xs:element>
+
 </xs:schema>
