@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.example.com/pvcollada"
+           xmlns="http://www.example.com/pvcollada"
+           elementFormDefault="qualified"
+           xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
+
+    <xs:import namespace="http://www.collada.org/2008/03/COLLADASchema"
+               schemaLocation="collada_schema_1_5.xsd"/>
+
+    <xs:element name="software">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="source" type="xs:string"/>
+                <xs:element name="target" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="project">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element name="drawing" type="xs:string"/>
+                <xs:element name="company" type="xs:string"/>
+                <xs:element name="country" type="xs:string"/>
+                <xs:element name="latitude" type="xs:string"/>
+                <xs:element name="longitude" type="xs:string"/>
+                <xs:element name="elevation" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- More TODO -->
+</xs:schema>
