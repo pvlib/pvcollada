@@ -239,39 +239,39 @@
 				</xs:complexType>
       </xs:element>
     	<xs:element name="efficiency" minOccurs="0">
+  	    <xs:annotation>
+          <xs:documentation>Maximum of output AC power divided by input DC power, in percent.</xs:documentation>
+        </xs:annotation>
 			  <xs:simpleType>
 				  <xs:restriction base="xs:float">
 					  <xs:minInclusive value="0"/>
-						<xs:miaxInclusive value="100"/>
+						<xs:maxInclusive value="100"/>
 					</xs:restriction>
 				</xs:simpleType>
-  	    <xs:annotation>
-	        <xs:documentation>Maximum of output AC power divided by input DC power, in percent.</xs:documentation>
-        </xs:annotation>
       </xs:element>
     	<xs:element name="efficiency_standard_value" minOccurs="0">
-			  <xs:simpleType>
-				  <xs:restriction base="xs:float">
-					  <xs:minInclusive value="0"/>
-						<xs:miaxInclusive value="100"/>
-					</xs:restriction>
-				</xs:simpleType>
   	    <xs:annotation>
 	        <xs:documentation>Output AC power divided by input DC power, in percent. Computed as defined by efficiency_standard_type.</xs:documentation>
         </xs:annotation>
+			  <xs:simpleType>
+				  <xs:restriction base="xs:float">
+					  <xs:minInclusive value="0"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
       </xs:element>
     	<xs:element name="efficiency_standard_type" minOccurs="0">
+  	    <xs:annotation>
+	        <xs:documentation>Standard for calculation of efficiency.</xs:documentation>
+        </xs:annotation>
 			  <xs:simpleType>
 				  <xs:restriction base="xs:string">
 					  <xs:enumeration value="CEC"/>
 						<xs:enumeration value="EC"/>
 					</xs:restriction>
 				</xs:simpleType>
-  	    <xs:annotation>
-	        <xs:documentation>Standard for calculation of efficiency.</xs:documentation>
-        </xs:annotation>
       </xs:element>
-    	<xs:element name="3d_mesh" type="collada:sidref_type" minOccurs="0">
+    	<xs:element name="mesh_ed" type="collada:sidref_type" minOccurs="0">
   	    <xs:annotation>
 	        <xs:documentation>Mesh describing inverter object in 3D scene.</xs:documentation>
         </xs:annotation>
