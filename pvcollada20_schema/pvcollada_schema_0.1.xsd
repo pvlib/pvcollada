@@ -39,13 +39,13 @@
 
   <xs:complexType name="module_type_object">
     <xs:annotation>
-      <xs:documentation>Module product-level data</xs:documentation>
+      <xs:documentation>Module product-level data.</xs:documentation>
     </xs:annotation>
 	  <xs:sequence>
       <xs:element name="manufacturer" type="xs:string" minOccurs="0"/>
       <xs:element name="name" type="xs:string">
   	    <xs:annotation>
-	        <xs:documentation>Module model name, e.g., Q.Tron Classic 440W</xs:documentation>
+	        <xs:documentation>Module model name, e.g., Q.Tron Classic 440W.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="module_type" type="module_type_enum" minOccurs="0">
@@ -149,13 +149,13 @@
 
   <xs:complexType name="inverter_type_object">
     <xs:annotation>
-      <xs:documentation>Inverter product-level data</xs:documentation>
+      <xs:documentation>Inverter product-level data.</xs:documentation>
     </xs:annotation>
 	  <xs:sequence>
       <xs:element name="manufacturer" type="xs:string" minOccurs="0"/>
       <xs:element name="name" type="xs:string">
   	    <xs:annotation>
-	        <xs:documentation>Inverter model name</xs:documentation>
+	        <xs:documentation>Inverter model name.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="inverter_type" type="inverter_type_enum" minOccurs="0">
@@ -267,11 +267,11 @@
 			  <xs:simpleType>
 				  <xs:restriction base="xs:string">
 					  <xs:enumeration value="CEC"/>
-						<xs:enumeration value="EC"/>
+						<xs:enumeration value="EU"/>
 					</xs:restriction>
 				</xs:simpleType>
       </xs:element>
-    	<xs:element name="mesh_ed" type="collada:sidref_type" minOccurs="0">
+    	<xs:element name="mesh_id" type="collada:sidref_type" minOccurs="0">
   	    <xs:annotation>
 	        <xs:documentation>Mesh describing inverter object in 3D scene.</xs:documentation>
         </xs:annotation>
@@ -280,7 +280,89 @@
     <xs:attribute name="id" use="required" type="xs:ID"/>
   </xs:complexType>
 
+  <xs:complexType name="combiner_type_object">
+    <xs:annotation>
+      <xs:documentation>Combiner product-level data</xs:documentation>
+    </xs:annotation>
+	  <xs:sequence>
+      <xs:element name="manufacturer" type="xs:string" minOccurs="0"/>
+      <xs:element name="name" type="xs:string">
+  	    <xs:annotation>
+	        <xs:documentation>Combiner model name.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="input_count" type="xs:int">
+  	    <xs:annotation>
+	        <xs:documentation>Number of inputs to combiner.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+		</xs:sequence>
+    <xs:attribute name="id" use="required" type="xs:ID"/>
+  </xs:complexType>
+
+  <xs:complexType name="transformer_type_object">
+    <xs:annotation>
+      <xs:documentation>Transformer product-level data</xs:documentation>
+    </xs:annotation>
+	  <xs:sequence>
+      <xs:element name="manufacturer" type="xs:string" minOccurs="0"/>
+      <xs:element name="name" type="xs:string">
+  	    <xs:annotation>
+	        <xs:documentation>Transformer model name.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="nom_power" type="xs:float">
+  	    <xs:annotation>
+	        <xs:documentation>Nominal AC power, W.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="v_in" type="xs:float">
+  	    <xs:annotation>
+	        <xs:documentation>Nominal AC input voltage, V.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="v_out" type="xs:float">
+  	    <xs:annotation>
+	        <xs:documentation>Nominal AC output voltage, V.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    	<xs:element name="efficiency" minOccurs="0">
+  	    <xs:annotation>
+          <xs:documentation>Maximum efficiency, in percent.</xs:documentation>
+        </xs:annotation>
+			  <xs:simpleType>
+				  <xs:restriction base="xs:float">
+					  <xs:minInclusive value="0"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+      </xs:element>
+      <xs:element name="iron_loss" type="xs:float" minOccurs="0">
+  	    <xs:annotation>
+	        <xs:documentation>Loss in iron core, considered independent of load, W.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="copper_loss" type="xs:float" minOccurs="0">
+  	    <xs:annotation>
+	        <xs:documentation>Equivalent resistance for computing loss in windings, Ohm.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="night_disconnect" type="xs:boolean" minOccurs="0">
+  	    <xs:annotation>
+	        <xs:documentation>true if the transformer automatically disconnects from the grid at night.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    	<xs:element name="mesh_id" type="collada:sidref_type" minOccurs="0">
+  	    <xs:annotation>
+	        <xs:documentation>Mesh describing transformer object in 3D scene.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+		</xs:sequence>
+    <xs:attribute name="id" use="required" type="xs:ID"/>
+  </xs:complexType>
+
   <xs:element name="software">
+	  <!-- add version, or read from technique label? -->
     <xs:complexType>
       <xs:sequence>
         <xs:element name="source" type="xs:string"/>
@@ -375,6 +457,7 @@
   </xs:element>
 
   <xs:element name="terrain">
+	  <!-- need to add: albedo, areal picture, ground_slope, ground_azimuth, digital_elevation_model -->
     <xs:complexType>
       <xs:sequence>
     		<xs:element name="bounding_box_min" type="collada:float3_type">
@@ -403,6 +486,22 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element name="module" type="module_type_object" minOccurs="1" maxOccurs="unbounded"/>
+		  </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="inverters">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="inverter" type="inverter_type_object" minOccurs="1" maxOccurs="unbounded"/>
+		  </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="combiners">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="combiner" type="combiner_type_object" minOccurs="0" maxOccurs="unbounded"/>
 		  </xs:sequence>
     </xs:complexType>
   </xs:element>
