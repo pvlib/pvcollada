@@ -1,0 +1,45 @@
+name: Validate PVCollada XML examples
+
+on:
+  push:
+    paths:
+      - pvcollada20_schema/pvcollada_schema_0.1.xsd
+      - pvcollada20_schema/collada_schema_1_5.xsd
+      - .github/workflows/validate_xml_with_xsd.py
+
+      - pvcollada20_schema/04 - TrackersPVC2_with_basic_electrical_layout_v2.pvc
+  pull_request:
+    paths:
+      - pvcollada20_schema/pvcollada_schema_0.1.xsd
+      - pvcollada20_schema/collada_schema_1_5.xsd
+      - .github/workflows/validate_xml_with_xsd.py
+
+      - pvcollada20_schema/04 - TrackersPVC2_with_basic_electrical_layout_v2.pvc
+  workflow_dispatch:
+
+jobs:
+  validate-schema:
+    strategy:
+      matrix:
+        xml_doc:
+          - pvcollada20_schema/04 - TrackersPVC2_with_basic_electrical_layout_v2.pvc
+    name: Validate XML
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install lxml Python dependency
+        run: pip3 install lxml==5.3.1
+      - name: Checkout PVCollada and COLLADA schemas, the validation script, and the XML doc
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            pvcollada20_schema/pvcollada_schema_0.1.xsd
+            pvcollada20_schema/collada_schema_1_5.xsd
+            .github/workflows/validate_xml_with_xsd.py
+            ${{ matrix.xml_doc }}
+          sparse-checkout-cone-mode: false
+      - name: Run validation
+        run: python3 .github/workflows/validate_xml_with_xsd.py pvcollada20_schema/pvcollada_schema_0.1.xsd "${{ matrix.xml_doc }}"
