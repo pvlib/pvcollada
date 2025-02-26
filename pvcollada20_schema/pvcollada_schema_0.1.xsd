@@ -6,7 +6,7 @@
            xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
 
   <xs:import namespace="http://www.collada.org/2008/03/COLLADASchema"
-             schemaLocation="collada_schema_1_5.xsd"/>
+             schemaLocation="pvcollada20_schema/collada_schema_1_5.xsd"/>
 
   <xs:simpleType name="cell_type_enum" final="restriction" >
     <xs:restriction base="xs:string">
