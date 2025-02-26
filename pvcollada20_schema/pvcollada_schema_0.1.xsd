@@ -16,7 +16,6 @@
         <xs:enumeration value="aSi_tandem" />
         <xs:enumeration value="cdTe" />
         <xs:enumeration value="aSi" />
-        <xs:enumeration value="aSi" />
     </xs:restriction>
   </xs:simpleType>
 
