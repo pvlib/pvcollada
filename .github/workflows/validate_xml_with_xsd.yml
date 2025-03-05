@@ -42,4 +42,5 @@ jobs:
             ${{ matrix.xml_doc }}
           sparse-checkout-cone-mode: false
       - name: Run validation
-        run: python3 .github/workflows/validate_xml_with_xsd.py pvcollada20_schema/pvcollada_schema_0.1.xsd "${{ matrix.xml_doc }}"
+        working-directory: pvcollada20_schema
+        run: python3 "$GITHUB_WORKSPACE"/.github/workflows/validate_xml_with_xsd.py pvcollada_schema_0.1.xsd "$GITHUB_WORKSPACE"/"${{ matrix.xml_doc }}"
