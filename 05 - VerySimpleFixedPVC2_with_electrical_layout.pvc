@@ -242,10 +242,10 @@
 			<mesh>
 				<source id="rack1MeshSource">
 					<float_array id="rack1FloatArray" count="12">
-			0 0 0
-            -1500 0 0
-            -1500 -500 200
-            0 -500 200
+			-750 -250 0
+            750 -250 0
+            750 250 0
+            -750 250 0
 		  </float_array>
 					<technique_common>
 						<accessor count="4" source="#rack1FloatArray" stride="3">
@@ -277,8 +277,11 @@
 	</library_geometries>
 	<library_nodes>
 		<!-- We define the model for a table with 1 rack -->
-		<node id="TableModel1" sid="TableModel1">
-			<!-- We instantiate the rack model -->
+		<node id="TableModel1" sid="TableModel1">	
+			<rotate sid="azimuth">0 0 1 45</rotate>
+			<rotate sid="base slope">0 1 0 10</rotate>
+			<rotate sid="tilt">1 0 0 21.8</rotate>
+			<!-- We instantiate the rack model -->		
 			<instance_geometry url="#RackModel1">
 				<bind_material>
 					<technique_common>
@@ -298,9 +301,6 @@
 					<!-- table tag, child tags for illustrative purpose only -->
 					<table>
 						<type>fixed</type>
-						<tilt>21.8</tilt>
-						<azimuth>0</azimuth>
-						<base_slope>0</base_slope>
 					</table>
 				</technique>
 			</extra>
