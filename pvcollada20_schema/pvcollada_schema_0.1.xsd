@@ -15,7 +15,13 @@
         <xs:enumeration value="aSi" />
         <xs:enumeration value="aSi_tandem" />
         <xs:enumeration value="cdTe" />
-        <xs:enumeration value="aSi" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="conductor_material_type_enum" final="restriction" >
+    <xs:restriction base="xs:string">
+        <xs:enumeration value="copper" />
+        <xs:enumeration value="aluminum" />
     </xs:restriction>
   </xs:simpleType>
 
@@ -229,7 +235,7 @@
       </xs:element>
     	<xs:element name="temperature_derate" minOccurs="0">
   	    <xs:annotation>
-	        <xs:documentation>Derate curve for temperature. Sequence of pairs of float (temperature, derate) where derate is fraction of full output. Ensure temperature is increasing.</xs:documentation>
+	        <xs:documentation>Derate curve for temperature. Sequence of pairs of float (temperature, derate) where derate is a fraction of full output. Ensure temperature is increasing.</xs:documentation>
         </xs:annotation>
 				<xs:complexType>
 					<xs:sequence maxOccurs="unbounded">
@@ -279,9 +285,29 @@
     <xs:attribute name="id" use="required" type="xs:ID"/>
   </xs:complexType>
 
-  <xs:complexType name="combiner_type_object">
+  <xs:complexType name="combiner_ac_type_object">
     <xs:annotation>
-      <xs:documentation>Combiner product-level data</xs:documentation>
+      <xs:documentation>AC Combiner product-level data</xs:documentation>
+    </xs:annotation>
+	  <xs:sequence>
+      <xs:element name="manufacturer" type="xs:string" minOccurs="0"/>
+      <xs:element name="name" type="xs:string">
+  	    <xs:annotation>
+	        <xs:documentation>Combiner model name.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="input_count" type="xs:int">
+  	    <xs:annotation>
+	        <xs:documentation>Number of inputs to combiner.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+		</xs:sequence>
+    <xs:attribute name="id" use="required" type="xs:ID"/>
+  </xs:complexType>
+
+  <xs:complexType name="combiner_dc_type_object">
+    <xs:annotation>
+      <xs:documentation>DC Combiner product-level data</xs:documentation>
     </xs:annotation>
 	  <xs:sequence>
       <xs:element name="manufacturer" type="xs:string" minOccurs="0"/>
@@ -360,6 +386,248 @@
     <xs:attribute name="id" use="required" type="xs:ID"/>
   </xs:complexType>
 
+  <xs:complexType name="cable_type_object">
+    <xs:annotation>
+      <xs:documentation>Cable product-level data</xs:documentation>
+    </xs:annotation>
+	  <xs:sequence>
+      <xs:element name="manufacturer" type="xs:string" minOccurs="0"/>
+      <xs:element name="name" type="xs:string">
+  	    <xs:annotation>
+	        <xs:documentation>Cable product name.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="cross_section" type="xs:float">
+  	    <xs:annotation>
+	        <xs:documentation>Cross-section area, sq. mm</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="num_conductors" type="xs:float">
+  	    <xs:annotation>
+	        <xs:documentation>Number of conductors</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="material" type="conductor_material_type_enum" minOccurs="0">
+  	    <xs:annotation>
+	        <xs:documentation>Conductor material</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="resistance" type="xs:float" minOccurs="0">
+  	    <xs:annotation>
+	        <xs:documentation>Resistance, ohm per km</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="impedance" type="xs:float" minOccurs="0">
+  	    <xs:annotation>
+	        <xs:documentation>Impedance, ohm per km </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+		</xs:sequence>
+    <xs:attribute name="id" use="required" type="xs:ID"/>
+  </xs:complexType>
+
+  <!-- Circuit definition -->
+  <xs:complexType name="circuit_type">
+    <xs:sequence>
+      <xs:element name="injection_point" type="injection_point_type"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- injection_point must have exactly one input -->
+  <xs:complexType name="injection_point_type">
+    <xs:sequence>
+      <xs:element name="input" type="injection_input_type" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Input for injection_point element; it must have exactly one child chosen from the allowed instance types -->
+  <xs:complexType name="injection_input_type">
+    <xs:choice minOccurs="1" maxOccurs="1">
+      <xs:element name="instance_transformer" type="instance_transformer_type"/>
+      <xs:element name="instance_combiner_ac" type="instance_combiner_ac_type"/>
+      <xs:element name="instance_inverter" type="instance_inverter_type"/>
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- Instance Transformer: requires a cable_to_parent and an inputs container -->
+  <xs:complexType name="instance_transformer_type">
+    <xs:sequence>
+      <xs:element name="cable_to_parent" type="cable_to_type"/>
+      <xs:element name="inputs" type="transformer_inputs_type"/>
+    </xs:sequence>
+    <xs:attribute name="url" type="xs:string" use="required"/>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+    <xs:attribute name="name" type="xs:string" use="optional"/>
+  </xs:complexType>
+  
+  <!-- Inputs container for instance_transformer; each input must have exactly one instance child (transformer, AC combiner or inverter) -->
+  <xs:complexType name="transformer_inputs_type">
+    <xs:sequence>
+      <xs:element name="input" type="transformer_input_type" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <!-- Input for instance_transformer/inputs elements; it must have exactly one child chosen from the allowed instance types -->
+  <xs:complexType name="transformer_input_type">
+    <xs:choice minOccurs="1" maxOccurs="1">
+      <xs:element name="instance_transformer" type="instance_transformer_type"/>
+      <xs:element name="instance_combiner_ac" type="instance_combiner_ac_type"/>
+      <xs:element name="instance_inverter" type="instance_inverter_type"/>
+    </xs:choice>
+  </xs:complexType>  
+
+  <!-- Instance Combiner AC: requires a cable_to_parent and an inputs container -->
+  <xs:complexType name="instance_combiner_ac_type">
+    <xs:sequence>
+      <xs:element name="cable_to_parent" type="cable_to_type"/>
+      <xs:element name="inputs" type="combiner_ac_inputs_type"/>
+    </xs:sequence>
+    <xs:attribute name="url" type="xs:string" use="required"/>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+    <xs:attribute name="name" type="xs:string" use="optional"/>
+  </xs:complexType>
+  
+  <!-- Inputs container for instance_combiner_ac; each input must have exactly one instance child (transformer, AC combiner or inverter) -->
+  <xs:complexType name="combiner_ac_inputs_type">
+    <xs:sequence>
+      <xs:element name="input" type="combiner_ac_input_type" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <!-- Input for instance_combiner_ac/inputs elements; it must have exactly one child chosen from the allowed types -->
+  <xs:complexType name="combiner_ac_input_type">
+    <xs:choice minOccurs="1" maxOccurs="1">
+      <xs:element name="instance_transformer" type="instance_transformer_type"/>
+      <xs:element name="instance_combiner_ac" type="instance_combiner_ac_type"/>
+      <xs:element name="instance_inverter" type="instance_inverter_type"/>
+    </xs:choice>
+  </xs:complexType>  
+
+  <!-- Instance Inverter: requires a cable_to_parent and an mppts container -->
+  <xs:complexType name="instance_inverter_type">
+    <xs:sequence>
+      <xs:element name="cable_to_parent" type="cable_to_type"/>
+      <xs:element name="mppts" type="mppts_type"/>
+    </xs:sequence>
+    <xs:attribute name="url" type="xs:string" use="required"/>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+    <xs:attribute name="name" type="xs:string" use="optional"/>
+  </xs:complexType>
+  
+  <!-- mppts container: must have one or more mppt elements -->
+  <xs:complexType name="mppts_type">
+    <xs:sequence>
+      <xs:element name="mppt" type="mppt_type" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- mppt element: contains exactly one "string" or one "instance_combiner_dc" element -->
+  <xs:complexType name="mppt_type">
+    <xs:choice minOccurs="1" maxOccurs="unbounded">
+      <xs:element name="string" type="string_type"/>
+	    <xs:element name="instance_combiner_dc" type="instance_combiner_dc_type"/>
+    </xs:choice>
+  </xs:complexType>
+  
+  <!-- Instance Combiner DC: requires a cable_to_parent and an inputs container -->
+  <xs:complexType name="instance_combiner_dc_type">
+    <xs:sequence>
+      <xs:element name="cable_to_parent" type="cable_to_type"/>
+      <xs:element name="inputs" type="combiner_dc_inputs_type"/>
+    </xs:sequence>
+    <xs:attribute name="url" type="xs:string" use="required"/>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+    <xs:attribute name="name" type="xs:string" use="optional"/>
+  </xs:complexType>
+  
+  <!-- Inputs container for instance_combiner_Dc; each input must have exactly one instance child (DC combiner or string) -->
+  <xs:complexType name="combiner_dc_inputs_type">
+    <xs:sequence>
+      <xs:element name="input" type="combiner_dc_input_type" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <!-- Input for instance_combiner_dc/inputs elements; it must have exactly one child chosen from the allowed types -->
+  <xs:complexType name="combiner_dc_input_type">
+    <xs:choice minOccurs="1" maxOccurs="unbounded">
+      <xs:element name="instance_combiner_dc" type="instance_combiner_dc_type"/>
+      <xs:element name="string" type="string_type"/>
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- Instance Optimizer: must have exactly one cable element (choosing between cable_to_parent or cable_to_neighbor)
+       and exactly one inputs child that contains one or more input children (each wrapping a module_layout) -->
+  <xs:complexType name="instance_optimizer_type">
+    <xs:sequence>
+      <xs:choice minOccurs="1" maxOccurs="2">
+        <xs:element name="cable_to_parent" type="cable_to_type"/>
+        <xs:element name="cable_to_neighbor" type="cable_to_type"/>
+      </xs:choice>
+      <xs:element name="inputs" type="optimizer_inputs_type"/>
+    </xs:sequence>
+    <xs:attribute name="url" type="xs:string" use="required"/>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+    <xs:attribute name="name" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <!-- cable_to_type: both 'url' and 'length' are required -->
+  <xs:complexType name="cable_to_type">
+    <xs:attribute name="url" type="xs:string" use="required"/>
+    <xs:attribute name="length" type="xs:decimal" use="required"/>
+	<xs:attribute name="name" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <!-- Inputs container for instance_optimizer elements: It must appear exactly once and contain one or more 'input' children -->
+  <xs:complexType name="optimizer_inputs_type">
+    <xs:sequence>
+      <xs:element name="input" type="optimizer_input_type" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Input type for optimizer inputs: contains exactly one module_layout -->
+  <xs:complexType name="optimizer_input_type">
+    <xs:sequence>
+      <xs:element name="module_layout" type="module_layout_type"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- The "string" element must contain exactly one child which is either a module_array or an optimizer_array -->
+  <xs:complexType name="string_type">
+    <xs:choice>
+      <xs:element name="module_array" type="module_array_type"/>
+      <xs:element name="optimizer_array" type="optimizer_array_type"/>
+    </xs:choice>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+  </xs:complexType>
+
+  <!-- optimizer_array: contains one or more instance_optimizer elements -->
+  <xs:complexType name="optimizer_array_type">
+    <xs:sequence>
+      <xs:element name="instance_optimizer" type="instance_optimizer_type" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- module_array: contains one or more module_layout elements -->
+  <xs:complexType name="module_array_type">
+    <xs:sequence>
+      <xs:element name="module_layout" type="module_layout_type" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- module_layout: must have exactly one cable (either cable_to_parent or cable_to_neighbor) plus one row and one column -->
+  <xs:complexType name="module_layout_type">
+    <xs:sequence>
+      <xs:choice minOccurs="1" maxOccurs="2">
+        <xs:element name="cable_to_parent" type="cable_to_type"/>
+        <xs:element name="cable_to_neighbor" type="cable_to_type"/>
+      </xs:choice>
+	  <xs:element name="position_in_string" type="xs:integer"/>
+      <xs:element name="row" type="xs:integer"/>
+      <xs:element name="column" type="xs:integer"/>
+    </xs:sequence>
+    <xs:attribute name="url" type="xs:string" use="required"/>
+  </xs:complexType>
+
   <xs:element name="software">
 	  <!-- add version, or read from technique label? -->
     <xs:complexType>
@@ -403,7 +671,7 @@
         </xs:element>
         <xs:element name="timezone_offset" type="xs:float" minOccurs="0">
           <xs:annotation>
-            <xs:documentation xml:lang="en">Timezone offset from UTC, hour. E.g., for +1:30, enter 1.5</xs:documentation>
+            <xs:documentation xml:lang="en">Timezone offset from UTC, hour. Positive is East of UTC. E.g., for +1:00, enter 1.0</xs:documentation>
           </xs:annotation>
         </xs:element>
         <xs:element name="transformation_vector" type="collada:float3_type">
@@ -416,7 +684,7 @@
             <xs:documentation xml:lang="en">EPSG code for 3D coordinate system, e.g., WGS-84.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="boundary" type="collada:sidref_type">
+        <xs:element name="boundary" type="collada:sidref_type" minOccurs="0">
           <xs:annotation>
             <xs:documentation xml:lang="en">ID for a COLLADA geometry of type spline.</xs:documentation>
           </xs:annotation>
@@ -459,6 +727,16 @@
 	  <!-- need to add: albedo, areal picture, ground_slope, ground_azimuth, digital_elevation_model -->
     <xs:complexType>
       <xs:sequence>
+    		<xs:element name="vertex_count" type="xs:int" minOccurs="0">
+	    		<xs:annotation>
+		    		<xs:documentation>Number of vertexes in the terrain surface.</xs:documentation>
+  			  </xs:annotation>
+        </xs:element>
+    		<xs:element name="triangle_count" type="xs:int" minOccurs="0">
+	    		<xs:annotation>
+		    		<xs:documentation>Number of triangular faces in the terrain surface.</xs:documentation>
+  			  </xs:annotation>
+        </xs:element>
     		<xs:element name="bounding_box_min" type="collada:float3_type">
 	    		<xs:annotation>
 		    		<xs:documentation>Corner of bounding box. Opposite corner in bounding_box_max.</xs:documentation>
@@ -497,10 +775,26 @@
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="combiners">
+  <xs:element name="combiners_dc">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="combiner" type="combiner_type_object" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="combiner_dc" type="combiner_dc_type_object" minOccurs="0" maxOccurs="unbounded"/>
+		  </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="combiners_ac">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="combiner_ac" type="combiner_ac_type_object" minOccurs="0" maxOccurs="unbounded"/>
+		  </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="cables">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="cable" type="cable_type_object" minOccurs="0" maxOccurs="unbounded"/>
 		  </xs:sequence>
     </xs:complexType>
   </xs:element>
