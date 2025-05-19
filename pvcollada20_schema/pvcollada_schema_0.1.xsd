@@ -8,13 +8,20 @@
   <xs:import namespace="http://www.collada.org/2008/03/COLLADASchema"
              schemaLocation="pvcollada20_schema/collada_schema_1_5.xsd"/>
 
-  <xs:simpleType name="cell_type_enum" final="restriction" >
+  <xs:simpleType name="cell_material_enum" final="restriction" >
     <xs:restriction base="xs:string">
         <xs:enumeration value="monoSi" />
         <xs:enumeration value="polySi" />
         <xs:enumeration value="aSi" />
-        <xs:enumeration value="aSi_tandem" />
         <xs:enumeration value="cdTe" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="cell_structure_enum" final="restriction" >
+    <xs:restriction base="xs:string">
+        <xs:enumeration value="single_junction" />
+        <xs:enumeration value="heterojunction" />
+        <xs:enumeration value="tandem" />
     </xs:restriction>
   </xs:simpleType>
 
@@ -22,6 +29,13 @@
     <xs:restriction base="xs:string">
         <xs:enumeration value="copper" />
         <xs:enumeration value="aluminum" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="power_type_enum" final="restriction" >
+    <xs:restriction base="xs:string">
+        <xs:enumeration value="ac" />
+        <xs:enumeration value="dc" />
     </xs:restriction>
   </xs:simpleType>
 
@@ -152,6 +166,20 @@
     <xs:attribute name="id" use="required" type="xs:ID"/>
   </xs:complexType>
 
+  <xs:complexType name="mppt_type_object">
+    <xs:annotation>
+      <xs:documentation>MPPT description data.</xs:documentation>
+    </xs:annotation>
+	  <xs:sequence>
+      <xs:element name="input_count" type="xs:int">
+  	    <xs:annotation>
+	        <xs:documentation>Number of parallel strings that can be connected to MPPT.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+		</xs:sequence>
+    <xs:attribute name="id" use="required" type="xs:ID"/>
+	</xs:complexType>
+
   <xs:complexType name="inverter_type_object">
     <xs:annotation>
       <xs:documentation>Inverter product-level data.</xs:documentation>
@@ -212,6 +240,16 @@
   	    <xs:annotation>
 	        <xs:documentation>Number of MPPTs.</xs:documentation>
         </xs:annotation>
+      </xs:element>
+    	<xs:element name="mppt_list" minOccurs="0">
+				<xs:complexType>
+   	      <xs:annotation>
+	          <xs:documentation>List of MPPT inputs to the inverter</xs:documentation>
+          </xs:annotation>
+					<xs:sequence maxOccurs="unbounded">
+						<xs:element name="mppt" type="mppt_type_object"/>
+          </xs:sequence>
+				</xs:complexType>
       </xs:element>
     	<xs:element name="mppt_input_count" type="xs:float" minOccurs="0">
   	    <xs:annotation>
@@ -412,6 +450,11 @@
 	        <xs:documentation>Conductor material</xs:documentation>
         </xs:annotation>
       </xs:element>
+      <xs:element name="power_type" type="power_type_enum" minOccurs="0">
+  	    <xs:annotation>
+	        <xs:documentation>Cable power type (AC or DC)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element name="resistance" type="xs:float" minOccurs="0">
   	    <xs:annotation>
 	        <xs:documentation>Resistance, ohm per km</xs:documentation>
@@ -429,19 +472,24 @@
   <!-- Circuit definition -->
   <xs:complexType name="circuit_type">
     <xs:sequence>
-      <xs:element name="injection_point" type="injection_point_type"/>
+      <xs:element name="circuit_root" type="circuit_root_type"/>
     </xs:sequence>
   </xs:complexType>
 
-  <!-- injection_point must have exactly one input -->
-  <xs:complexType name="injection_point_type">
+  <!-- circuit_root must have exactly one input -->
+  <xs:complexType name="circuit_root_type">
     <xs:sequence>
-      <xs:element name="input" type="injection_input_type" minOccurs="1" maxOccurs="1"/>
+		  <xs:element name="connected_to" type="xs:string" minOccurs="0">
+			  <xs:annotation>
+	        <xs:documentation>Description of the upstream connection of the circuit root.</xs:documentation>
+        </xs:annotation>
+			</xs:element>
+			<xs:element name="input" type="circuit_root_type" minOccurs="1" maxOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
 
-  <!-- Input for injection_point element; it must have exactly one child chosen from the allowed instance types -->
-  <xs:complexType name="injection_input_type">
+  <!-- Input for circuit_root element; it must have exactly one child chosen from the allowed instance types -->
+  <xs:complexType name="circuit_root_input_type">
     <xs:choice minOccurs="1" maxOccurs="1">
       <xs:element name="instance_transformer" type="instance_transformer_type"/>
       <xs:element name="instance_combiner_ac" type="instance_combiner_ac_type"/>
@@ -521,7 +569,7 @@
     </xs:sequence>
   </xs:complexType>
 
-  <!-- mppt element: contains exactly one "string" or one "instance_combiner_dc" element -->
+  <!-- mppt element: contains one or more "string" and "instance_combiner_dc" elements -->
   <xs:complexType name="mppt_type">
     <xs:choice minOccurs="1" maxOccurs="unbounded">
       <xs:element name="string" type="string_type"/>
@@ -642,9 +690,9 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element name="name" type="xs:string"/>
-        <xs:element name="drawing" type="xs:string"/>
-        <xs:element name="company" type="xs:string"/>
-        <xs:element name="country" type="xs:string">
+        <xs:element name="drawing" type="xs:string" minOccurs="0"/>
+        <xs:element name="company" type="xs:string" minOccurs="0"/>
+        <xs:element name="country" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:documentation xml:lang="en">ISO 3166 country code.</xs:documentation>
           </xs:annotation>
@@ -659,12 +707,12 @@
             <xs:documentation xml:lang="en">Degrees, positive for east of the prime meridian.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="elevation" type="xs:float">
+        <xs:element name="elevation" type="xs:float" minOccurs="0">
           <xs:annotation>
             <xs:documentation xml:lang="en">Meters above mean sea level (MSL).</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="timezone" type="xs:string">
+        <xs:element name="timezone" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:documentation xml:lang="en">IANA time zone.</xs:documentation>
           </xs:annotation>
@@ -674,12 +722,12 @@
             <xs:documentation xml:lang="en">Timezone offset from UTC, hour. Positive is East of UTC. E.g., for +1:00, enter 1.0</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="transformation_vector" type="collada:float3_type">
+        <xs:element name="transformation_vector" type="collada:float3_type" default="0.0 0.0. 0.0">
           <xs:annotation>
             <xs:documentation xml:lang="en">Vector from 3D origin to PV system coordinate origin.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="coordinate_system" type="xs:string">
+        <xs:element name="coordinate_system" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:documentation xml:lang="en">EPSG code for 3D coordinate system, e.g., WGS-84.</xs:documentation>
           </xs:annotation>
@@ -689,32 +737,32 @@
             <xs:documentation xml:lang="en">ID for a COLLADA geometry of type spline.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="module_count" type="xs:positiveInteger">
+        <xs:element name="module_count" type="xs:positiveInteger" minOccurs="0">
           <xs:annotation>
             <xs:documentation xml:lang="en">Total number of modules.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="table_count" type="xs:positiveInteger">
+        <xs:element name="table_count" type="xs:positiveInteger" minOccurs="0">
           <xs:annotation>
             <xs:documentation xml:lang="en">Total number of tables.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="string_count" type="xs:positiveInteger">
+        <xs:element name="string_count" type="xs:positiveInteger" minOccurs="0">
           <xs:annotation>
             <xs:documentation xml:lang="en">Total number of series-connected strings of modules.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="dc_capacity" type="xs:float">
+        <xs:element name="capacity_dc" type="xs:float" minOccurs="0">
           <xs:annotation>
             <xs:documentation xml:lang="en">DC capacity of the system at STC, W.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="ac_capacity" type="xs:float">
+        <xs:element name="capacity_ac" type="xs:float" minOccurs="0">
           <xs:annotation>
             <xs:documentation xml:lang="en">AC capacity of the system at inverter rating condition, W.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="interconnection_limit" type="xs:float">
+        <xs:element name="interconnection_limit" type="xs:float" minOccurs="0">
           <xs:annotation>
             <xs:documentation xml:lang="en">AC limit of the grid connection, W.</xs:documentation>
           </xs:annotation>
