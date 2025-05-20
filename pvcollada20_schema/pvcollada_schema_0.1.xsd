@@ -1,697 +1,660 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="http://www.example.com/pvcollada"
-           xmlns="http://www.example.com/pvcollada"
-           elementFormDefault="qualified"
-           xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
-
-  <xs:import namespace="http://www.collada.org/2008/03/COLLADASchema"
-             schemaLocation="pvcollada20_schema/collada_schema_1_5.xsd"/>
-
-  <xs:simpleType name="cell_material_enum" final="restriction" >
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.com/pvcollada"
+xmlns="http://www.example.com/pvcollada" elementFormDefault="qualified"
+xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
+  <xs:import namespace="http://www.collada.org/2008/03/COLLADASchema" schemaLocation="collada_schema_1_5.xsd" />
+  <xs:simpleType name="cell_material_enum" final="restriction">
     <xs:restriction base="xs:string">
-        <xs:enumeration value="monoSi" />
-        <xs:enumeration value="polySi" />
-        <xs:enumeration value="aSi" />
-        <xs:enumeration value="cdTe" />
+      <xs:enumeration value="monoSi" />
+      <xs:enumeration value="polySi" />
+      <xs:enumeration value="aSi" />
+      <xs:enumeration value="cdTe" />
     </xs:restriction>
   </xs:simpleType>
-
-  <xs:simpleType name="cell_structure_enum" final="restriction" >
+  <xs:simpleType name="cell_structure_enum" final="restriction">
     <xs:restriction base="xs:string">
-        <xs:enumeration value="single_junction" />
-        <xs:enumeration value="heterojunction" />
-        <xs:enumeration value="tandem" />
+      <xs:enumeration value="single_junction" />
+      <xs:enumeration value="heterojunction" />
+      <xs:enumeration value="tandem" />
     </xs:restriction>
   </xs:simpleType>
-
-  <xs:simpleType name="conductor_material_type_enum" final="restriction" >
+  <xs:simpleType name="conductor_material_type_enum" final="restriction">
     <xs:restriction base="xs:string">
-        <xs:enumeration value="copper" />
-        <xs:enumeration value="aluminum" />
+      <xs:enumeration value="copper" />
+      <xs:enumeration value="aluminum" />
     </xs:restriction>
   </xs:simpleType>
-
-  <xs:simpleType name="power_type_enum" final="restriction" >
+  <xs:simpleType name="power_type_enum" final="restriction">
     <xs:restriction base="xs:string">
-        <xs:enumeration value="ac" />
-        <xs:enumeration value="dc" />
+      <xs:enumeration value="ac" />
+      <xs:enumeration value="dc" />
     </xs:restriction>
   </xs:simpleType>
-
-  <xs:simpleType name="module_type_enum" final="restriction" >
+  <xs:simpleType name="module_type_enum" final="restriction">
     <xs:restriction base="xs:string">
-        <xs:enumeration value="monofacial" />
-        <xs:enumeration value="bifacial" />
-        <xs:enumeration value="cpv" />
-        <xs:enumeration value="shingle" />
+      <xs:enumeration value="monofacial" />
+      <xs:enumeration value="bifacial" />
+      <xs:enumeration value="cpv" />
+      <xs:enumeration value="shingle" />
     </xs:restriction>
   </xs:simpleType>
-
-  <xs:simpleType name="inverter_type_enum" final="restriction" >
+  <xs:simpleType name="inverter_type_enum" final="restriction">
     <xs:restriction base="xs:string">
-        <xs:enumeration value="central" />
-        <xs:enumeration value="string" />
-        <xs:enumeration value="microinverter" />
+      <xs:enumeration value="central" />
+      <xs:enumeration value="string" />
+      <xs:enumeration value="microinverter" />
     </xs:restriction>
   </xs:simpleType>
-
   <xs:complexType name="module_type_object">
     <xs:annotation>
       <xs:documentation>Module product-level data.</xs:documentation>
     </xs:annotation>
-	  <xs:sequence>
-      <xs:element name="manufacturer" type="xs:string" minOccurs="0"/>
+    <xs:sequence>
+      <xs:element name="manufacturer" type="xs:string" minOccurs="0" />
       <xs:element name="name" type="xs:string">
-  	    <xs:annotation>
-	        <xs:documentation>Module model name, e.g., Q.Tron Classic 440W.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Module model name, e.g., Q.Tron Classic 440W.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="module_type" type="module_type_enum" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Module type.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Module type.</xs:documentation>
         </xs:annotation>
       </xs:element>
-    	<xs:element name="nom_power" type="xs:float">
-  	    <xs:annotation>
-	        <xs:documentation>Module power at Standard Test Condition (STC), W.</xs:documentation>
+      <xs:element name="nom_power" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>Module power at Standard Test Condition (STC), W.</xs:documentation>
         </xs:annotation>
       </xs:element>
-			<xs:element name="length" type="xs:float">
-  	    <xs:annotation>
-	        <xs:documentation>Length in the longest dimension, mm.</xs:documentation>
+      <xs:element name="length" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>Length in the longest dimension, mm.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="width" type="xs:float">
-  	    <xs:annotation>
-	        <xs:documentation>Width orthogonal to the longest dimension, mm.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Width orthogonal to the longest dimension, mm.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="depth" type="xs:float">
-  	    <xs:annotation>
-	        <xs:documentation>Depth, or thickness, mm.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Depth, or thickness, mm.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="num_cells" type="xs:positiveInteger" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Total number of cells.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Total number of cells.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="num_cells_length" type="xs:positiveInteger" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Number of cells in the length dimension.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Number of cells in the length dimension.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="num_cells_width" type="xs:positiveInteger" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Number of cells in the width dimension.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Number of cells in the width dimension.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="num_cells_series" type="xs:positiveInteger" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Number of cells in series in a string. Use num_strings to record the number of parallel strings.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Number of cells in series in a string. Use num_strings to record the number of parallel
+          strings.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="num_strings" type="xs:positiveInteger" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Number of parallel strings. Use num_cells_series to record the number of series-connected cells in a string.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Number of parallel strings. Use num_cells_series to record the number of series-connected cells in a
+          string.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="cell_type" type="cell_type_enum" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Absorber type used in the module.</xs:documentation>
+      <xs:element name="cell_material" type="cell_material_enum" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Absorber type used in the module.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="cell_structure" type="cell_structure_enum" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Structure of the cell in the module.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="bifacial_factor" type="xs:float" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Bifaciality factor.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Bifaciality factor.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="t_coef_power" type="xs:float" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Temperature coefficient of power, %/C.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Temperature coefficient of power, %/C.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="t_coef_isc" type="xs:float" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Temperature coefficient of short-circuit current, A/C.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Temperature coefficient of short-circuit current, A/C.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="t_coef_voc" type="xs:float" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Temperature coefficient of open-circuit voltage, V/C.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Temperature coefficient of open-circuit voltage, V/C.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="i_sc" type="xs:float" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Short-circuit current at STC, A.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Short-circuit current at STC, A.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="i_mpp" type="xs:float" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Current at maximum power point at STC, A.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Current at maximum power point at STC, A.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="v_oc" type="xs:float" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Open-circuit voltage at STC, V.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Open-circuit voltage at STC, V.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="v_mpp" type="xs:float" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Voltage at maximum power point at STC, V.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Voltage at maximum power point at STC, V.</xs:documentation>
         </xs:annotation>
       </xs:element>
-		</xs:sequence>
-    <xs:attribute name="id" use="required" type="xs:ID"/>
+    </xs:sequence>
+    <xs:attribute name="id" use="required" type="xs:ID" />
   </xs:complexType>
-
   <xs:complexType name="mppt_type_object">
     <xs:annotation>
       <xs:documentation>MPPT description data.</xs:documentation>
     </xs:annotation>
-	  <xs:sequence>
+    <xs:sequence>
       <xs:element name="input_count" type="xs:int">
-  	    <xs:annotation>
-	        <xs:documentation>Number of parallel strings that can be connected to MPPT.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Number of parallel strings that can be connected to MPPT.</xs:documentation>
         </xs:annotation>
       </xs:element>
-		</xs:sequence>
-    <xs:attribute name="id" use="required" type="xs:ID"/>
-	</xs:complexType>
-
+    </xs:sequence>
+    <xs:attribute name="id" use="required" type="xs:ID" />
+  </xs:complexType>
   <xs:complexType name="inverter_type_object">
     <xs:annotation>
       <xs:documentation>Inverter product-level data.</xs:documentation>
     </xs:annotation>
-	  <xs:sequence>
-      <xs:element name="manufacturer" type="xs:string" minOccurs="0"/>
+    <xs:sequence>
+      <xs:element name="manufacturer" type="xs:string" minOccurs="0" />
       <xs:element name="name" type="xs:string">
-  	    <xs:annotation>
-	        <xs:documentation>Inverter model name.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Inverter model name.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="inverter_type" type="inverter_type_enum" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Inverter type.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Inverter type.</xs:documentation>
         </xs:annotation>
       </xs:element>
-    	<xs:element name="nom_power_ac" type="xs:float">
-  	    <xs:annotation>
-	        <xs:documentation>Inverter AC power at rating condition, W.</xs:documentation>
+      <xs:element name="nom_power_ac" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>Inverter AC power at rating condition, W.</xs:documentation>
         </xs:annotation>
       </xs:element>
-    	<xs:element name="nom_power_dc" type="xs:float">
-  	    <xs:annotation>
-	        <xs:documentation>Inverter DC power at rating condition, W.</xs:documentation>
+      <xs:element name="nom_power_dc" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>Inverter DC power at rating condition, W.</xs:documentation>
         </xs:annotation>
       </xs:element>
-    	<xs:element name="capacity_ac" type="xs:float" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Maximum inverter AC power, W.</xs:documentation>
+      <xs:element name="capacity_ac" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Maximum inverter AC power, W.</xs:documentation>
         </xs:annotation>
       </xs:element>
-    	<xs:element name="capacity_dc" type="xs:float" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Maximum inverter input DC power, W.</xs:documentation>
+      <xs:element name="capacity_dc" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Maximum inverter input DC power, W.</xs:documentation>
         </xs:annotation>
       </xs:element>
-    	<xs:element name="v_mpp_min" type="xs:float" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Minimum DC voltage for MPP tracking, V.</xs:documentation>
+      <xs:element name="v_mpp_min" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Minimum DC voltage for MPP tracking, V.</xs:documentation>
         </xs:annotation>
       </xs:element>
-    	<xs:element name="v_mpp_max" type="xs:float" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Maximum DC voltage for MPP tracking, V.</xs:documentation>
+      <xs:element name="v_mpp_max" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Maximum DC voltage for MPP tracking, V.</xs:documentation>
         </xs:annotation>
       </xs:element>
-    	<xs:element name="v_mpp_nom" type="xs:float" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Nominal DC voltage for MPP tracking, V.</xs:documentation>
+      <xs:element name="v_mpp_nom" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Nominal DC voltage for MPP tracking, V.</xs:documentation>
         </xs:annotation>
       </xs:element>
-    	<xs:element name="i_max_dc" type="xs:float" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Maximum DC current, A.</xs:documentation>
+      <xs:element name="i_max_dc" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Maximum DC current, A.</xs:documentation>
         </xs:annotation>
       </xs:element>
-    	<xs:element name="mppt_count" type="xs:float" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Number of MPPTs.</xs:documentation>
+      <xs:element name="mppt_count" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Number of MPPTs.</xs:documentation>
         </xs:annotation>
       </xs:element>
-    	<xs:element name="mppt_list" minOccurs="0">
-				<xs:complexType>
-   	      <xs:annotation>
-	          <xs:documentation>List of MPPT inputs to the inverter</xs:documentation>
+      <xs:element name="mppts" minOccurs="0">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:documentation>List of MPPTs on the inverter</xs:documentation>
           </xs:annotation>
-					<xs:sequence maxOccurs="unbounded">
-						<xs:element name="mppt" type="mppt_type_object"/>
+          <xs:sequence maxOccurs="unbounded">
+            <xs:element name="mppt" type="mppt_type_object" />
           </xs:sequence>
-				</xs:complexType>
+        </xs:complexType>
       </xs:element>
-    	<xs:element name="mppt_input_count" type="xs:float" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Number of string inputs to a MPPT.</xs:documentation>
+      <xs:element name="v_out_ac" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Nominal AC output voltage.</xs:documentation>
         </xs:annotation>
       </xs:element>
-    	<xs:element name="v_out_ac" type="xs:float" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Nominal AC output voltage.</xs:documentation>
+      <xs:element name="self_consumption" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Power consumed by the inverter during operations, W.</xs:documentation>
         </xs:annotation>
       </xs:element>
-    	<xs:element name="self_consumption" type="xs:float" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Power consumed by the inverter during operations, W.</xs:documentation>
+      <xs:element name="night_tare" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Power consumed by the inverter when not operating, W.</xs:documentation>
         </xs:annotation>
       </xs:element>
-    	<xs:element name="night_tare" type="xs:float" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Power consumed by the inverter when not operating, W.</xs:documentation>
+      <xs:element name="temperature_derate" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Derate curve for temperature. Sequence of pairs of float (temperature, derate) where derate is a
+          fraction of full output. Ensure temperature is increasing.</xs:documentation>
         </xs:annotation>
-      </xs:element>
-    	<xs:element name="temperature_derate" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Derate curve for temperature. Sequence of pairs of float (temperature, derate) where derate is a fraction of full output. Ensure temperature is increasing.</xs:documentation>
-        </xs:annotation>
-				<xs:complexType>
-					<xs:sequence maxOccurs="unbounded">
-						<xs:element name="pt" type="collada:float2_type"/>
+        <xs:complexType>
+          <xs:sequence maxOccurs="unbounded">
+            <xs:element name="pt" type="collada:float2_type" />
           </xs:sequence>
-				</xs:complexType>
+        </xs:complexType>
       </xs:element>
-    	<xs:element name="efficiency" minOccurs="0">
-  	    <xs:annotation>
+      <xs:element name="efficiency" minOccurs="0">
+        <xs:annotation>
           <xs:documentation>Maximum of output AC power divided by input DC power, in percent.</xs:documentation>
         </xs:annotation>
-			  <xs:simpleType>
-				  <xs:restriction base="xs:float">
-					  <xs:minInclusive value="0"/>
-						<xs:maxInclusive value="100"/>
-					</xs:restriction>
-				</xs:simpleType>
+        <xs:simpleType>
+          <xs:restriction base="xs:float">
+            <xs:minInclusive value="0" />
+            <xs:maxInclusive value="100" />
+          </xs:restriction>
+        </xs:simpleType>
       </xs:element>
-    	<xs:element name="efficiency_standard_value" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Output AC power divided by input DC power, in percent. Computed as defined by efficiency_standard_type.</xs:documentation>
+      <xs:element name="efficiency_standard_value" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Output AC power divided by input DC power, in percent. Computed as defined by
+          efficiency_standard_type.</xs:documentation>
         </xs:annotation>
-			  <xs:simpleType>
-				  <xs:restriction base="xs:float">
-					  <xs:minInclusive value="0"/>
-						<xs:maxInclusive value="100"/>
-					</xs:restriction>
-				</xs:simpleType>
+        <xs:simpleType>
+          <xs:restriction base="xs:float">
+            <xs:minInclusive value="0" />
+            <xs:maxInclusive value="100" />
+          </xs:restriction>
+        </xs:simpleType>
       </xs:element>
-    	<xs:element name="efficiency_standard_type" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Standard for calculation of efficiency.</xs:documentation>
+      <xs:element name="efficiency_standard_type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Standard for calculation of efficiency.</xs:documentation>
         </xs:annotation>
-			  <xs:simpleType>
-				  <xs:restriction base="xs:string">
-					  <xs:enumeration value="CEC"/>
-						<xs:enumeration value="EU"/>
-					</xs:restriction>
-				</xs:simpleType>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="CEC" />
+            <xs:enumeration value="EU" />
+          </xs:restriction>
+        </xs:simpleType>
       </xs:element>
-    	<xs:element name="mesh_id" type="collada:sidref_type" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Mesh describing inverter object in 3D scene.</xs:documentation>
+      <xs:element name="mesh_id" type="collada:sidref_type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Mesh describing inverter object in 3D scene.</xs:documentation>
         </xs:annotation>
       </xs:element>
-		</xs:sequence>
-    <xs:attribute name="id" use="required" type="xs:ID"/>
+    </xs:sequence>
+    <xs:attribute name="id" use="required" type="xs:ID" />
   </xs:complexType>
-
   <xs:complexType name="combiner_ac_type_object">
     <xs:annotation>
       <xs:documentation>AC Combiner product-level data</xs:documentation>
     </xs:annotation>
-	  <xs:sequence>
-      <xs:element name="manufacturer" type="xs:string" minOccurs="0"/>
+    <xs:sequence>
+      <xs:element name="manufacturer" type="xs:string" minOccurs="0" />
       <xs:element name="name" type="xs:string">
-  	    <xs:annotation>
-	        <xs:documentation>Combiner model name.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Combiner model name.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="input_count" type="xs:int">
-  	    <xs:annotation>
-	        <xs:documentation>Number of inputs to combiner.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Number of inputs to combiner.</xs:documentation>
         </xs:annotation>
       </xs:element>
-		</xs:sequence>
-    <xs:attribute name="id" use="required" type="xs:ID"/>
+    </xs:sequence>
+    <xs:attribute name="id" use="required" type="xs:ID" />
   </xs:complexType>
-
   <xs:complexType name="combiner_dc_type_object">
     <xs:annotation>
       <xs:documentation>DC Combiner product-level data</xs:documentation>
     </xs:annotation>
-	  <xs:sequence>
-      <xs:element name="manufacturer" type="xs:string" minOccurs="0"/>
+    <xs:sequence>
+      <xs:element name="manufacturer" type="xs:string" minOccurs="0" />
       <xs:element name="name" type="xs:string">
-  	    <xs:annotation>
-	        <xs:documentation>Combiner model name.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Combiner model name.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="input_count" type="xs:int">
-  	    <xs:annotation>
-	        <xs:documentation>Number of inputs to combiner.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Number of inputs to combiner.</xs:documentation>
         </xs:annotation>
       </xs:element>
-		</xs:sequence>
-    <xs:attribute name="id" use="required" type="xs:ID"/>
+    </xs:sequence>
+    <xs:attribute name="id" use="required" type="xs:ID" />
   </xs:complexType>
-
   <xs:complexType name="transformer_type_object">
     <xs:annotation>
       <xs:documentation>Transformer product-level data</xs:documentation>
     </xs:annotation>
-	  <xs:sequence>
-      <xs:element name="manufacturer" type="xs:string" minOccurs="0"/>
+    <xs:sequence>
+      <xs:element name="manufacturer" type="xs:string" minOccurs="0" />
       <xs:element name="name" type="xs:string">
-  	    <xs:annotation>
-	        <xs:documentation>Transformer model name.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Transformer model name.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="nom_power" type="xs:float">
-  	    <xs:annotation>
-	        <xs:documentation>Nominal AC power, W.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Nominal AC power, W.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="v_in" type="xs:float">
-  	    <xs:annotation>
-	        <xs:documentation>Nominal AC input voltage, V.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Nominal AC input voltage, V.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="v_out" type="xs:float">
-  	    <xs:annotation>
-	        <xs:documentation>Nominal AC output voltage, V.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Nominal AC output voltage, V.</xs:documentation>
         </xs:annotation>
       </xs:element>
-    	<xs:element name="efficiency" minOccurs="0">
-  	    <xs:annotation>
+      <xs:element name="efficiency" minOccurs="0">
+        <xs:annotation>
           <xs:documentation>Maximum efficiency, in percent.</xs:documentation>
         </xs:annotation>
-			  <xs:simpleType>
-				  <xs:restriction base="xs:float">
-					  <xs:minInclusive value="0"/>
-						<xs:maxInclusive value="100"/>
-					</xs:restriction>
-				</xs:simpleType>
+        <xs:simpleType>
+          <xs:restriction base="xs:float">
+            <xs:minInclusive value="0" />
+            <xs:maxInclusive value="100" />
+          </xs:restriction>
+        </xs:simpleType>
       </xs:element>
       <xs:element name="iron_loss" type="xs:float" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Loss in iron core, considered independent of load, W.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Loss in iron core, considered independent of load, W.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="copper_loss" type="xs:float" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Equivalent resistance for computing loss in windings, Ohm.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Equivalent resistance for computing loss in windings, Ohm.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="night_disconnect" type="xs:boolean" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>true if the transformer automatically disconnects from the grid at night.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>true if the transformer automatically disconnects from the grid at night.</xs:documentation>
         </xs:annotation>
       </xs:element>
-    	<xs:element name="mesh_id" type="collada:sidref_type" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Mesh describing transformer object in 3D scene.</xs:documentation>
+      <xs:element name="mesh_id" type="collada:sidref_type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Mesh describing transformer object in 3D scene.</xs:documentation>
         </xs:annotation>
       </xs:element>
-		</xs:sequence>
-    <xs:attribute name="id" use="required" type="xs:ID"/>
+    </xs:sequence>
+    <xs:attribute name="id" use="required" type="xs:ID" />
   </xs:complexType>
-
   <xs:complexType name="cable_type_object">
     <xs:annotation>
       <xs:documentation>Cable product-level data</xs:documentation>
     </xs:annotation>
-	  <xs:sequence>
-      <xs:element name="manufacturer" type="xs:string" minOccurs="0"/>
+    <xs:sequence>
+      <xs:element name="manufacturer" type="xs:string" minOccurs="0" />
       <xs:element name="name" type="xs:string">
-  	    <xs:annotation>
-	        <xs:documentation>Cable product name.</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Cable product name.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="cross_section" type="xs:float">
-  	    <xs:annotation>
-	        <xs:documentation>Cross-section area, sq. mm</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Cross-section area, sq. mm</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="num_conductors" type="xs:float">
-  	    <xs:annotation>
-	        <xs:documentation>Number of conductors</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Number of conductors</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="material" type="conductor_material_type_enum" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Conductor material</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Conductor material</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="power_type" type="power_type_enum" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Cable power type (AC or DC)</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Cable power type (AC or DC)</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="resistance" type="xs:float" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Resistance, ohm per km</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Resistance, ohm per km</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="impedance" type="xs:float" minOccurs="0">
-  	    <xs:annotation>
-	        <xs:documentation>Impedance, ohm per km </xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Impedance, ohm per km</xs:documentation>
         </xs:annotation>
       </xs:element>
-		</xs:sequence>
-    <xs:attribute name="id" use="required" type="xs:ID"/>
+    </xs:sequence>
+    <xs:attribute name="id" use="required" type="xs:ID" />
   </xs:complexType>
-
   <!-- Circuit definition -->
   <xs:complexType name="circuit_type">
     <xs:sequence>
-      <xs:element name="circuit_root" type="circuit_root_type"/>
+      <xs:element name="circuit_root" type="circuit_root_type" />
     </xs:sequence>
   </xs:complexType>
-
   <!-- circuit_root must have exactly one input -->
   <xs:complexType name="circuit_root_type">
     <xs:sequence>
-		  <xs:element name="connected_to" type="xs:string" minOccurs="0">
-			  <xs:annotation>
-	        <xs:documentation>Description of the upstream connection of the circuit root.</xs:documentation>
+      <xs:element name="connected_to" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Description of the upstream connection of the circuit root.</xs:documentation>
         </xs:annotation>
-			</xs:element>
-			<xs:element name="input" type="circuit_root_type" minOccurs="1" maxOccurs="1"/>
+      </xs:element>
+      <xs:element name="input" type="circuit_root_input_type"/>
     </xs:sequence>
   </xs:complexType>
-
   <!-- Input for circuit_root element; it must have exactly one child chosen from the allowed instance types -->
   <xs:complexType name="circuit_root_input_type">
     <xs:choice minOccurs="1" maxOccurs="1">
-      <xs:element name="instance_transformer" type="instance_transformer_type"/>
-      <xs:element name="instance_combiner_ac" type="instance_combiner_ac_type"/>
-      <xs:element name="instance_inverter" type="instance_inverter_type"/>
+      <xs:element name="instance_transformer" type="instance_transformer_type" />
+      <xs:element name="instance_combiner_ac" type="instance_combiner_ac_type" />
+      <xs:element name="instance_inverter" type="instance_inverter_type" />
     </xs:choice>
   </xs:complexType>
-
   <!-- Instance Transformer: requires a cable_to_parent and an inputs container -->
   <xs:complexType name="instance_transformer_type">
     <xs:sequence>
-      <xs:element name="cable_to_parent" type="cable_to_type"/>
-      <xs:element name="inputs" type="transformer_inputs_type"/>
+      <xs:element name="cable_to_parent" type="cable_to_type" />
+      <xs:element name="inputs" type="transformer_inputs_type" />
     </xs:sequence>
-    <xs:attribute name="url" type="xs:string" use="required"/>
-    <xs:attribute name="id" type="xs:ID" use="required"/>
-    <xs:attribute name="name" type="xs:string" use="optional"/>
+    <xs:attribute name="url" type="xs:string" use="required" />
+    <xs:attribute name="id" type="xs:ID" use="required" />
+    <xs:attribute name="name" type="xs:string" use="optional" />
   </xs:complexType>
-  
   <!-- Inputs container for instance_transformer; each input must have exactly one instance child (transformer, AC combiner or inverter) -->
   <xs:complexType name="transformer_inputs_type">
     <xs:sequence>
-      <xs:element name="input" type="transformer_input_type" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="input" type="transformer_input_type" minOccurs="1" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
-  
   <!-- Input for instance_transformer/inputs elements; it must have exactly one child chosen from the allowed instance types -->
   <xs:complexType name="transformer_input_type">
     <xs:choice minOccurs="1" maxOccurs="1">
-      <xs:element name="instance_transformer" type="instance_transformer_type"/>
-      <xs:element name="instance_combiner_ac" type="instance_combiner_ac_type"/>
-      <xs:element name="instance_inverter" type="instance_inverter_type"/>
+      <xs:element name="instance_transformer" type="instance_transformer_type" />
+      <xs:element name="instance_combiner_ac" type="instance_combiner_ac_type" />
+      <xs:element name="instance_inverter" type="instance_inverter_type" />
     </xs:choice>
-  </xs:complexType>  
-
+  </xs:complexType>
   <!-- Instance Combiner AC: requires a cable_to_parent and an inputs container -->
   <xs:complexType name="instance_combiner_ac_type">
     <xs:sequence>
-      <xs:element name="cable_to_parent" type="cable_to_type"/>
-      <xs:element name="inputs" type="combiner_ac_inputs_type"/>
+      <xs:element name="cable_to_parent" type="cable_to_type" />
+      <xs:element name="inputs" type="combiner_ac_inputs_type" />
     </xs:sequence>
-    <xs:attribute name="url" type="xs:string" use="required"/>
-    <xs:attribute name="id" type="xs:ID" use="required"/>
-    <xs:attribute name="name" type="xs:string" use="optional"/>
+    <xs:attribute name="url" type="xs:string" use="required" />
+    <xs:attribute name="id" type="xs:ID" use="required" />
+    <xs:attribute name="name" type="xs:string" use="optional" />
   </xs:complexType>
-  
   <!-- Inputs container for instance_combiner_ac; each input must have exactly one instance child (transformer, AC combiner or inverter) -->
   <xs:complexType name="combiner_ac_inputs_type">
     <xs:sequence>
-      <xs:element name="input" type="combiner_ac_input_type" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="input" type="combiner_ac_input_type" minOccurs="1" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
-  
   <!-- Input for instance_combiner_ac/inputs elements; it must have exactly one child chosen from the allowed types -->
   <xs:complexType name="combiner_ac_input_type">
     <xs:choice minOccurs="1" maxOccurs="1">
-      <xs:element name="instance_transformer" type="instance_transformer_type"/>
-      <xs:element name="instance_combiner_ac" type="instance_combiner_ac_type"/>
-      <xs:element name="instance_inverter" type="instance_inverter_type"/>
+      <xs:element name="instance_transformer" type="instance_transformer_type" />
+      <xs:element name="instance_combiner_ac" type="instance_combiner_ac_type" />
+      <xs:element name="instance_inverter" type="instance_inverter_type" />
     </xs:choice>
-  </xs:complexType>  
-
+  </xs:complexType>
   <!-- Instance Inverter: requires a cable_to_parent and an mppts container -->
   <xs:complexType name="instance_inverter_type">
     <xs:sequence>
-      <xs:element name="cable_to_parent" type="cable_to_type"/>
-      <xs:element name="mppts" type="mppts_type"/>
+      <xs:element name="cable_to_parent" type="cable_to_type" />
+      <xs:element name="mppts" type="mppts_type" />
     </xs:sequence>
-    <xs:attribute name="url" type="xs:string" use="required"/>
-    <xs:attribute name="id" type="xs:ID" use="required"/>
-    <xs:attribute name="name" type="xs:string" use="optional"/>
+    <xs:attribute name="url" type="xs:string" use="required" />
+    <xs:attribute name="id" type="xs:ID" use="required" />
+    <xs:attribute name="name" type="xs:string" use="optional" />
   </xs:complexType>
-  
   <!-- mppts container: must have one or more mppt elements -->
   <xs:complexType name="mppts_type">
     <xs:sequence>
-      <xs:element name="mppt" type="mppt_type" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="mppt" type="mppt_type" minOccurs="1" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
-
   <!-- mppt element: contains one or more "string" and "instance_combiner_dc" elements -->
   <xs:complexType name="mppt_type">
     <xs:choice minOccurs="1" maxOccurs="unbounded">
-      <xs:element name="string" type="string_type"/>
-	    <xs:element name="instance_combiner_dc" type="instance_combiner_dc_type"/>
+      <xs:element name="string" type="string_type" />
+      <xs:element name="instance_combiner_dc" type="instance_combiner_dc_type" />
     </xs:choice>
   </xs:complexType>
-  
   <!-- Instance Combiner DC: requires a cable_to_parent and an inputs container -->
   <xs:complexType name="instance_combiner_dc_type">
     <xs:sequence>
-      <xs:element name="cable_to_parent" type="cable_to_type"/>
-      <xs:element name="inputs" type="combiner_dc_inputs_type"/>
+      <xs:element name="cable_to_parent" type="cable_to_type" />
+      <xs:element name="inputs" type="combiner_dc_inputs_type" />
     </xs:sequence>
-    <xs:attribute name="url" type="xs:string" use="required"/>
-    <xs:attribute name="id" type="xs:ID" use="required"/>
-    <xs:attribute name="name" type="xs:string" use="optional"/>
+    <xs:attribute name="url" type="xs:string" use="required" />
+    <xs:attribute name="id" type="xs:ID" use="required" />
+    <xs:attribute name="name" type="xs:string" use="optional" />
   </xs:complexType>
-  
   <!-- Inputs container for instance_combiner_Dc; each input must have exactly one instance child (DC combiner or string) -->
   <xs:complexType name="combiner_dc_inputs_type">
     <xs:sequence>
-      <xs:element name="input" type="combiner_dc_input_type" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="input" type="combiner_dc_input_type" minOccurs="1" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
-  
   <!-- Input for instance_combiner_dc/inputs elements; it must have exactly one child chosen from the allowed types -->
   <xs:complexType name="combiner_dc_input_type">
     <xs:choice minOccurs="1" maxOccurs="unbounded">
-      <xs:element name="instance_combiner_dc" type="instance_combiner_dc_type"/>
-      <xs:element name="string" type="string_type"/>
+      <xs:element name="instance_combiner_dc" type="instance_combiner_dc_type" />
+      <xs:element name="string" type="string_type" />
     </xs:choice>
   </xs:complexType>
-
   <!-- Instance Optimizer: must have exactly one cable element (choosing between cable_to_parent or cable_to_neighbor)
        and exactly one inputs child that contains one or more input children (each wrapping a module_layout) -->
   <xs:complexType name="instance_optimizer_type">
     <xs:sequence>
       <xs:choice minOccurs="1" maxOccurs="2">
-        <xs:element name="cable_to_parent" type="cable_to_type"/>
-        <xs:element name="cable_to_neighbor" type="cable_to_type"/>
+        <xs:element name="cable_to_parent" type="cable_to_type" />
+        <xs:element name="cable_to_neighbor" type="cable_to_type" />
       </xs:choice>
-      <xs:element name="inputs" type="optimizer_inputs_type"/>
+      <xs:element name="inputs" type="optimizer_inputs_type" />
     </xs:sequence>
-    <xs:attribute name="url" type="xs:string" use="required"/>
-    <xs:attribute name="id" type="xs:ID" use="required"/>
-    <xs:attribute name="name" type="xs:string" use="optional"/>
+    <xs:attribute name="url" type="xs:string" use="required" />
+    <xs:attribute name="id" type="xs:ID" use="required" />
+    <xs:attribute name="name" type="xs:string" use="optional" />
   </xs:complexType>
-
   <!-- cable_to_type: both 'url' and 'length' are required -->
   <xs:complexType name="cable_to_type">
-    <xs:attribute name="url" type="xs:string" use="required"/>
-    <xs:attribute name="length" type="xs:decimal" use="required"/>
-	<xs:attribute name="name" type="xs:string" use="optional"/>
+    <xs:attribute name="url" type="xs:string" use="required" />
+    <xs:attribute name="length" type="xs:decimal" use="required" />
+    <xs:attribute name="name" type="xs:string" use="optional" />
+    <xs:attribute name="id" type="xs:ID" use="required" />
   </xs:complexType>
-
   <!-- Inputs container for instance_optimizer elements: It must appear exactly once and contain one or more 'input' children -->
   <xs:complexType name="optimizer_inputs_type">
     <xs:sequence>
-      <xs:element name="input" type="optimizer_input_type" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="input" type="optimizer_input_type" minOccurs="1" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
-
   <!-- Input type for optimizer inputs: contains exactly one module_layout -->
   <xs:complexType name="optimizer_input_type">
     <xs:sequence>
-      <xs:element name="module_layout" type="module_layout_type"/>
+      <xs:element name="module_layout" type="module_layout_type" />
     </xs:sequence>
   </xs:complexType>
-
   <!-- The "string" element must contain exactly one child which is either a module_array or an optimizer_array -->
   <xs:complexType name="string_type">
     <xs:choice>
-      <xs:element name="module_array" type="module_array_type"/>
-      <xs:element name="optimizer_array" type="optimizer_array_type"/>
+      <xs:element name="module_array" type="module_array_type" />
+      <xs:element name="optimizer_array" type="optimizer_array_type" />
     </xs:choice>
-    <xs:attribute name="id" type="xs:ID" use="required"/>
+    <xs:attribute name="id" type="xs:ID" use="required" />
   </xs:complexType>
-
   <!-- optimizer_array: contains one or more instance_optimizer elements -->
   <xs:complexType name="optimizer_array_type">
     <xs:sequence>
-      <xs:element name="instance_optimizer" type="instance_optimizer_type" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="instance_optimizer" type="instance_optimizer_type" minOccurs="1" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
-
   <!-- module_array: contains one or more module_layout elements -->
   <xs:complexType name="module_array_type">
     <xs:sequence>
-      <xs:element name="module_layout" type="module_layout_type" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="module_layout" type="module_layout_type" minOccurs="1" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
-
   <!-- module_layout: must have exactly one cable (either cable_to_parent or cable_to_neighbor) plus one row and one column -->
   <xs:complexType name="module_layout_type">
     <xs:sequence>
       <xs:choice minOccurs="1" maxOccurs="2">
-        <xs:element name="cable_to_parent" type="cable_to_type"/>
-        <xs:element name="cable_to_neighbor" type="cable_to_type"/>
+        <xs:element name="cable_to_parent" type="cable_to_type" />
+        <xs:element name="cable_to_neighbor" type="cable_to_type" />
       </xs:choice>
-	  <xs:element name="position_in_string" type="xs:integer"/>
-      <xs:element name="row" type="xs:integer"/>
-      <xs:element name="column" type="xs:integer"/>
+      <xs:element name="position_in_string" type="xs:integer" />
+      <xs:element name="row" type="xs:integer" />
+      <xs:element name="column" type="xs:integer" />
     </xs:sequence>
-    <xs:attribute name="url" type="xs:string" use="required"/>
+    <xs:attribute name="url" type="xs:string" use="required" />
   </xs:complexType>
-
   <xs:element name="software">
-	  <!-- add version, or read from technique label? -->
+    <!-- add version, or read from technique label? -->
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="source" type="xs:string"/>
-        <xs:element name="target" type="xs:string" minOccurs="0"/>
+        <xs:element name="source" type="xs:string" />
+        <xs:element name="target" type="xs:string" minOccurs="0" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-
   <xs:element name="project">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="name" type="xs:string"/>
-        <xs:element name="drawing" type="xs:string" minOccurs="0"/>
-        <xs:element name="company" type="xs:string" minOccurs="0"/>
+        <xs:element name="name" type="xs:string" />
+        <xs:element name="drawing" type="xs:string" minOccurs="0" />
+        <xs:element name="company" type="xs:string" minOccurs="0" />
         <xs:element name="country" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:documentation xml:lang="en">ISO 3166 country code.</xs:documentation>
@@ -719,10 +682,11 @@
         </xs:element>
         <xs:element name="timezone_offset" type="xs:float" minOccurs="0">
           <xs:annotation>
-            <xs:documentation xml:lang="en">Timezone offset from UTC, hour. Positive is East of UTC. E.g., for +1:00, enter 1.0</xs:documentation>
+            <xs:documentation xml:lang="en">Timezone offset from UTC, hour. Positive is East of UTC. E.g., for +1:00, enter
+            1.0</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="transformation_vector" type="collada:float3_type" default="0.0 0.0. 0.0">
+        <xs:element name="transformation_vector" type="collada:float3_type" default="0.0 0.0 0.0">
           <xs:annotation>
             <xs:documentation xml:lang="en">Vector from 3D origin to PV system coordinate origin.</xs:documentation>
           </xs:annotation>
@@ -770,81 +734,331 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-
   <xs:element name="terrain">
-	  <!-- need to add: albedo, areal picture, ground_slope, ground_azimuth, digital_elevation_model -->
+    <!-- need to add: albedo, areal picture, ground_slope, ground_azimuth, digital_elevation_model -->
     <xs:complexType>
       <xs:sequence>
-    		<xs:element name="vertex_count" type="xs:int" minOccurs="0">
-	    		<xs:annotation>
-		    		<xs:documentation>Number of vertexes in the terrain surface.</xs:documentation>
-  			  </xs:annotation>
+        <xs:element name="vertex_count" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Number of vertexes in the terrain surface.</xs:documentation>
+          </xs:annotation>
         </xs:element>
-    		<xs:element name="triangle_count" type="xs:int" minOccurs="0">
-	    		<xs:annotation>
-		    		<xs:documentation>Number of triangular faces in the terrain surface.</xs:documentation>
-  			  </xs:annotation>
+        <xs:element name="triangle_count" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Number of triangular faces in the terrain surface.</xs:documentation>
+          </xs:annotation>
         </xs:element>
-    		<xs:element name="bounding_box_min" type="collada:float3_type">
-	    		<xs:annotation>
-		    		<xs:documentation>Corner of bounding box. Opposite corner in bounding_box_max.</xs:documentation>
-  			  </xs:annotation>
+        <xs:element name="bounding_box_min" type="collada:float3_type">
+          <xs:annotation>
+            <xs:documentation>Corner of bounding box. Opposite corner in bounding_box_max.</xs:documentation>
+          </xs:annotation>
         </xs:element>
-  	  	<xs:element name="bounding_box_max" type="collada:float3_type">
-	  	  	<xs:annotation>
-		  	  	<xs:documentation>Corner of bounding box. Opposite corner in bounding_box_min.</xs:documentation>
-	  		  </xs:annotation>
+        <xs:element name="bounding_box_max" type="collada:float3_type">
+          <xs:annotation>
+            <xs:documentation>Corner of bounding box. Opposite corner in bounding_box_min.</xs:documentation>
+          </xs:annotation>
         </xs:element>
       </xs:sequence>
       <xs:attribute name="sid" type="collada:sid_type" use="required">
-	    	<xs:annotation>
-		   		<xs:documentation>
-			   	The sid attribute is a text string value containing the sub-identifier of this element. 
-			    This value must be unique within the scope of the parent element.
-			    </xs:documentation>
-  		  </xs:annotation>
-	  	</xs:attribute>
-		</xs:complexType>
+        <xs:annotation>
+          <xs:documentation>The sid attribute is a text string value containing the sub-identifier of this element. This value must
+          be unique within the scope of the parent element.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
   </xs:element>
-
   <xs:element name="modules">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="module" type="module_type_object" minOccurs="1" maxOccurs="unbounded"/>
-		  </xs:sequence>
+        <xs:element name="module" type="module_type_object" minOccurs="1" maxOccurs="unbounded" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
-
   <xs:element name="inverters">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="inverter" type="inverter_type_object" minOccurs="1" maxOccurs="unbounded"/>
-		  </xs:sequence>
+        <xs:element name="inverter" type="inverter_type_object" minOccurs="1" maxOccurs="unbounded" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
-
   <xs:element name="combiners_dc">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="combiner_dc" type="combiner_dc_type_object" minOccurs="0" maxOccurs="unbounded"/>
-		  </xs:sequence>
+        <xs:element name="combiner_dc" type="combiner_dc_type_object" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
-
   <xs:element name="combiners_ac">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="combiner_ac" type="combiner_ac_type_object" minOccurs="0" maxOccurs="unbounded"/>
-		  </xs:sequence>
+        <xs:element name="combiner_ac" type="combiner_ac_type_object" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
-
   <xs:element name="cables">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="cable" type="cable_type_object" minOccurs="0" maxOccurs="unbounded"/>
-		  </xs:sequence>
+        <xs:element name="cable" type="cable_type_object" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
-
+  <xs:element name="transformers">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="transformer" type="transformer_type_object" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="circuit" type="circuit_type" />
+  <xs:element name="instance_terrain">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada instance_geometry tag to signal the
+      instance of a terrain. The attribute url of the instance_geometry must reference a Collada geometry that is a model for a
+      terrain (has a terrain tag in its extra/technique tag).</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <!-- no child elements allowed -->
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="module_orientation_enum" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="portrait" />
+      <xs:enumeration value="landscape" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="rack">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada geometry tag to define a model for
+      a rack (a group of modules that are next to each other on a table). The geometry itself must only define a rectangle
+      representing the surface of the whole rack. In the simplest case a rack is equal to one module.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="x_spacing" type="collada:float_type">
+          <xs:annotation>
+            <xs:documentation>Spacing between modules on the X axis (in unit from the unit tag)</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="y_spacing" type="collada:float_type">
+          <xs:annotation>
+            <xs:documentation>Spacing between modules on the Y axis (in unit from the unit tag)</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="module_rows" type="xs:int">
+          <xs:annotation>
+            <xs:documentation>Number of rows of modules in the rack</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="module_columns" type="xs:int">
+          <xs:annotation>
+            <xs:documentation>Number of columns of modules in the rack</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="module_orientation" type="module_orientation_enum">
+          <xs:annotation>
+            <xs:documentation>Orientation of the modules in the rack (portrait or landscape)</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="module_id" type="xs:IDREF">
+          <xs:annotation>
+            <xs:documentation>Id of the module defined in the components part</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="instance_rack">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada instance_geometry tag to signal the
+      instance of a rack inside a table model. The attribute url of the instance_geometry must reference a Collada geometry that is
+      a model for a rack (has a rack tag in its extra/technique tag).</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>Unique id for the rack instance (will be referenced in instance_table)</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="table_type_enum" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="fixed tilt" />
+      <xs:enumeration value="east-west" />
+      <xs:enumeration value="tracker" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="table">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada node tag to define a model for a
+      table. A table is a group of racks and optionally items attached to them like posts, structure, gaps (motor, joint), etc. In
+      the case of trackers, all racks that are part of the same table are considered as rotating together and always having the
+      same angle. In the simplest case a table is composed of only one rack. The node itself must have 1 or more instance_geometry
+      descendant tags that contain an instance_rack tag.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="type" type="table_type_enum">
+          <xs:annotation>
+            <xs:documentation>The type of table (fixed tilt, east-west or tracker)</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="tilt" type="collada:float_type">
+          <xs:annotation>
+            <xs:documentation>The tilt of the table (in °)</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="azimuth" type="collada:float_type">
+          <xs:annotation>
+            <xs:documentation>The azimuth of the table (in °)</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="base_slope" type="collada:float_type">
+          <xs:annotation>
+            <xs:documentation>The base slope of the table (in °)</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="instance_table">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada instance_node tag to signal the
+      instance of a table. The attribute url of the instance_node must reference a Collada node that is a model for a table (has a
+      table tag in its extra/technique tag).</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="instance_racks_array">
+          <xs:annotation>
+            <xs:documentation>Contains the references to the instance_rack that are part of the table model. Needed to make the
+            link between the 3D and the circuit.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="instance_rack_ref" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="id" type="xs:ID">
+                    <xs:annotation>
+                      <xs:documentation>Unique id for the rack instance reference (will be referenced within the strings in the
+                      circuit part)</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="url" type="xs:string">
+                    <xs:annotation>
+                      <xs:documentation>Contains # followed by the id of the instance_rack tag from the table
+                      model</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tilt" type="collada:float_type" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation>If present, it overwrites the tilt defined in the table model for this specific table instance.
+            Useful if the model is really simple (one rack), it allows to just rotate/translate the model instead of having many
+            models.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="azimuth" type="collada:float_type" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation>If present, it overwrites the azimuth defined in the table model for this specific table instance.
+            Useful if the model is really simple (one rack), it allows to just rotate/translate the model instead of having many
+            models.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="base_slope" type="collada:float_type" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation>If present, it overwrites the base slope defined in the table model for this specific table instance.
+            Useful if the model is really simple (one rack), it allows to just rotate/translate the model instead of having many
+            models.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="inverter3d">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada geometry tag to signal a 3D model
+      for an inverter.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="inverter_id" type="xs:IDREF">
+        <xs:annotation>
+          <xs:documentation>Id of the inverter defined in the components part</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="instance_inverter3d">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada instance_geometry tag to signal a
+      3D instance of an inverter. The attribute url of the instance_geometry must reference a Collada geometry that is a model for
+      a inverter3d (has an inverter3d tag in its extra/technique tag).</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="instance_inverter_id" type="xs:IDREF">
+        <xs:annotation>
+          <xs:documentation>Id of the instance_inverter defined in the circuit part</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="combiner3d">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada geometry tag to signal a 3D model
+      for a combiner.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="combiner_id" type="xs:IDREF">
+        <xs:annotation>
+          <xs:documentation>Id of the combiner defined in the components part</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="instance_combiner3d">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada instance_geometry tag to signal a
+      3D instance of a combiner. The attribute url of the instance_geometry must reference a Collada geometry that is a model for a
+      combiner3d (has an combiner3d tag in its extra/technique tag).</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="instance_combiner_id" type="xs:IDREF">
+        <xs:annotation>
+          <xs:documentation>Id of the instance_combiner defined in the circuit part</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="transformer3d">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada geometry tag to signal a 3D model
+      for a transformer.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="transformer_id" type="xs:IDREF">
+        <xs:annotation>
+          <xs:documentation>Id of the transformer defined in the components part</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="instance_transformer3d">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada instance_geometry tag to signal a
+      3D instance of an transformer. The attribute url of the instance_geometry must reference a Collada geometry that is a model
+      for a transformer3d (has an transformer3d tag in its extra/technique tag).</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="instance_transformer_id" type="xs:IDREF">
+        <xs:annotation>
+          <xs:documentation>Id of the instance_transformer defined in the circuit part</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
