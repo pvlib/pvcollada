@@ -7,14 +7,14 @@ on:
       - pvcollada20_schema/collada_schema_1_5.xsd
       - .github/workflows/validate_xml_with_xsd.py
 
-      - pvcollada20_schema/05 - VerySimpleFixedPVC2_with_electrical_layout_v3.pvc.pvc
+      - pvcollada20_schema/05 - VerySimpleFixedPVC2_with_electrical_layout_v3.pvc
   pull_request:
     paths:
       - pvcollada20_schema/pvcollada_schema_0.1.xsd
       - pvcollada20_schema/collada_schema_1_5.xsd
       - .github/workflows/validate_xml_with_xsd.py
 
-      - pvcollada20_schema/05 - VerySimpleFixedPVC2_with_electrical_layout_v3.pvc.pvc
+      - pvcollada20_schema/05 - VerySimpleFixedPVC2_with_electrical_layout_v3.pvc
   workflow_dispatch:
 
 jobs:
@@ -22,7 +22,7 @@ jobs:
     strategy:
       matrix:
         xml_doc:
-          - pvcollada20_schema/05 - VerySimpleFixedPVC2_with_electrical_layout_v3.pvc.pvc
+          - pvcollada20_schema/05 - VerySimpleFixedPVC2_with_electrical_layout_v3.pvc
     name: Validate XML
     runs-on: ubuntu-latest
     steps:
