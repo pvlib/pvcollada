@@ -1,6 +1,14 @@
 # PVCollada
 
-The PVCollada schema is an adaptation of the COLLADA schema for photovoltaic (PV) power systems.
+PVCollada uses the COLLADA standard to describe photovoltaic (PV) power systems.
+
+# PVCollada 2.0
+
+PVCollada 2.0 is based on COLLADA 1.5. A PVCollada 2.0 document must be a valid COLLADA 1.5 document.
+
+PVCollada 2.0 uses COLLADA's <extra> elements to provide PV-specific elements that describe the physical components and the electrical and mechanical
+relationships among these components. PVCollada elements are located in <technique="pvcollada_20"> structures. PVCollada 2.0 documents can include custom elements in
+other <technique> structures.
 
 # PVCollada 1.4.1
 
