@@ -3,6 +3,7 @@
 xmlns="http://www.example.com/pvcollada" elementFormDefault="qualified"
 xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
   <xs:import namespace="http://www.collada.org/2008/03/COLLADASchema" schemaLocation="collada_schema_1_5.xsd" />
+	<!-- enumerations -->
   <xs:simpleType name="cell_material_enum" final="restriction">
     <xs:restriction base="xs:string">
       <xs:enumeration value="monoSi" />
@@ -45,6 +46,20 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       <xs:enumeration value="microinverter" />
     </xs:restriction>
   </xs:simpleType>
+  <xs:simpleType name="module_orientation_enum" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="portrait" />
+      <xs:enumeration value="landscape" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="table_type_enum" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="fixed tilt" />
+      <xs:enumeration value="east-west" />
+      <xs:enumeration value="tracker" />
+    </xs:restriction>
+  </xs:simpleType>
+	<!-- objects for product-level data -->
   <xs:complexType name="module_type_object">
     <xs:annotation>
       <xs:documentation>Module product-level data.</xs:documentation>
@@ -640,6 +655,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
     </xs:sequence>
     <xs:attribute name="url" type="xs:string" use="required" />
   </xs:complexType>
+	<!-- asset objects -->
   <xs:element name="software">
     <!-- add version, or read from technique label? -->
     <xs:complexType>
@@ -809,24 +825,6 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="circuit" type="circuit_type" />
-  <xs:element name="instance_terrain">
-    <xs:annotation>
-      <xs:documentation>This tag should only appear in the extra/technique section of a Collada instance_geometry tag to signal the
-      instance of a terrain. The attribute url of the instance_geometry must reference a Collada geometry that is a model for a
-      terrain (has a terrain tag in its extra/technique tag).</xs:documentation>
-    </xs:annotation>
-    <xs:complexType>
-      <!-- no child elements allowed -->
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:simpleType name="module_orientation_enum" final="restriction">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="portrait" />
-      <xs:enumeration value="landscape" />
-    </xs:restriction>
-  </xs:simpleType>
   <xs:element name="rack">
     <xs:annotation>
       <xs:documentation>This tag should only appear in the extra/technique section of a Collada geometry tag to define a model for
@@ -868,27 +866,6 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="instance_rack">
-    <xs:annotation>
-      <xs:documentation>This tag should only appear in the extra/technique section of a Collada instance_geometry tag to signal the
-      instance of a rack inside a table model. The attribute url of the instance_geometry must reference a Collada geometry that is
-      a model for a rack (has a rack tag in its extra/technique tag).</xs:documentation>
-    </xs:annotation>
-    <xs:complexType>
-      <xs:attribute name="id" type="xs:ID">
-        <xs:annotation>
-          <xs:documentation>Unique id for the rack instance (will be referenced in instance_table)</xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
-    </xs:complexType>
-  </xs:element>
-  <xs:simpleType name="table_type_enum" final="restriction">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="fixed tilt" />
-      <xs:enumeration value="east-west" />
-      <xs:enumeration value="tracker" />
-    </xs:restriction>
-  </xs:simpleType>
   <xs:element name="table">
     <xs:annotation>
       <xs:documentation>This tag should only appear in the extra/technique section of a Collada node tag to define a model for a
@@ -920,6 +897,33 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
           </xs:annotation>
         </xs:element>
       </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!-- instances -->
+  <xs:element name="circuit" type="circuit_type" />
+  <xs:element name="instance_terrain">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada instance_geometry tag to signal the
+      instance of a terrain. The attribute url of the instance_geometry must reference a Collada geometry that is a model for a
+      terrain (has a terrain tag in its extra/technique tag).</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <!-- no child elements allowed -->
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="instance_rack">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada instance_geometry tag to signal the
+      instance of a rack inside a table model. The attribute url of the instance_geometry must reference a Collada geometry that is
+      a model for a rack (has a rack tag in its extra/technique tag).</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>Unique id for the rack instance (will be referenced in instance_table)</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
     </xs:complexType>
   </xs:element>
   <xs:element name="instance_table">
@@ -980,6 +984,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+	<!-- geometry objects -->
   <xs:element name="inverter3d">
     <xs:annotation>
       <xs:documentation>This tag should only appear in the extra/technique section of a Collada geometry tag to signal a 3D model
