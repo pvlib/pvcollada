@@ -4,7 +4,7 @@ Ensure the "lxml" package is installed in your environment.
 """
 from lxml import etree
 
-XML_FILE_PATH = "04 - TrackersPVC2_with_basic_electrical_layout_v2.pvc"
+XML_FILE_PATH = "D:\PVCollada\pvsyst_circuit2\\05 - VerySimpleFixedPVC2_with_electrical_layout_v3_cwh.pvc"
 XSD_FILE_PATH = "pvcollada_schema_0.1.xsd"
 print(f"XML file: {XML_FILE_PATH}")
 print(f"XSD file: {XSD_FILE_PATH}")
