@@ -584,7 +584,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
   </xs:complexType>
   <!-- Input for instance_combiner_dc/inputs elements; it must have exactly one child chosen from the allowed types -->
   <xs:complexType name="combiner_dc_input_type">
-    <xs:choice minOccurs="1" maxOccurs="unbounded">
+    <xs:choice>
       <xs:element name="instance_combiner_dc" type="instance_combiner_dc_type" />
       <xs:element name="string" type="string_type" />
     </xs:choice>
@@ -593,7 +593,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
        and exactly one inputs child that contains one or more input children (each wrapping a module_layout) -->
   <xs:complexType name="instance_optimizer_type">
     <xs:sequence>
-      <xs:choice minOccurs="1" maxOccurs="2">
+      <xs:choice>
         <xs:element name="cable_to_parent" type="cable_to_type" />
         <xs:element name="cable_to_neighbor" type="cable_to_type" />
       </xs:choice>
@@ -645,7 +645,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
   <!-- module_layout: must have exactly one cable (either cable_to_parent or cable_to_neighbor) plus one row and one column -->
   <xs:complexType name="module_layout_type">
     <xs:sequence>
-      <xs:choice minOccurs="1" maxOccurs="2">
+      <xs:choice>
         <xs:element name="cable_to_parent" type="cable_to_type" />
         <xs:element name="cable_to_neighbor" type="cable_to_type" />
       </xs:choice>
