@@ -484,16 +484,12 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
           <xs:documentation>Description of the upstream connection of the circuit root.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="input" type="circuit_root_input_type"/>
+      <xs:choice>
+        <xs:element name="instance_transformer" type="instance_transformer_type" />
+        <xs:element name="instance_combiner_ac" type="instance_combiner_ac_type" />
+        <xs:element name="instance_inverter" type="instance_inverter_type" />
+      </xs:choice>
     </xs:sequence>
-  </xs:complexType>
-  <!-- Input for circuit_root element; it must have exactly one child chosen from the allowed instance types -->
-  <xs:complexType name="circuit_root_input_type">
-    <xs:choice minOccurs="1" maxOccurs="1">
-      <xs:element name="instance_transformer" type="instance_transformer_type" />
-      <xs:element name="instance_combiner_ac" type="instance_combiner_ac_type" />
-      <xs:element name="instance_inverter" type="instance_inverter_type" />
-    </xs:choice>
   </xs:complexType>
   <!-- Instance Transformer: requires a cable_to_parent and an inputs container -->
   <xs:complexType name="instance_transformer_type">
@@ -505,15 +501,9 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
     <xs:attribute name="id" type="xs:ID" use="required" />
     <xs:attribute name="name" type="xs:string" use="optional" />
   </xs:complexType>
-  <!-- Inputs container for instance_transformer; each input must have exactly one instance child (transformer, AC combiner or inverter) -->
+  <!-- Inputs container for instance_transformer; each input must be either transformer, AC combiner or inverter -->
   <xs:complexType name="transformer_inputs_type">
-    <xs:sequence>
-      <xs:element name="input" type="transformer_input_type" minOccurs="1" maxOccurs="unbounded" />
-    </xs:sequence>
-  </xs:complexType>
-  <!-- Input for instance_transformer/inputs elements; it must have exactly one child chosen from the allowed instance types -->
-  <xs:complexType name="transformer_input_type">
-    <xs:choice minOccurs="1" maxOccurs="1">
+    <xs:choice minOccurs="1" maxOccurs="unbounded">
       <xs:element name="instance_transformer" type="instance_transformer_type" />
       <xs:element name="instance_combiner_ac" type="instance_combiner_ac_type" />
       <xs:element name="instance_inverter" type="instance_inverter_type" />
@@ -529,15 +519,9 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
     <xs:attribute name="id" type="xs:ID" use="required" />
     <xs:attribute name="name" type="xs:string" use="optional" />
   </xs:complexType>
-  <!-- Inputs container for instance_combiner_ac; each input must have exactly one instance child (transformer, AC combiner or inverter) -->
+  <!-- Inputs container for instance_combiner_ac; each input must must be either transformer, AC combiner or inverter) -->
   <xs:complexType name="combiner_ac_inputs_type">
-    <xs:sequence>
-      <xs:element name="input" type="combiner_ac_input_type" minOccurs="1" maxOccurs="unbounded" />
-    </xs:sequence>
-  </xs:complexType>
-  <!-- Input for instance_combiner_ac/inputs elements; it must have exactly one child chosen from the allowed types -->
-  <xs:complexType name="combiner_ac_input_type">
-    <xs:choice minOccurs="1" maxOccurs="1">
+    <xs:choice minOccurs="1" maxOccurs="unbounded">
       <xs:element name="instance_transformer" type="instance_transformer_type" />
       <xs:element name="instance_combiner_ac" type="instance_combiner_ac_type" />
       <xs:element name="instance_inverter" type="instance_inverter_type" />
@@ -576,14 +560,8 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
     <xs:attribute name="id" type="xs:ID" use="required" />
     <xs:attribute name="name" type="xs:string" use="optional" />
   </xs:complexType>
-  <!-- Inputs container for instance_combiner_Dc; each input must have exactly one instance child (DC combiner or string) -->
+  <!-- Inputs container for instance_combiner_Dc; each input must be either DC combiner or string) -->
   <xs:complexType name="combiner_dc_inputs_type">
-    <xs:sequence>
-      <xs:element name="input" type="combiner_dc_input_type" minOccurs="1" maxOccurs="unbounded" />
-    </xs:sequence>
-  </xs:complexType>
-  <!-- Input for instance_combiner_dc/inputs elements; it must have exactly one child chosen from the allowed types -->
-  <xs:complexType name="combiner_dc_input_type">
     <xs:choice minOccurs="1" maxOccurs="unbounded">
       <xs:element name="instance_combiner_dc" type="instance_combiner_dc_type" />
       <xs:element name="string" type="string_type" />
@@ -610,16 +588,10 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
     <xs:attribute name="name" type="xs:string" use="optional" />
     <xs:attribute name="id" type="xs:ID" use="required" />
   </xs:complexType>
-  <!-- Inputs container for instance_optimizer elements: It must appear exactly once and contain one or more 'input' children -->
+  <!-- Inputs container for instance_optimizer elements: It must appear exactly once and contain one or more 'module_layout' children -->
   <xs:complexType name="optimizer_inputs_type">
     <xs:sequence>
-      <xs:element name="input" type="optimizer_input_type" minOccurs="1" maxOccurs="unbounded" />
-    </xs:sequence>
-  </xs:complexType>
-  <!-- Input type for optimizer inputs: contains exactly one module_layout -->
-  <xs:complexType name="optimizer_input_type">
-    <xs:sequence>
-      <xs:element name="module_layout" type="module_layout_type" />
+      <xs:element name="module_layout" type="module_layout_type" minOccurs="1" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
   <!-- The "string" element must contain exactly one child which is either a module_array or an optimizer_array -->

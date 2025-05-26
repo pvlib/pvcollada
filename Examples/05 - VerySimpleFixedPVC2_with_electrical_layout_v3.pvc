@@ -158,169 +158,159 @@
 				<pv:circuit>
 					<!-- circuit_root tag => Always the parent of the tree -->
 					<pv:circuit_root>
-						<pv:input>
-							<!-- instance_transformer tag, in this case the transformer that will inject into the grid -->
-							<pv:instance_transformer url="#TransformerModel1" id="transformerInstance">
-								<!-- Cable between the transformer and the circuit_root -->
-								<pv:cable_to_parent url="#ACCableModel1" length="5" id="cableInstance1" />
-								<pv:inputs>
-									<pv:input>
-										<!-- instance_combiner_ac tag, the AC combiner that will combine the 3 strings -->
-										<pv:instance_combiner_ac url="#CombinerModel1" id="combinerInstance">
-											<!-- Cable between the AC combiner and the transformer -->
-											<pv:cable_to_parent url="#ACCableModel1" length="10" id="cableInstance2" />
-											<!-- inputs tag => the 3 inverters strings -->
-											<pv:inputs>
-												<pv:input>
-													<!-- Inverter #1 -->
-													<pv:instance_inverter url="#InverterModel1" id="inverterInstance1" name="Inverter #1">
-														<!-- Cable between the inverter and the AC combiner -->
-														<pv:cable_to_parent url="#ACCableModel1" length="10" id="cableInstance3" />
-														<!-- mppts tag -->
-														<pv:mppts>
-															<!-- mppt tag -->
-															<pv:mppt>
-																<!-- first string tag => the string connected to this mppt input -->
-																<pv:string id="string1">
-																	<pv:module_array>
-																		<pv:module_layout url="#rackId1">
-																			<!-- Cable between the string and the inverter -->
-																			<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance4" />
-																			<pv:position_in_string>1</pv:position_in_string>
-																			<pv:row>1</pv:row>
-																			<pv:column>1</pv:column>
-																		</pv:module_layout>
-																		<pv:module_layout url="#rackId1">
-																			<!-- Cable between the module and its neighbor in the string -->
-																			<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance5" />
-																			<pv:position_in_string>2</pv:position_in_string>
-																			<pv:row>1</pv:row>
-																			<pv:column>2</pv:column>
-																		</pv:module_layout>
-																		<pv:module_layout url="#rackId1">
-																			<!-- Cable between the module and its neighbor in the string -->
-																			<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance6" />
-																			<pv:position_in_string>3</pv:position_in_string>
-																			<pv:row>1</pv:row>
-																			<pv:column>3</pv:column>
-																		</pv:module_layout>
-																		<pv:module_layout url="#rackId1">
-																			<!-- Cable between the module and its neighbor in the string -->
-																			<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance7" />
-																			<!-- Cable between the string and the inverter -->
-																			<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance8" />
-																			<pv:position_in_string>4</pv:position_in_string>
-																			<pv:row>1</pv:row>
-																			<pv:column>4</pv:column>
-																		</pv:module_layout>
-																	</pv:module_array>
-																</pv:string>
-															</pv:mppt>
-														</pv:mppts>
-													</pv:instance_inverter>
-												</pv:input>
-												<pv:input>
-													<!-- Inverter #2 -->
-													<pv:instance_inverter url="#InverterModel1" id="inverterInstance2" name="Inverter #2">
-														<!-- Cable between the inverter and the AC combiner -->
-														<pv:cable_to_parent url="#ACCableModel1" length="11" id="cableInstance9" />
-														<!-- mppts tag -->
-														<pv:mppts>
-															<!-- mppt tag -->
-															<pv:mppt>
-																<!-- second string tag => the string connected to this mppt input -->
-																<pv:string id="string2">
-																	<pv:module_array>
-																		<pv:module_layout url="#rackId2">
-																			<!-- Cable between the string and the inverter -->
-																			<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance10" />
-																			<pv:position_in_string>1</pv:position_in_string>
-																			<pv:row>1</pv:row>
-																			<pv:column>1</pv:column>
-																		</pv:module_layout>
-																		<pv:module_layout url="#rackId2">
-																			<!-- Cable between the module and its neighbor in the string -->
-																			<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance11" />
-																			<pv:position_in_string>2</pv:position_in_string>
-																			<pv:row>1</pv:row>
-																			<pv:column>2</pv:column>
-																		</pv:module_layout>
-																		<pv:module_layout url="#rackId2">
-																			<!-- Cable between the module and its neighbor in the string -->
-																			<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance12" />
-																			<pv:position_in_string>3</pv:position_in_string>
-																			<pv:row>1</pv:row>
-																			<pv:column>3</pv:column>
-																		</pv:module_layout>
-																		<pv:module_layout url="#rackId2">
-																			<!-- Cable between the module and its neighbor in the string -->
-																			<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance13" />
-																			<!-- Cable between the string and the inverter -->
-																			<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance14" />
-																			<pv:position_in_string>4</pv:position_in_string>
-																			<pv:row>1</pv:row>
-																			<pv:column>4</pv:column>
-																		</pv:module_layout>
-																	</pv:module_array>
-																</pv:string>
-															</pv:mppt>
-														</pv:mppts>
-													</pv:instance_inverter>
-												</pv:input>
-												<pv:input>
-													<!-- Inverter #3 -->
-													<pv:instance_inverter url="#InverterModel1" id="inverterInstance3" name="Inverter #3">
-														<!-- Cable between the inverter and the AC combiner -->
-														<pv:cable_to_parent url="#ACCableModel1" length="12" id="cableInstance15" />
-														<!-- mppts tag -->
-														<pv:mppts>
-															<!-- mppt tag -->
-															<pv:mppt>
-																<!-- third string tag => the string connected to this mppt input -->
-																<pv:string id="string3">
-																	<pv:module_array>
-																		<pv:module_layout url="#rackId3">
-																			<!-- Cable between the string and the inverter -->
-																			<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance16" />
-																			<pv:position_in_string>1</pv:position_in_string>
-																			<pv:row>1</pv:row>
-																			<pv:column>1</pv:column>
-																		</pv:module_layout>
-																		<pv:module_layout url="#rackId3">
-																			<!-- Cable between the module and its neighbor in the string -->
-																			<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance17" />
-																			<pv:position_in_string>2</pv:position_in_string>
-																			<pv:row>1</pv:row>
-																			<pv:column>2</pv:column>
-																		</pv:module_layout>
-																		<pv:module_layout url="#rackId3">
-																			<!-- Cable between the module and its neighbor in the string -->
-																			<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance18" />
-																			<pv:position_in_string>3</pv:position_in_string>
-																			<pv:row>1</pv:row>
-																			<pv:column>3</pv:column>
-																		</pv:module_layout>
-																		<pv:module_layout url="#rackId3">
-																			<!-- Cable between the module and its neighbor in the string -->
-																			<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance19" />
-																			<!-- Cable between the string and the inverter -->
-																			<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance20" />
-																			<pv:position_in_string>4</pv:position_in_string>
-																			<pv:row>1</pv:row>
-																			<pv:column>4</pv:column>
-																		</pv:module_layout>
-																	</pv:module_array>
-																</pv:string>
-															</pv:mppt>
-														</pv:mppts>
-													</pv:instance_inverter>
-												</pv:input>
-											</pv:inputs>
-										</pv:instance_combiner_ac>
-									</pv:input>
-								</pv:inputs>
-							</pv:instance_transformer>
-						</pv:input>
+						<!-- instance_transformer tag, in this case the transformer that will inject into the grid -->
+						<pv:instance_transformer url="#TransformerModel1" id="transformerInstance">
+							<!-- Cable between the transformer and the circuit_root -->
+							<pv:cable_to_parent url="#ACCableModel1" length="5" id="cableInstance1" />
+							<pv:inputs>
+								<!-- instance_combiner_ac tag, the AC combiner that will combine the 3 strings -->
+								<pv:instance_combiner_ac url="#CombinerModel1" id="combinerInstance">
+									<!-- Cable between the AC combiner and the transformer -->
+									<pv:cable_to_parent url="#ACCableModel1" length="10" id="cableInstance2" />
+									<!-- inputs tag => the 3 inverters strings -->
+									<pv:inputs>
+										<!-- Inverter #1 -->
+										<pv:instance_inverter url="#InverterModel1" id="inverterInstance1" name="Inverter #1">
+											<!-- Cable between the inverter and the AC combiner -->
+											<pv:cable_to_parent url="#ACCableModel1" length="10" id="cableInstance3" />
+											<!-- mppts tag -->
+											<pv:mppts>
+												<!-- mppt tag -->
+												<pv:mppt>
+													<!-- first string tag => the string connected to this mppt input -->
+													<pv:string id="string1">
+														<pv:module_array>
+															<pv:module_layout url="#rackId1">
+																<!-- Cable between the string and the inverter -->
+																<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance4" />
+																<pv:position_in_string>1</pv:position_in_string>
+																<pv:row>1</pv:row>
+																<pv:column>1</pv:column>
+															</pv:module_layout>
+															<pv:module_layout url="#rackId1">
+																<!-- Cable between the module and its neighbor in the string -->
+																<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance5" />
+																<pv:position_in_string>2</pv:position_in_string>
+																<pv:row>1</pv:row>
+																<pv:column>2</pv:column>
+															</pv:module_layout>
+															<pv:module_layout url="#rackId1">
+																<!-- Cable between the module and its neighbor in the string -->
+																<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance6" />
+																<pv:position_in_string>3</pv:position_in_string>
+																<pv:row>1</pv:row>
+																<pv:column>3</pv:column>
+															</pv:module_layout>
+															<pv:module_layout url="#rackId1">
+																<!-- Cable between the module and its neighbor in the string -->
+																<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance7" />
+																<!-- Cable between the string and the inverter -->
+																<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance8" />
+																<pv:position_in_string>4</pv:position_in_string>
+																<pv:row>1</pv:row>
+																<pv:column>4</pv:column>
+															</pv:module_layout>
+														</pv:module_array>
+													</pv:string>
+												</pv:mppt>
+											</pv:mppts>
+										</pv:instance_inverter>
+										<!-- Inverter #2 -->
+										<pv:instance_inverter url="#InverterModel1" id="inverterInstance2" name="Inverter #2">
+											<!-- Cable between the inverter and the AC combiner -->
+											<pv:cable_to_parent url="#ACCableModel1" length="11" id="cableInstance9" />
+											<!-- mppts tag -->
+											<pv:mppts>
+												<!-- mppt tag -->
+												<pv:mppt>
+													<!-- second string tag => the string connected to this mppt input -->
+													<pv:string id="string2">
+														<pv:module_array>
+															<pv:module_layout url="#rackId2">
+																<!-- Cable between the string and the inverter -->
+																<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance10" />
+																<pv:position_in_string>1</pv:position_in_string>
+																<pv:row>1</pv:row>
+																<pv:column>1</pv:column>
+															</pv:module_layout>
+															<pv:module_layout url="#rackId2">
+																<!-- Cable between the module and its neighbor in the string -->
+																<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance11" />
+																<pv:position_in_string>2</pv:position_in_string>
+																<pv:row>1</pv:row>
+																<pv:column>2</pv:column>
+															</pv:module_layout>
+															<pv:module_layout url="#rackId2">
+																<!-- Cable between the module and its neighbor in the string -->
+																<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance12" />
+																<pv:position_in_string>3</pv:position_in_string>
+																<pv:row>1</pv:row>
+																<pv:column>3</pv:column>
+															</pv:module_layout>
+															<pv:module_layout url="#rackId2">
+																<!-- Cable between the module and its neighbor in the string -->
+																<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance13" />
+																<!-- Cable between the string and the inverter -->
+																<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance14" />
+																<pv:position_in_string>4</pv:position_in_string>
+																<pv:row>1</pv:row>
+																<pv:column>4</pv:column>
+															</pv:module_layout>
+														</pv:module_array>
+													</pv:string>
+												</pv:mppt>
+											</pv:mppts>
+										</pv:instance_inverter>
+										<!-- Inverter #3 -->
+										<pv:instance_inverter url="#InverterModel1" id="inverterInstance3" name="Inverter #3">
+											<!-- Cable between the inverter and the AC combiner -->
+											<pv:cable_to_parent url="#ACCableModel1" length="12" id="cableInstance15" />
+											<!-- mppts tag -->
+											<pv:mppts>
+												<!-- mppt tag -->
+												<pv:mppt>
+													<!-- third string tag => the string connected to this mppt input -->
+													<pv:string id="string3">
+														<pv:module_array>
+															<pv:module_layout url="#rackId3">
+																<!-- Cable between the string and the inverter -->
+																<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance16" />
+																<pv:position_in_string>1</pv:position_in_string>
+																<pv:row>1</pv:row>
+																<pv:column>1</pv:column>
+															</pv:module_layout>
+															<pv:module_layout url="#rackId3">
+																<!-- Cable between the module and its neighbor in the string -->
+																<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance17" />
+																<pv:position_in_string>2</pv:position_in_string>
+																<pv:row>1</pv:row>
+																<pv:column>2</pv:column>
+															</pv:module_layout>
+															<pv:module_layout url="#rackId3">
+																<!-- Cable between the module and its neighbor in the string -->
+																<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance18" />
+																<pv:position_in_string>3</pv:position_in_string>
+																<pv:row>1</pv:row>
+																<pv:column>3</pv:column>
+															</pv:module_layout>
+															<pv:module_layout url="#rackId3">
+																<!-- Cable between the module and its neighbor in the string -->
+																<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance19" />
+																<!-- Cable between the string and the inverter -->
+																<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance20" />
+																<pv:position_in_string>4</pv:position_in_string>
+																<pv:row>1</pv:row>
+																<pv:column>4</pv:column>
+															</pv:module_layout>
+														</pv:module_array>
+													</pv:string>
+												</pv:mppt>
+											</pv:mppts>
+										</pv:instance_inverter>
+									</pv:inputs>
+								</pv:instance_combiner_ac>
+							</pv:inputs>
+						</pv:instance_transformer>
 					</pv:circuit_root>
 				</pv:circuit>
 			</technique>
