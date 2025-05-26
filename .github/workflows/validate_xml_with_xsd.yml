@@ -6,6 +6,7 @@ on:
       - schema/pvcollada_schema_0.1.xsd
       - schema/collada_schema_1_5.xsd
       - .github/workflows/validate_xml_with_xsd.py
+      - .github/workflows/validate_xml_with_xsd.yml
 
       - Examples/05 - VerySimpleFixedPVC2_with_electrical_layout_v3.pvc
   pull_request:
@@ -13,6 +14,7 @@ on:
       - schema/pvcollada_schema_0.1.xsd
       - schema/collada_schema_1_5.xsd
       - .github/workflows/validate_xml_with_xsd.py
+      - .github/workflows/validate_xml_with_xsd.yml
 
       - Examples/05 - VerySimpleFixedPVC2_with_electrical_layout_v3.pvc
   workflow_dispatch:
