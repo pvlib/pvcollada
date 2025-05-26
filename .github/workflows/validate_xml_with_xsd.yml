@@ -6,15 +6,17 @@ on:
       - schema/pvcollada_schema_0.1.xsd
       - schema/collada_schema_1_5.xsd
       - .github/workflows/validate_xml_with_xsd.py
+      - .github/workflows/validate_xml_with_xsd.yml
 
-      - schema/05 - VerySimpleFixedPVC2_with_electrical_layout_v3.pvc
+      - Examples/05 - VerySimpleFixedPVC2_with_electrical_layout_v3.pvc
   pull_request:
     paths:
       - schema/pvcollada_schema_0.1.xsd
       - schema/collada_schema_1_5.xsd
       - .github/workflows/validate_xml_with_xsd.py
+      - .github/workflows/validate_xml_with_xsd.yml
 
-      - schema/05 - VerySimpleFixedPVC2_with_electrical_layout_v3.pvc
+      - Examples/05 - VerySimpleFixedPVC2_with_electrical_layout_v3.pvc
   workflow_dispatch:
 
 jobs:
@@ -22,22 +24,22 @@ jobs:
     strategy:
       matrix:
         xml_doc:
-          - schema/05 - VerySimpleFixedPVC2_with_electrical_layout_v3.pvc
+          - Examples/05 - VerySimpleFixedPVC2_with_electrical_layout_v3.pvc
     name: Validate XML
     runs-on: ubuntu-latest
     steps:
       - name: Install Python 3.10
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: "3.10"
       - name: Install lxml Python dependency
         run: pip3 install lxml==5.3.1
       - name: Checkout PVCollada and COLLADA schemas, the validation script, and the XML doc
         uses: actions/checkout@v4
         with:
           sparse-checkout: |
-            pvcollada20_schema/pvcollada_schema_0.1.xsd
-            pvcollada20_schema/collada_schema_1_5.xsd
+            schema/pvcollada_schema_0.1.xsd
+            schema/collada_schema_1_5.xsd
             .github/workflows/validate_xml_with_xsd.py
             ${{ matrix.xml_doc }}
           sparse-checkout-cone-mode: false
