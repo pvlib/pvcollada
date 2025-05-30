@@ -805,14 +805,14 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="x_spacing" type="collada:float_type">
+        <xs:element name="row_spacing" type="collada:float_type">
           <xs:annotation>
-            <xs:documentation>Spacing between modules on the X axis (in unit from the unit tag)</xs:documentation>
+            <xs:documentation>Spacing between modules in the row direction</xs:documentation>
           </xs:annotation>
         </xs:element>
         <xs:element name="y_spacing" type="collada:float_type">
           <xs:annotation>
-            <xs:documentation>Spacing between modules on the Y axis (in unit from the unit tag)</xs:documentation>
+            <xs:documentation>Spacing between modules in the column direction</xs:documentation>
           </xs:annotation>
         </xs:element>
         <xs:element name="module_rows" type="xs:int">

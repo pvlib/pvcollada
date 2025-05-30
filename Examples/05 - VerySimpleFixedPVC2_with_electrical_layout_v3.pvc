@@ -416,8 +416,8 @@
 				<technique profile="PVCollada-2.0">
 					<!-- rack tag -->
 					<pv:rack>
-						<pv:x_spacing>20</pv:x_spacing>
-						<pv:y_spacing>20</pv:y_spacing>
+						<pv:row_spacing>20</pv:row_spacing>
+						<pv:row_spacing>20</pv:row_spacing>
 						<pv:module_rows>1</pv:module_rows>
 						<pv:module_columns>4</pv:module_columns>
 						<pv:module_orientation>portrait</pv:module_orientation>
