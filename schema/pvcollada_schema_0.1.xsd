@@ -810,7 +810,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
             <xs:documentation>Spacing between modules in the row direction</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="y_spacing" type="collada:float_type">
+        <xs:element name="column_spacing" type="collada:float_type">
           <xs:annotation>
             <xs:documentation>Spacing between modules in the column direction</xs:documentation>
           </xs:annotation>

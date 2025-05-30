@@ -417,7 +417,7 @@
 					<!-- rack tag -->
 					<pv:rack>
 						<pv:row_spacing>20</pv:row_spacing>
-						<pv:row_spacing>20</pv:row_spacing>
+						<pv:column_spacing>20</pv:column_spacing>
 						<pv:module_rows>1</pv:module_rows>
 						<pv:module_columns>4</pv:module_columns>
 						<pv:module_orientation>portrait</pv:module_orientation>
