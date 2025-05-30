@@ -661,7 +661,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
             <xs:documentation xml:lang="en">Degrees, positive for east of the prime meridian.  Geolocation of the origin of the PV system coordinates</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="altitude" type="xs:float">
+        <xs:element name="elevation" type="xs:float">
           <xs:annotation>
             <xs:documentation xml:lang="en">Meters above mean sea level (MSL).  Geolocation of the origin of the PV system coordinates</xs:documentation>
           </xs:annotation>
