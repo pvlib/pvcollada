@@ -12,11 +12,14 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       <xs:enumeration value="cdTe" />
     </xs:restriction>
   </xs:simpleType>
-  <xs:simpleType name="cell_structure_enum" final="restriction">
+  <xs:simpleType name="cell_architecture_enum" final="restriction">
     <xs:restriction base="xs:string">
       <xs:enumeration value="single_junction" />
       <xs:enumeration value="heterojunction" />
-      <xs:enumeration value="tandem" />
+      <xs:enumeration value="IBC" />
+      <xs:enumeration value="PERC" />
+      <xs:enumeration value="TOPcon" />
+      <xs:enumeration value="tandem-perovskite" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="conductor_material_type_enum" final="restriction">
@@ -128,9 +131,9 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
           <xs:documentation>Absorber type used in the module.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="cell_structure" type="cell_structure_enum" minOccurs="0">
+      <xs:element name="cell_architecture" type="cell_architecture_enum" minOccurs="0">
         <xs:annotation>
-          <xs:documentation>Structure of the cell in the module.</xs:documentation>
+          <xs:documentation>Architecture of the cell in the module.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="bifacial_factor" type="xs:float" minOccurs="0">
@@ -650,17 +653,17 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
         </xs:element>
         <xs:element name="latitude" type="xs:float">
           <xs:annotation>
-            <xs:documentation xml:lang="en">Degrees, positive for north of the equator.</xs:documentation>
+            <xs:documentation xml:lang="en">Degrees, positive for north of the equator. Geolocation of the origin of the PV system coordinates</xs:documentation>
           </xs:annotation>
         </xs:element>
         <xs:element name="longitude" type="xs:float">
           <xs:annotation>
-            <xs:documentation xml:lang="en">Degrees, positive for east of the prime meridian.</xs:documentation>
+            <xs:documentation xml:lang="en">Degrees, positive for east of the prime meridian.  Geolocation of the origin of the PV system coordinates</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="elevation" type="xs:float" minOccurs="0">
+        <xs:element name="elevation" type="xs:float">
           <xs:annotation>
-            <xs:documentation xml:lang="en">Meters above mean sea level (MSL).</xs:documentation>
+            <xs:documentation xml:lang="en">Meters above mean sea level (MSL).  Geolocation of the origin of the PV system coordinates</xs:documentation>
           </xs:annotation>
         </xs:element>
         <xs:element name="timezone" type="xs:string" minOccurs="0">
@@ -674,12 +677,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
             1.0</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="transformation_vector" type="collada:float3_type" default="0.0 0.0 0.0">
-          <xs:annotation>
-            <xs:documentation xml:lang="en">Vector from 3D origin to PV system coordinate origin.</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="coordinate_system" type="xs:string" minOccurs="0">
+        <xs:element name="geocoordinate_system" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:documentation xml:lang="en">EPSG code for 3D coordinate system, e.g., WGS-84.</xs:documentation>
           </xs:annotation>
