@@ -567,7 +567,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       <xs:element name="string" type="string_type" />
     </xs:choice>
   </xs:complexType>
-  <!-- Instance Optimizer: must have exactly one cable element (choosing between cable_to_parent or cable_to_neighbor)
+  <!-- Instance Optimizer: must have at least one cable element (cable_to_parent or cable_to_neighbor)
        and exactly one inputs child that contains one or more input children (each wrapping a module_layout) -->
   <xs:complexType name="instance_optimizer_type">
     <xs:sequence>
@@ -614,7 +614,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       <xs:element name="module_layout" type="module_layout_type" minOccurs="1" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
-  <!-- module_layout: must have exactly one cable (either cable_to_parent or cable_to_neighbor) plus one row and one column -->
+  <!-- module_layout: must have at least one cable (either cable_to_parent or cable_to_neighbor) plus one row and one column -->
   <xs:complexType name="module_layout_type">
     <xs:sequence>
       <xs:choice minOccurs="1" maxOccurs="2">
@@ -686,7 +686,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
         </xs:element>
         <xs:element name="boundary" type="collada:sidref_type" minOccurs="0">
           <xs:annotation>
-            <xs:documentation xml:lang="en">ID for a COLLADA geometry of type spline.</xs:documentation>
+            <xs:documentation xml:lang="en">ID for a COLLADA geometry describing the project boundary.</xs:documentation>
           </xs:annotation>
         </xs:element>
         <xs:element name="module_count" type="xs:positiveInteger" minOccurs="0">
