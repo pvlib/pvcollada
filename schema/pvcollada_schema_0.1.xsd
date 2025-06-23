@@ -181,7 +181,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       <xs:documentation>MPPT description data.</xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element name="input_count" type="xs:int">
+      <xs:element name="input_count" type="xs:positiveInteger">
         <xs:annotation>
           <xs:documentation>Number of parallel strings that can be connected to MPPT.</xs:documentation>
         </xs:annotation>
@@ -245,7 +245,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
           <xs:documentation>Maximum DC current, A.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="mppt_count" type="xs:float" minOccurs="0">
+      <xs:element name="mppt_count" type="xs:positiveInteger" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Number of MPPTs.</xs:documentation>
         </xs:annotation>
@@ -339,7 +339,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
           <xs:documentation>Combiner model name.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="input_count" type="xs:int">
+      <xs:element name="input_count" type="xs:positiveInteger">
         <xs:annotation>
           <xs:documentation>Number of inputs to combiner.</xs:documentation>
         </xs:annotation>
@@ -358,7 +358,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
           <xs:documentation>Combiner model name.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="input_count" type="xs:int">
+      <xs:element name="input_count" type="xs:positiveInteger">
         <xs:annotation>
           <xs:documentation>Number of inputs to combiner.</xs:documentation>
         </xs:annotation>
@@ -442,7 +442,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
           <xs:documentation>Cross-section area, sq. mm</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="num_conductors" type="xs:float">
+      <xs:element name="num_conductors" type="xs:positiveInteger">
         <xs:annotation>
           <xs:documentation>Number of conductors</xs:documentation>
         </xs:annotation>
@@ -726,12 +726,12 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
     <!-- need to add: albedo, areal picture, ground_slope, ground_azimuth, digital_elevation_model -->
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="vertex_count" type="xs:int" minOccurs="0">
+        <xs:element name="vertex_count" type="xs:positiveInteger" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Number of vertexes in the terrain surface.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="triangle_count" type="xs:int" minOccurs="0">
+        <xs:element name="triangle_count" type="xs:positiveInteger" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Number of triangular faces in the terrain surface.</xs:documentation>
           </xs:annotation>
@@ -755,45 +755,51 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       </xs:attribute>
     </xs:complexType>
   </xs:element>
-  <xs:element name="modules">
+  <xs:element name="components">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="module" type="module_type_object" minOccurs="1" maxOccurs="unbounded" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="inverters">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="inverter" type="inverter_type_object" minOccurs="1" maxOccurs="unbounded" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="combiners_dc">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="combiner_dc" type="combiner_dc_type_object" minOccurs="0" maxOccurs="unbounded" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="combiners_ac">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="combiner_ac" type="combiner_ac_type_object" minOccurs="0" maxOccurs="unbounded" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="cables">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="cable" type="cable_type_object" minOccurs="0" maxOccurs="unbounded" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="transformers">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="transformer" type="transformer_type_object" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element name="modules">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="module" type="module_type_object" minOccurs="1" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="inverters">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="inverter" type="inverter_type_object" minOccurs="1" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="combiners_dc" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="combiner_dc" type="combiner_dc_type_object" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="combiners_ac" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="combiner_ac" type="combiner_ac_type_object" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cables" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="cable" type="cable_type_object" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="transformers" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="transformer" type="transformer_type_object" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -815,12 +821,12 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
             <xs:documentation>Spacing between modules in the column direction</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="module_rows" type="xs:int">
+        <xs:element name="module_rows" type="xs:positiveInteger">
           <xs:annotation>
             <xs:documentation>Number of rows of modules in the rack</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="module_columns" type="xs:int">
+        <xs:element name="module_columns" type="xs:positiveInteger">
           <xs:annotation>
             <xs:documentation>Number of columns of modules in the rack</xs:documentation>
           </xs:annotation>
