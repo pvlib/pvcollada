@@ -113,6 +113,21 @@
 							<pv:input_count>3</pv:input_count>
 						</pv:combiner_ac>
 					</pv:combiners_ac>
+					<!-- List of transformers -->
+					<pv:transformers>
+						<!-- transformer tag -->
+						<pv:transformer id="TransformerModel1">
+							<pv:manufacturer>Generic</pv:manufacturer>
+							<pv:name>Generic transformer</pv:name>
+							<pv:nom_power>6000</pv:nom_power>
+							<pv:v_in>230</pv:v_in>
+							<pv:v_out>1100</pv:v_out>
+							<pv:efficiency>95.0</pv:efficiency>
+							<pv:iron_loss>10</pv:iron_loss>
+							<pv:copper_loss>15</pv:copper_loss>
+							<pv:night_disconnect>false</pv:night_disconnect>							
+						</pv:transformer>
+					</pv:transformers>
 					<!-- List of cables -->
 					<pv:cables>
 						<!-- cable tag -->
@@ -138,21 +153,6 @@
 							<pv:impedance>25</pv:impedance>
 						</pv:cable>
 					</pv:cables>
-					<!-- List of transformers -->
-					<pv:transformers>
-						<!-- transformer tag -->
-						<pv:transformer id="TransformerModel1">
-							<pv:manufacturer>Generic</pv:manufacturer>
-							<pv:name>Generic transformer</pv:name>
-							<pv:nom_power>6000</pv:nom_power>
-							<pv:v_in>230</pv:v_in>
-							<pv:v_out>1100</pv:v_out>
-							<pv:efficiency>95.0</pv:efficiency>
-							<pv:iron_loss>10</pv:iron_loss>
-							<pv:copper_loss>15</pv:copper_loss>
-							<pv:night_disconnect>false</pv:night_disconnect>							
-						</pv:transformer>
-					</pv:transformers>
 				</pv:components>
 				<!-- circuit tag (tree) -->
 				<pv:circuit>
