@@ -13,9 +13,9 @@
 		<unit meter="0.01" name="cm" />
 		<up_axis>Z_UP</up_axis>
 		<geographic_location>
-			<latitude>46.2044</pv:latitude>
-			<longitude>6.1432</pv:longitude>
-			<altitude mode="absolute">375</pv:elevation>		  
+			<latitude>46.2044</latitude>
+			<longitude>6.1432</longitude>
+			<altitude mode="absolute">375</altitude>		  
 		</geographic_location>
 		<extra>
 			<technique profile="PVCollada-2.0">
