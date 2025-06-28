@@ -8,15 +8,15 @@
 			<author>PVsyst</author>
 			<comments>PVC 2.0 sample file : 1 terrain and 3 tables, all based on the same model. Electrical components and circuit (3 inverters, 1 AC combiner, 1 tranformer)</comments>
 		</contributor>
-		<created>2024-06-06T13:32:31Z</created>
-		<modified>2024-06-06T13:32:31Z</modified>
-		<unit meter="0.01" name="cm" />
-		<up_axis>Z_UP</up_axis>
 		<geographic_location>
 			<latitude>46.2044</latitude>
 			<longitude>6.1432</longitude>
 			<altitude mode="absolute">375</altitude>		  
 		</geographic_location>
+		<created>2024-06-06T13:32:31Z</created>
+		<modified>2024-06-06T13:32:31Z</modified>
+		<unit meter="0.01" name="cm" />
+		<up_axis>Z_UP</up_axis>
 		<extra>
 			<technique profile="PVCollada-2.0">
 				<!-- software tag -->
