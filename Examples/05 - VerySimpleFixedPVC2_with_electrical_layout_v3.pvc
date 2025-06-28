@@ -12,6 +12,11 @@
 		<modified>2024-06-06T13:32:31Z</modified>
 		<unit meter="0.01" name="cm" />
 		<up_axis>Z_UP</up_axis>
+		<geographic_location>
+			<latitude>46.2044</pv:latitude>
+			<longitude>6.1432</pv:longitude>
+			<altitude mode="absolute">375</pv:elevation>		  
+		</geographic_location>
 		<extra>
 			<technique profile="PVCollada-2.0">
 				<!-- software tag -->
@@ -25,9 +30,6 @@
 					<pv:drawing>Project drawing</pv:drawing>
 					<pv:company>Test company</pv:company>
 					<pv:country>CH</pv:country>
-					<pv:latitude>46.2044</pv:latitude>
-					<pv:longitude>6.1432</pv:longitude>
-					<pv:elevation>375</pv:elevation>
 					<pv:timezone>Europe/Zurich</pv:timezone>
 					<pv:timezone_offset>2</pv:timezone_offset>
 					<pv:geocoordinate_system>EPSG:4326</pv:geocoordinate_system>
