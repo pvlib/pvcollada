@@ -10,8 +10,8 @@
 		</contributor>
 		<coverage>
   		<geographic_location>
-	  		<latitude>46.2044</latitude>
 		  	<longitude>6.1432</longitude>
+	  		<latitude>46.2044</latitude>
 			  <altitude mode="absolute">375</altitude>		  
 		  </geographic_location>
 		</coverage>
