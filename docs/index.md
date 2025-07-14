@@ -19,11 +19,11 @@ It provides XML schemas and example files to help users model PV systems in a st
 1. Clone the repository.
 2. Use the XML schemas to author or validate PVCollada files.
 3. Try out the example files in the `Examples` folder.
-4. See the [Developer Guide](DEVELOPER_GUIDE_pvcollada_schema_0.1.xsd.md) for more details.
+4. See the [Developer Guide](dev_guide.md) for more details.
 
 ## Documentation
 
-- [Developer Guide for pvcollada_schema_0.1.xsd](DEVELOPER_GUIDE_pvcollada_schema_0.1.xsd.md)
+- [Developer Guide for PVCollada 2.0](dev_guide.md)
 - [GitHub repository](https://github.com/pvlib/pvcollada)
 
 ## License
