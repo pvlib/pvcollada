@@ -594,7 +594,7 @@
 			</node>		
 			<!-- We instantiate the first inverter -->
 			<node id="Inverter3DNode1" name="Inverter3DNode1" sid="Inverter3DNode1">
-			    <translate>100 -100 0</translate>
+			  <translate>100 -100 0</translate>
 				<instance_geometry url="#Inverter3DModel1">
 					<extra>
 						<technique profile="PVCollada-2.0">
@@ -622,7 +622,7 @@
 			</node>
 			<!-- We instantiate the second inverter -->
 			<node id="Inverter3DNode2" name="Inverter3DNode2" sid="Inverter3DNode2">
-			    <translate>100 -900 0</translate>
+			  <translate>100 -900 0</translate>
 				<instance_geometry url="#Inverter3DModel1">
 					<extra>
 						<technique profile="PVCollada-2.0">

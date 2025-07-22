@@ -803,40 +803,39 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
   </xs:element>
   <xs:element name="rack">
     <xs:annotation>
-      <xs:documentation>This tag should only appear in the extra/technique section of a Collada geometry tag to define a model for
-      a rack (a group of modules that are next to each other on a table). The geometry itself must only define a rectangle
-      representing the surface of the whole rack. In the simplest case a rack is equal to one module.</xs:documentation>
+      <xs:documentation>A rack is a co-planar group of modules. The rack tag should only appear in the extra/technique section of a Collada geometry
+			object. The geometry must define a rectangle representing the surface of the whole rack. In the simplest case a rack is equal to one module.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="row_spacing" type="collada:float_type">
+        <xs:element name="row_spacing" type="collada:float_type" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Spacing between modules in the row direction</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="column_spacing" type="collada:float_type">
+        <xs:element name="column_spacing" type="collada:float_type" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Spacing between modules in the column direction</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="module_rows" type="xs:positiveInteger">
+        <xs:element name="module_rows" type="xs:positiveInteger" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Number of rows of modules in the rack</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="module_columns" type="xs:positiveInteger">
+        <xs:element name="module_columns" type="xs:positiveInteger" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Number of columns of modules in the rack</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="module_orientation" type="module_orientation_enum">
+        <xs:element name="module_orientation" type="module_orientation_enum" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Orientation of the modules in the rack (portrait or landscape)</xs:documentation>
           </xs:annotation>
         </xs:element>
         <xs:element name="module_id" type="xs:IDREF">
           <xs:annotation>
-            <xs:documentation>Id of the module defined in the components part</xs:documentation>
+            <xs:documentation>Id of the module product defined in the assets</xs:documentation>
           </xs:annotation>
         </xs:element>
       </xs:sequence>
@@ -844,10 +843,10 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
   </xs:element>
   <xs:element name="table">
     <xs:annotation>
-      <xs:documentation>This tag should only appear in the extra/technique section of a Collada node tag to define a model for a
-      table. A table is a group of racks and optionally items attached to them like posts, structure, gaps (motor, joint), etc. In
-      the case of trackers, all racks that are part of the same table are considered as rotating together and always having the
-      same angle. In the simplest case a table is composed of only one rack. The node itself must have 1 or more instance_geometry
+      <xs:documentation>A table is a group of mechanically linked racks in a single row. When a table represents a tracker, all racks that are part of the same table
+      should be considered as having the same rotation around the tracker axis. A table may include other non-rotating objects such as posts and gaps (motor, joint).
+			In the simplest case a table is composed of only one rack. 
+			The table tag should only appear in the extra/technique section of a Collada node object. The node itself must have one or more instance_geometry
       descendant tags that contain an instance_rack tag.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
