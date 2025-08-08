@@ -807,9 +807,9 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="type" type="rack_type_enum">
+        <xs:element name="rack_type" type="rack_type_enum">
           <xs:annotation>
-            <xs:documentation>The type of rack (fixed tilt or tracker)</xs:documentation>
+            <xs:documentation>The type of rack (fixed_tilt or tracker)</xs:documentation>
           </xs:annotation>
         </xs:element>
         <xs:element name="row_spacing" type="collada:float_type" minOccurs="0">
@@ -894,10 +894,6 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
 			The table tag should only appear in the extra/technique section of a Collada node object. The node itself must have one or more instance_geometry
       descendant tags that contain an instance_rack tag.</xs:documentation>
     </xs:annotation>
-    <xs:complexType>
-      <xs:sequence>
-      </xs:sequence>
-    </xs:complexType>
   </xs:element>
   <!-- instances -->
   <xs:element name="circuit" type="circuit_type" />
