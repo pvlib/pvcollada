@@ -614,16 +614,13 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
   <!-- module_array: contains one or more module_layout elements -->
   <xs:complexType name="module_array_type">
     <xs:sequence>
+      <xs:element name="cable_to_parent" type="cable_to_type" />
       <xs:element name="module_layout" type="module_layout_type" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
-  <!-- module_layout: must have at least one cable (either cable_to_parent or cable_to_neighbor) plus one row and one column -->
+  <!-- module_layout: must describe position (row, column) and position in string -->
   <xs:complexType name="module_layout_type">
     <xs:sequence>
-      <xs:choice maxOccurs="2">
-        <xs:element name="cable_to_parent" type="cable_to_type" />
-        <xs:element name="cable_to_neighbor" type="cable_to_type" />
-      </xs:choice>
       <xs:element name="position_in_string" type="xs:integer" />
       <xs:element name="row" type="xs:integer" />
       <xs:element name="column" type="xs:integer" />
