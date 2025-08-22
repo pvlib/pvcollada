@@ -62,6 +62,26 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       <xs:enumeration value="tracker" />
     </xs:restriction>
   </xs:simpleType>
+  <xs:simpleType name="post_type_enum" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="rack" />
+      <xs:enumeration value="tracker" />
+      <xs:enumeration value="fence" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="post_shape_enum" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="rectangle" />
+      <xs:enumeration value="circle" />
+      <xs:enumeration value="h-shape" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="post_inclin_enum" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="vertical" />
+      <xs:enumeration value="perpendicular" />
+    </xs:restriction>
+  </xs:simpleType>
 	<!-- objects for product-level data -->
   <xs:complexType name="module_type_object">
     <xs:annotation>
@@ -875,6 +895,78 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="post">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada node tag to define a model for a
+      post. A post is a vertical object that supports a rack, tracker or fence. The node may have 1 or more instance_geometry
+      descendant tags that contain an instance_post tag.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="type" type="post_type_enum">
+          <xs:annotation>
+            <xs:documentation>The type of post (rack, tracker, fence).</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="depth" type="collada:float_type">
+          <xs:annotation>
+            <xs:documentation>The nominal underground depth of the post.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="length" type="collada:float_type">
+          <xs:annotation>
+            <xs:documentation>The total length of the post including the portion underground.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="diameter" type="collada:float_type">
+          <xs:annotation>
+            <xs:documentation>The diameter of the post cross-section.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="inclination" type="post_inclin_enum">
+          <xs:annotation>
+            <xs:documentation>The nominal inclination of the post (vertical, perpendicular).</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="shape" type="post_shape_enum">
+          <xs:annotation>
+            <xs:documentation>The shape of the post cross-section (rectangle, circle, h-shape).</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="gap">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada node tag to define a model for a
+      gap. A gap is a space between two racks on a tracker. The node may have 1 or more instance_geometry
+      descendant tags that contain an instance_gap tag.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="type" type="gap_type_enum">
+          <xs:annotation>
+            <xs:documentation>The type of gap (motor, joint)</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="rigid" type="xs:boolean">
+          <xs:annotation>
+            <xs:documentation>True of a gap is rigid, false if the gap allows the tracker torque tube to flex.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="width" type="collada:float_type">
+          <xs:annotation>
+            <xs:documentation>The nominal width of the gap, i.e., the distance between the two racks.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="joint_angle" type="collada:float_type" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The maximum angle formed in a flexible gap.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <!-- instances -->
   <xs:element name="circuit" type="circuit_type" />
   <xs:element name="instance_terrain">
@@ -958,6 +1050,25 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
           </xs:annotation>
         </xs:element>
       </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="instance_post">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada instance_geometry tag to signal the
+      instance of a post. The attribute url of the instance_geometry must reference a Collada geometry that is
+      a model for a post (has a post tag in its extra/technique tag).</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+			<xs:element name="installed_depth" type="collada:float_type" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Installed depth underground of the post instance.</xs:documentation>
+          </xs:annotation>
+			</xs:element>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>Unique id for the post instance (can be referenced in instance_tracker or instance_fence)</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
     </xs:complexType>
   </xs:element>
 	<!-- geometry objects -->
