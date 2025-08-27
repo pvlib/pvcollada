@@ -1059,11 +1059,13 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       a model for a post (has a post tag in its extra/technique tag).</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-			<xs:element name="installed_depth" type="collada:float_type" minOccurs="0">
+		  <xs:sequence>
+  			<xs:element name="installed_depth" type="collada:float_type" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Installed depth underground of the post instance.</xs:documentation>
           </xs:annotation>
-			</xs:element>
+	  		</xs:element>
+			</xs:sequence>
       <xs:attribute name="id" type="xs:ID">
         <xs:annotation>
           <xs:documentation>Unique id for the post instance (can be referenced in instance_tracker or instance_fence)</xs:documentation>
