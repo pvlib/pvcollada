@@ -62,6 +62,18 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       <xs:enumeration value="tracker" />
     </xs:restriction>
   </xs:simpleType>
+  <xs:simpleType name="tracker_type_enum" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="single_axis" />
+      <xs:enumeration value="dual_axis" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="drive_type_enum" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="independent" />
+      <xs:enumeration value="linked" />
+    </xs:restriction>
+  </xs:simpleType>
 	<!-- objects for product-level data -->
   <xs:complexType name="module_type_object">
     <xs:annotation>
@@ -468,6 +480,50 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       <xs:element name="impedance" type="xs:float" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Impedance, ohm per km</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="id" use="required" type="xs:ID" />
+  </xs:complexType>
+  <xs:complexType name="tracker_type_object">
+    <xs:annotation>
+      <xs:documentation>Tracker product-level data</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="manufacturer" type="xs:string" minOccurs="0" />
+      <xs:element name="name" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Tracker product name.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="tracker_type" type="xs:tracker_type_enum">
+        <xs:annotation>
+          <xs:documentation>Tracker type (single_axis, dual_axis).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="max_rotation" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Nominal maximum angle of rotation from horizontal for a single-axis tracker.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="torque_tube_shape" type="torque_tube_shape_enum" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Shape of the torque tube's cross-section for a single-axis tracker.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="torque_tube_diameter" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Nominal diameter of a single-axis tracker torque tube.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="max_gap_angle" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Maximum angle of a torque axis formed in a gap between racks on a single-axis tracker.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="drive_type" type="drive_type_enum" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Drive type of a single-axis tracker (independent for a single row, linked for multiple rows).</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
