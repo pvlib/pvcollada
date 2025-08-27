@@ -82,6 +82,12 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       <xs:enumeration value="perpendicular" />
     </xs:restriction>
   </xs:simpleType>
+  <xs:simpleType name="gap_type_enum" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="motor" />
+      <xs:enumeration value="joint" />
+    </xs:restriction>
+  </xs:simpleType>
 	<!-- objects for product-level data -->
   <xs:complexType name="module_type_object">
     <xs:annotation>
@@ -939,14 +945,14 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
   <xs:element name="gap">
     <xs:annotation>
       <xs:documentation>This tag should only appear in the extra/technique section of a Collada node tag to define a model for a
-      gap. A gap is a space between two racks on a tracker. The node may have 1 or more instance_geometry
+      gap. A gap is a space between two racks on a tracker. The node may have one or more instance_geometry
       descendant tags that contain an instance_gap tag.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
         <xs:element name="type" type="gap_type_enum">
           <xs:annotation>
-            <xs:documentation>The type of gap (motor, joint)</xs:documentation>
+            <xs:documentation>The type of gap (motor, joint).</xs:documentation>
           </xs:annotation>
         </xs:element>
         <xs:element name="rigid" type="xs:boolean">
