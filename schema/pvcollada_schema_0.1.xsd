@@ -68,6 +68,13 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       <xs:enumeration value="dual_axis" />
     </xs:restriction>
   </xs:simpleType>
+  <xs:simpleType name="torque_tube_shape_enum" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="circle" />
+      <xs:enumeration value="rectangle" />
+      <xs:enumeration value="octogon" />
+    </xs:restriction>
+  </xs:simpleType>
   <xs:simpleType name="drive_type_enum" final="restriction">
     <xs:restriction base="xs:string">
       <xs:enumeration value="independent" />
