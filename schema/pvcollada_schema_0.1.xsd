@@ -496,7 +496,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
           <xs:documentation>Tracker product name.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="tracker_type" type="xs:tracker_type_enum">
+      <xs:element name="tracker_type" type="tracker_type_enum">
         <xs:annotation>
           <xs:documentation>Tracker type (single_axis, dual_axis).</xs:documentation>
         </xs:annotation>
