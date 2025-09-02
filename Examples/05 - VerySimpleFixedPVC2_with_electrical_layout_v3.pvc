@@ -555,6 +555,13 @@
 					</technique>
 				</extra>
 			</instance_geometry>
+			<extra>
+				<technique profile="PVCollada-2.0">
+					<!-- table tag -->
+					<pv:table>
+					</pv:table>
+				</technique>
+			</extra>
 		</node>
 	</library_nodes>
 	<library_visual_scenes>
