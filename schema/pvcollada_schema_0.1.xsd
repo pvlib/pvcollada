@@ -903,7 +903,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
   </xs:element>
   <xs:element name="post">
     <xs:annotation>
-      <xs:documentation>This tag should only appear in the extra/technique section of a Collada node tag to define a model for a
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada geometry tag to define a model for a
       post. A post is a vertical object that supports a rack, tracker or fence. The node may have 1 or more instance_geometry
       descendant tags that contain an instance_post tag.</xs:documentation>
     </xs:annotation>
@@ -944,7 +944,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
   </xs:element>
   <xs:element name="gap">
     <xs:annotation>
-      <xs:documentation>This tag should only appear in the extra/technique section of a Collada node tag to define a model for a
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada geometry tag to define a model for a
       gap. A gap is a space between two racks on a tracker. The node may have one or more instance_geometry
       descendant tags that contain an instance_gap tag.</xs:documentation>
     </xs:annotation>
