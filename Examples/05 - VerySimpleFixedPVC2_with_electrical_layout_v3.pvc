@@ -418,11 +418,15 @@
 				<technique profile="PVCollada-2.0">
 					<!-- rack tag -->
 					<pv:rack>
+						<pv:rack_type>fixed_tilt</pv:rack_type>
 						<pv:row_spacing>20</pv:row_spacing>
 						<pv:column_spacing>20</pv:column_spacing>
 						<pv:module_rows>1</pv:module_rows>
 						<pv:module_columns>4</pv:module_columns>
 						<pv:module_orientation>portrait</pv:module_orientation>
+						<pv:tilt>21.8</pv:tilt>
+						<pv:azimuth>0</pv:azimuth>
+						<pv:slope>0</pv:slope>
 						<pv:module_id>ModuleModel1</pv:module_id> 
 					</pv:rack>
 				</technique>
@@ -558,10 +562,6 @@
 				<technique profile="PVCollada-2.0">
 					<!-- table tag -->
 					<pv:table>
-						<pv:type>fixed tilt</pv:type>
-						<pv:tilt>21.8</pv:tilt>
-						<pv:azimuth>0</pv:azimuth>
-						<pv:base_slope>0</pv:base_slope>
 					</pv:table>
 				</technique>
 			</extra>
@@ -597,7 +597,7 @@
 			</node>		
 			<!-- We instantiate the first inverter -->
 			<node id="Inverter3DNode1" name="Inverter3DNode1" sid="Inverter3DNode1">
-			    <translate>100 -100 0</translate>
+			  <translate>100 -100 0</translate>
 				<instance_geometry url="#Inverter3DModel1">
 					<extra>
 						<technique profile="PVCollada-2.0">
@@ -625,7 +625,7 @@
 			</node>
 			<!-- We instantiate the second inverter -->
 			<node id="Inverter3DNode2" name="Inverter3DNode2" sid="Inverter3DNode2">
-			    <translate>100 -900 0</translate>
+			  <translate>100 -900 0</translate>
 				<instance_geometry url="#Inverter3DModel1">
 					<extra>
 						<technique profile="PVCollada-2.0">

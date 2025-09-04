@@ -55,10 +55,9 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       <xs:enumeration value="landscape" />
     </xs:restriction>
   </xs:simpleType>
-  <xs:simpleType name="table_type_enum" final="restriction">
+  <xs:simpleType name="rack_type_enum" final="restriction">
     <xs:restriction base="xs:string">
-      <xs:enumeration value="fixed tilt" />
-      <xs:enumeration value="east-west" />
+      <xs:enumeration value="fixed_tilt" />
       <xs:enumeration value="tracker" />
     </xs:restriction>
   </xs:simpleType>
@@ -783,40 +782,85 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
   </xs:element>
   <xs:element name="rack">
     <xs:annotation>
-      <xs:documentation>This tag should only appear in the extra/technique section of a Collada geometry tag to define a model for
-      a rack (a group of modules that are next to each other on a table). The geometry itself must only define a rectangle
-      representing the surface of the whole rack. In the simplest case a rack is equal to one module.</xs:documentation>
+      <xs:documentation>A rack is a co-planar group of modules. The rack tag should only appear in the extra/technique section of a Collada geometry
+			object. The geometry must define a rectangle representing the surface of the whole rack. In the simplest case a rack is equal to one module.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="row_spacing" type="collada:float_type">
+        <xs:element name="rack_type" type="rack_type_enum">
+          <xs:annotation>
+            <xs:documentation>The type of rack (fixed_tilt or tracker)</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="row_spacing" type="collada:float_type" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Spacing between modules in the row direction</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="column_spacing" type="collada:float_type">
+        <xs:element name="column_spacing" type="collada:float_type" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Spacing between modules in the column direction</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="module_rows" type="xs:positiveInteger">
+        <xs:element name="module_rows" type="xs:positiveInteger" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Number of rows of modules in the rack</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="module_columns" type="xs:positiveInteger">
+        <xs:element name="module_columns" type="xs:positiveInteger" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Number of columns of modules in the rack</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="module_orientation" type="module_orientation_enum">
+        <xs:element name="module_orientation" type="module_orientation_enum" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Orientation of the modules in the rack (portrait or landscape)</xs:documentation>
           </xs:annotation>
         </xs:element>
+        <xs:element name="tilt" type="collada:float_type" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The tilt from horizontal of a fixed rack (in °)</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="azimuth" type="collada:float_type" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The azimuth of a fixed rack (in °). Azimuth defines the direction that the modules face.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="slope" type="collada:float_type" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The slope of a fixed rack (in °) in the direction 90° counterclockwise from the azimuth.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="height_above_ground" type="collada:float_type" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The height above ground of the lower edge of a fixed rack.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="tracker_azimuth" type="collada:float_type" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The azimuth of a tracker torque tube (in °). Azimuth defines the sign of the rack rotation angle.
+						Rotation is a right-hand rotation around the azimuth axis. For example, a positive rotation for azimuth=180° is to the west.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="tracker_slope" type="collada:float_type" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The slope of a tracker torque tube (in °) in the direction of the azimuth.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="tracker_height" type="collada:float_type" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The height above ground of the center of the tracker torque tube.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="rack_offset" type="collada:float_type" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The distance from the rack to the center of the tracker torque tube.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
         <xs:element name="module_id" type="xs:IDREF">
           <xs:annotation>
-            <xs:documentation>Id of the module defined in the components part</xs:documentation>
+            <xs:documentation>Id of the module product defined in the assets</xs:documentation>
           </xs:annotation>
         </xs:element>
       </xs:sequence>
@@ -824,36 +868,12 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
   </xs:element>
   <xs:element name="table">
     <xs:annotation>
-      <xs:documentation>This tag should only appear in the extra/technique section of a Collada node tag to define a model for a
-      table. A table is a group of racks and optionally items attached to them like posts, structure, gaps (motor, joint), etc. In
-      the case of trackers, all racks that are part of the same table are considered as rotating together and always having the
-      same angle. In the simplest case a table is composed of only one rack. The node itself must have 1 or more instance_geometry
+      <xs:documentation>A table is a group of mechanically linked racks in a single row. When a table represents a tracker, all racks that are part of the same table
+      should be considered as having the same rotation around the tracker axis. A table may include other non-rotating objects such as posts and gaps (motor, joint).
+			In the simplest case a table is composed of only one rack. 
+			The table tag should only appear in the extra/technique section of a Collada node object. The node itself must have one or more instance_geometry
       descendant tags that contain an instance_rack tag.</xs:documentation>
     </xs:annotation>
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="type" type="table_type_enum">
-          <xs:annotation>
-            <xs:documentation>The type of table (fixed tilt, east-west or tracker)</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="tilt" type="collada:float_type">
-          <xs:annotation>
-            <xs:documentation>The tilt of the table (in °)</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="azimuth" type="collada:float_type">
-          <xs:annotation>
-            <xs:documentation>The azimuth of the table (in °)</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="base_slope" type="collada:float_type">
-          <xs:annotation>
-            <xs:documentation>The base slope of the table (in °)</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-      </xs:sequence>
-    </xs:complexType>
   </xs:element>
   <!-- instances -->
   <xs:element name="circuit" type="circuit_type" />
@@ -915,27 +935,6 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
               </xs:element>
             </xs:sequence>
           </xs:complexType>
-        </xs:element>
-        <xs:element name="tilt" type="collada:float_type" minOccurs="0" maxOccurs="1">
-          <xs:annotation>
-            <xs:documentation>If present, it overwrites the tilt defined in the table model for this specific table instance.
-            Useful if the model is really simple (one rack), it allows to just rotate/translate the model instead of having many
-            models.</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="azimuth" type="collada:float_type" minOccurs="0" maxOccurs="1">
-          <xs:annotation>
-            <xs:documentation>If present, it overwrites the azimuth defined in the table model for this specific table instance.
-            Useful if the model is really simple (one rack), it allows to just rotate/translate the model instead of having many
-            models.</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="base_slope" type="collada:float_type" minOccurs="0" maxOccurs="1">
-          <xs:annotation>
-            <xs:documentation>If present, it overwrites the base slope defined in the table model for this specific table instance.
-            Useful if the model is really simple (one rack), it allows to just rotate/translate the model instead of having many
-            models.</xs:documentation>
-          </xs:annotation>
         </xs:element>
       </xs:sequence>
     </xs:complexType>
