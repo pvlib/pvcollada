@@ -34,7 +34,6 @@
 					<pv:country>CH</pv:country>
 					<pv:timezone>Europe/Zurich</pv:timezone>
 					<pv:timezone_offset>2</pv:timezone_offset>
-					<pv:geocoordinate_system>EPSG:4326</pv:geocoordinate_system>
 					<!-- pv:boundary></pv:boundary -->
 					<pv:module_count>12</pv:module_count>
 					<pv:table_count>3</pv:table_count>
