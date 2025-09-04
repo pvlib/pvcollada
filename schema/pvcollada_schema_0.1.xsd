@@ -651,21 +651,6 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
             <xs:documentation xml:lang="en">ISO 3166 country code.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="latitude" type="xs:float">
-          <xs:annotation>
-            <xs:documentation xml:lang="en">Degrees, positive for north of the equator. Geolocation of the origin of the PV system coordinates</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="longitude" type="xs:float">
-          <xs:annotation>
-            <xs:documentation xml:lang="en">Degrees, positive for east of the prime meridian.  Geolocation of the origin of the PV system coordinates</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="elevation" type="xs:float">
-          <xs:annotation>
-            <xs:documentation xml:lang="en">Meters above mean sea level (MSL).  Geolocation of the origin of the PV system coordinates</xs:documentation>
-          </xs:annotation>
-        </xs:element>
         <xs:element name="timezone" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:documentation xml:lang="en">IANA time zone.</xs:documentation>
@@ -675,11 +660,6 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
           <xs:annotation>
             <xs:documentation xml:lang="en">Timezone offset from UTC, hour. Positive is East of UTC. E.g., for +1:00, enter
             1.0</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="geocoordinate_system" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:documentation xml:lang="en">EPSG code for 3D coordinate system, e.g., WGS-84.</xs:documentation>
           </xs:annotation>
         </xs:element>
         <xs:element name="boundary" type="collada:sidref_type" minOccurs="0">

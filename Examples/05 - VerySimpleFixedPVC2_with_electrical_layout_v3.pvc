@@ -8,6 +8,13 @@
 			<author>PVsyst</author>
 			<comments>PVC 2.0 sample file : 1 terrain and 3 tables, all based on the same model. Electrical components and circuit (3 inverters, 1 AC combiner, 1 tranformer)</comments>
 		</contributor>
+		<coverage>
+  		<geographic_location>
+		  	<longitude>6.1432</longitude>
+	  		<latitude>46.2044</latitude>
+			  <altitude mode="absolute">375</altitude>		  
+		  </geographic_location>
+		</coverage>
 		<created>2024-06-06T13:32:31Z</created>
 		<modified>2024-06-06T13:32:31Z</modified>
 		<unit meter="0.01" name="cm" />
@@ -25,12 +32,8 @@
 					<pv:drawing>Project drawing</pv:drawing>
 					<pv:company>Test company</pv:company>
 					<pv:country>CH</pv:country>
-					<pv:latitude>46.2044</pv:latitude>
-					<pv:longitude>6.1432</pv:longitude>
-					<pv:elevation>375</pv:elevation>
 					<pv:timezone>Europe/Zurich</pv:timezone>
 					<pv:timezone_offset>2</pv:timezone_offset>
-					<pv:geocoordinate_system>EPSG:4326</pv:geocoordinate_system>
 					<!-- pv:boundary></pv:boundary -->
 					<pv:module_count>12</pv:module_count>
 					<pv:table_count>3</pv:table_count>
