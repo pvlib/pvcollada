@@ -957,7 +957,6 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
 					</xs:annotation>
 				</xs:element>
 			</xs:sequence>
-			<xs:attribute name="id" use="required" type="xs:ID" />
 		</xs:complexType>
   </xs:element>
   <xs:element name="post">
