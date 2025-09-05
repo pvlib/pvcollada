@@ -538,7 +538,7 @@
 				<!-- data about the table -->
 				<technique profile="PVCollada-2.0">
 					<!-- table tag -->
-					<pv:table id="TableModel1">
+					<pv:table>
 					  <pv:type>fixed</pv:type>
 					</pv:table>
 				</technique>
