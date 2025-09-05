@@ -8,6 +8,13 @@
 			<author>PVsyst</author>
 			<comments>PVC 2.0 sample file : 1 terrain and 3 tables, all based on the same model. Electrical components and circuit (3 inverters, 1 AC combiner, 1 tranformer)</comments>
 		</contributor>
+		<coverage>
+  		<geographic_location>
+		  	<longitude>6.1432</longitude>
+	  		<latitude>46.2044</latitude>
+			  <altitude mode="absolute">375</altitude>		  
+		  </geographic_location>
+		</coverage>
 		<created>2024-06-06T13:32:31Z</created>
 		<modified>2024-06-06T13:32:31Z</modified>
 		<unit meter="0.01" name="cm" />
@@ -25,12 +32,8 @@
 					<pv:drawing>Project drawing</pv:drawing>
 					<pv:company>Test company</pv:company>
 					<pv:country>CH</pv:country>
-					<pv:latitude>46.2044</pv:latitude>
-					<pv:longitude>6.1432</pv:longitude>
-					<pv:elevation>375</pv:elevation>
 					<pv:timezone>Europe/Zurich</pv:timezone>
 					<pv:timezone_offset>2</pv:timezone_offset>
-					<pv:geocoordinate_system>EPSG:4326</pv:geocoordinate_system>
 					<!-- pv:boundary></pv:boundary -->
 					<pv:module_count>12</pv:module_count>
 					<pv:table_count>3</pv:table_count>
@@ -179,32 +182,24 @@
 													<!-- first string tag => the string connected to this mppt input -->
 													<pv:string id="string1">
 														<pv:module_array>
+															<!-- Cable between the module_array and the inverter -->
+															<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance4" />
 															<pv:module_layout url="#rackId1">
-																<!-- Cable between the string and the inverter -->
-																<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance4" />
 																<pv:position_in_string>1</pv:position_in_string>
 																<pv:row>1</pv:row>
 																<pv:column>1</pv:column>
 															</pv:module_layout>
 															<pv:module_layout url="#rackId1">
-																<!-- Cable between the module and its neighbor in the string -->
-																<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance5" />
 																<pv:position_in_string>2</pv:position_in_string>
 																<pv:row>1</pv:row>
 																<pv:column>2</pv:column>
 															</pv:module_layout>
 															<pv:module_layout url="#rackId1">
-																<!-- Cable between the module and its neighbor in the string -->
-																<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance6" />
 																<pv:position_in_string>3</pv:position_in_string>
 																<pv:row>1</pv:row>
 																<pv:column>3</pv:column>
 															</pv:module_layout>
 															<pv:module_layout url="#rackId1">
-																<!-- Cable between the module and its neighbor in the string -->
-																<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance7" />
-																<!-- Cable between the string and the inverter -->
-																<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance8" />
 																<pv:position_in_string>4</pv:position_in_string>
 																<pv:row>1</pv:row>
 																<pv:column>4</pv:column>
@@ -225,32 +220,24 @@
 													<!-- second string tag => the string connected to this mppt input -->
 													<pv:string id="string2">
 														<pv:module_array>
+															<!-- Cable between the module_array and the inverter -->
+  														<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance10" />
 															<pv:module_layout url="#rackId2">
-																<!-- Cable between the string and the inverter -->
-																<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance10" />
 																<pv:position_in_string>1</pv:position_in_string>
 																<pv:row>1</pv:row>
 																<pv:column>1</pv:column>
 															</pv:module_layout>
 															<pv:module_layout url="#rackId2">
-																<!-- Cable between the module and its neighbor in the string -->
-																<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance11" />
 																<pv:position_in_string>2</pv:position_in_string>
 																<pv:row>1</pv:row>
 																<pv:column>2</pv:column>
 															</pv:module_layout>
 															<pv:module_layout url="#rackId2">
-																<!-- Cable between the module and its neighbor in the string -->
-																<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance12" />
 																<pv:position_in_string>3</pv:position_in_string>
 																<pv:row>1</pv:row>
 																<pv:column>3</pv:column>
 															</pv:module_layout>
 															<pv:module_layout url="#rackId2">
-																<!-- Cable between the module and its neighbor in the string -->
-																<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance13" />
-																<!-- Cable between the string and the inverter -->
-																<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance14" />
 																<pv:position_in_string>4</pv:position_in_string>
 																<pv:row>1</pv:row>
 																<pv:column>4</pv:column>
@@ -271,32 +258,24 @@
 													<!-- third string tag => the string connected to this mppt input -->
 													<pv:string id="string3">
 														<pv:module_array>
+															<!-- Cable between the module_array and the inverter -->
+															<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance16" />
 															<pv:module_layout url="#rackId3">
-																<!-- Cable between the string and the inverter -->
-																<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance16" />
 																<pv:position_in_string>1</pv:position_in_string>
 																<pv:row>1</pv:row>
 																<pv:column>1</pv:column>
 															</pv:module_layout>
 															<pv:module_layout url="#rackId3">
-																<!-- Cable between the module and its neighbor in the string -->
-																<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance17" />
 																<pv:position_in_string>2</pv:position_in_string>
 																<pv:row>1</pv:row>
 																<pv:column>2</pv:column>
 															</pv:module_layout>
 															<pv:module_layout url="#rackId3">
-																<!-- Cable between the module and its neighbor in the string -->
-																<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance18" />
 																<pv:position_in_string>3</pv:position_in_string>
 																<pv:row>1</pv:row>
 																<pv:column>3</pv:column>
 															</pv:module_layout>
 															<pv:module_layout url="#rackId3">
-																<!-- Cable between the module and its neighbor in the string -->
-																<pv:cable_to_neighbor url="#DCCableModel1" length="1" id="cableInstance19" />
-																<!-- Cable between the string and the inverter -->
-																<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance20" />
 																<pv:position_in_string>4</pv:position_in_string>
 																<pv:row>1</pv:row>
 																<pv:column>4</pv:column>
@@ -415,11 +394,15 @@
 				<technique profile="PVCollada-2.0">
 					<!-- rack tag -->
 					<pv:rack>
+						<pv:rack_type>fixed_tilt</pv:rack_type>
 						<pv:row_spacing>20</pv:row_spacing>
 						<pv:column_spacing>20</pv:column_spacing>
 						<pv:module_rows>1</pv:module_rows>
 						<pv:module_columns>4</pv:module_columns>
 						<pv:module_orientation>portrait</pv:module_orientation>
+						<pv:tilt>21.8</pv:tilt>
+						<pv:azimuth>0</pv:azimuth>
+						<pv:slope>0</pv:slope>
 						<pv:module_id>ModuleModel1</pv:module_id> 
 					</pv:rack>
 				</technique>
@@ -555,10 +538,6 @@
 				<technique profile="PVCollada-2.0">
 					<!-- table tag -->
 					<pv:table>
-						<pv:type>fixed tilt</pv:type>
-						<pv:tilt>21.8</pv:tilt>
-						<pv:azimuth>0</pv:azimuth>
-						<pv:base_slope>0</pv:base_slope>
 					</pv:table>
 				</technique>
 			</extra>
@@ -594,7 +573,7 @@
 			</node>		
 			<!-- We instantiate the first inverter -->
 			<node id="Inverter3DNode1" name="Inverter3DNode1" sid="Inverter3DNode1">
-			    <translate>100 -100 0</translate>
+			  <translate>100 -100 0</translate>
 				<instance_geometry url="#Inverter3DModel1">
 					<extra>
 						<technique profile="PVCollada-2.0">
@@ -622,7 +601,7 @@
 			</node>
 			<!-- We instantiate the second inverter -->
 			<node id="Inverter3DNode2" name="Inverter3DNode2" sid="Inverter3DNode2">
-			    <translate>100 -900 0</translate>
+			  <translate>100 -900 0</translate>
 				<instance_geometry url="#Inverter3DModel1">
 					<extra>
 						<technique profile="PVCollada-2.0">
