@@ -63,7 +63,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
   </xs:simpleType>
   <xs:simpleType name="table_type_enum" final="restriction">
     <xs:restriction base="xs:string">
-      <xs:enumeration value="fixed tilt" />
+      <xs:enumeration value="fixed" />
       <xs:enumeration value="tracker" />
     </xs:restriction>
   </xs:simpleType>
