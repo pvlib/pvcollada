@@ -933,7 +933,9 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
 				</xs:element>
 				<xs:element name="tracker_max_rotation" type="xs:float" minOccurs="0">
 					<xs:annotation>
-						<xs:documentation>Nominal maximum angle of rotation from horizontal for a single-axis tracker.</xs:documentation>
+						<xs:documentation>Nominal maximum angle of rotation from horizontal for a single-axis tracker. A pair of values must be provided, e.g., (-45, 45) with the first value being negative.
+						The tracker_azimuth of the associated racks defines the sign of the rotation angle. Rotation is a right-hand rotation around the azimuth axis. 
+						For example, a positive rotation for azimuth=180° is to the west.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 				<xs:element name="tracker_torque_tube_shape" type="torque_tube_shape_enum" minOccurs="0">
