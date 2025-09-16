@@ -1,703 +1,870 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<COLLADA xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.5.0" xmlns="http://www.collada.org/2008/03/COLLADASchema">
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:pv="http://www.example.com/pvcollada"
+	version="1.5.0" xmlns="http://www.collada.org/2008/03/COLLADASchema">
 	<asset>
 		<contributor>
 			<author>PVsyst</author>
 			<comments>PVC 2.0 sample file : 1 terrain and 3 trackers, all based on the same model (4 times the same rack, 2 joint gaps, 1 motor gap and 8 posts). Basic electrical components and circuit</comments>
 		</contributor>
-		<created>06/06/2024 13:32:31</created>
-		<modified>06/06/2024 13:32:31</modified>
+		<coverage>
+  			<geographic_location>
+		  		<longitude>15.3</longitude>
+	  			<latitude>10.1</latitude>
+				<altitude mode="absolute">150</altitude>		  
+			</geographic_location>
+		</coverage>
+		<created>2024-06-06T13:32:31Z</created>
+		<modified>2025-09-12T10:12:18Z</modified>
 		<unit meter="0.01" name="cm"/>
 		<up_axis>Z_UP</up_axis>
 		<extra>
 			<technique profile="PVCollada-2.0">
-				<!-- software tag, child tags for illustrative purpose only -->
-				<software>
-					<source>Helios 3D</source>
-					<target>PVsyst</target>
-				</software>
-				<!-- project tag, child tags for illustrative purpose only -->
-				<project>
-					<name>Project Name</name>
-					<drawing>Project drawing</drawing>
-					<company>Test company</company>
-					<country>Switzerland</country>
-					<latitude>10.1</latitude>
-					<longitude>15.3</longitude>
-					<elevation>150</elevation>
-				</project>
+				<!-- software tag -->
+				<pv:software>
+					<pv:source>Helios 3D</pv:source>
+					<pv:target>PVsyst</pv:target>
+				</pv:software>
+				<!-- project tag -->
+				<pv:project>
+					<pv:name>Project Name</pv:name>
+					<pv:drawing>Project drawing</pv:drawing>
+					<pv:company>Test company</pv:company>
+					<pv:country>Switzerland</pv:country>
+				</pv:project>
 				<!-- components tag -->
-				<components>
+				<pv:components>
 					<!-- List of modules -->
-					<modules>
-						<!-- module tag, child tags for illustrative purpose only. Would usually contain a link to a PAN file or its content as CDATA -->
-						<module id="ModuleModel1">
-							<manufacturer>Generic</manufacturer>
-							<name>Generic 300W bifacial</name>
-						</module>
-					</modules>
+					<pv:modules>
+						<!-- module tag -->
+						<pv:module id="ModuleModel1">
+							<pv:manufacturer>Generic</pv:manufacturer>
+							<pv:name>Generic 300W bifacial</pv:name>
+							<pv:module_type>bifacial</pv:module_type>
+							<pv:nom_power>300</pv:nom_power>
+							<pv:length>1992</pv:length>
+							<pv:width>1000</pv:width>
+							<pv:depth>6</pv:depth>
+						</pv:module>
+					</pv:modules>
 					<!-- List of inverters -->
-					<inverters>
-						<!-- inverter tag, child tags for illustrative purpose only. Would usually contain a link to an OND file or its content as CDATA -->
-						<inverter id="InverterModel1">
-							<manufacturer>Generic</manufacturer>
-							<name>Generic inverter</name>
-							<mppt_inputs>6</mppt_inputs>
-						</inverter>
-					</inverters>
-					<!-- List of combiners -->
-					<combiners>
-		  </combiners>
-					<!-- List of transformers -->
-					<transformers>
-		  </transformers>
+					<pv:inverters>
+						<!-- inverter tag -->
+						<pv:inverter id="InverterModel1">
+							<pv:manufacturer>Generic</pv:manufacturer>
+							<pv:name>Generic inverter</pv:name>
+							<pv:inverter_type>string</pv:inverter_type>
+							<pv:nom_power_ac>2000</pv:nom_power_ac>
+							<pv:nom_power_dc>2050</pv:nom_power_dc>
+							<pv:mppt_count>6</pv:mppt_count>
+						</pv:inverter>
+					</pv:inverters>
 					<!-- List of cables -->
-					<cables>
-						<!-- cable tag, child tags for illustrative purpose only -->
+					<pv:cables>
+						<!-- cable tag -->
 						<!-- For this basic example we have 1 type of cable only, which is not realistic -->
-						<cable id="CableModel1">
-							<manufacturer>Generic</manufacturer>
-							<name>Generic cable</name>
-						</cable>
-					</cables>
-				</components>
-				<circuit>
+						<pv:cable id="CableModel1">
+							<pv:manufacturer>Generic</pv:manufacturer>
+							<pv:name>Generic cable</pv:name>
+							<pv:cross_section>2.5</pv:cross_section>
+							<pv:num_conductors>3</pv:num_conductors>
+						</pv:cable>
+					</pv:cables>
+				</pv:components>
+				<pv:circuit>
 					<!-- injection_point tag => Always the parent of the tree -->
-					<injection_point>
+					<pv:circuit_root>
 						<!-- Inverter -->
-						<instance_inverter url="#InverterModel1" id="inverterInstance1" name="Inverter #1">
+						<pv:instance_inverter url="#InverterModel1" id="inverterInstance1" name="Inverter #1">
 							<!-- Cable between the inverter and the injection point -->
-							<cable_to_parent url="#CableModel1" length="10"/>
+							<pv:cable_to_parent url="#CableModel1" length="10" id="cableInstance1" />
 							<!-- mppts tag -->
-							<mppts>
+							<pv:mppts>
 								<!-- first mppt tag -->
-								<mppt>
+								<pv:mppt>
 									<!-- first string tag => the string connected to this mppt input -->
-									<string id="string1">
-										<!-- Cable between the string and the inverter -->
-										<cable_to_parent url="#CableModel1" length="3"/>
-										<module_layout url="#rackId1-1">
-											<row>1</row>
-											<column>1</column>
-										</module_layout>
-										<module_layout url="#rackId1-1">
-											<row>1</row>
-											<column>2</column>
-										</module_layout>
-										<module_layout url="#rackId1-1">
-											<row>1</row>
-											<column>3</column>
-										</module_layout>
-										<module_layout url="#rackId1-1">
-											<row>1</row>
-											<column>4</column>
-										</module_layout>
-										<module_layout url="#rackId1-1">
-											<row>1</row>
-											<column>5</column>
-										</module_layout>
-										<module_layout url="#rackId1-1">
-											<row>1</row>
-											<column>6</column>
-										</module_layout>
-										<module_layout url="#rackId1-2">
-											<row>1</row>
-											<column>1</column>
-										</module_layout>
-										<module_layout url="#rackId1-2">
-											<row>1</row>
-											<column>2</column>
-										</module_layout>
-										<module_layout url="#rackId1-2">
-											<row>1</row>
-											<column>3</column>
-										</module_layout>
-										<module_layout url="#rackId1-2">
-											<row>1</row>
-											<column>4</column>
-										</module_layout>
-										<module_layout url="#rackId1-2">
-											<row>1</row>
-											<column>5</column>
-										</module_layout>
-										<module_layout url="#rackId1-2">
-											<row>1</row>
-											<column>6</column>
-										</module_layout>
-										<module_layout url="#rackId1-3">
-											<row>1</row>
-											<column>1</column>
-										</module_layout>
-										<module_layout url="#rackId1-3">
-											<row>1</row>
-											<column>2</column>
-										</module_layout>
-										<module_layout url="#rackId1-3">
-											<row>1</row>
-											<column>3</column>
-										</module_layout>
-										<module_layout url="#rackId1-3">
-											<row>1</row>
-											<column>4</column>
-										</module_layout>
-										<module_layout url="#rackId1-3">
-											<row>1</row>
-											<column>5</column>
-										</module_layout>
-										<module_layout url="#rackId1-3">
-											<row>1</row>
-											<column>6</column>
-										</module_layout>
-										<module_layout url="#rackId1-4">
-											<row>1</row>
-											<column>1</column>
-										</module_layout>
-										<module_layout url="#rackId1-4">
-											<row>1</row>
-											<column>2</column>
-										</module_layout>
-										<module_layout url="#rackId1-4">
-											<row>1</row>
-											<column>3</column>
-										</module_layout>
-										<module_layout url="#rackId1-4">
-											<row>1</row>
-											<column>4</column>
-										</module_layout>
-										<module_layout url="#rackId1-4">
-											<row>1</row>
-											<column>5</column>
-										</module_layout>
-										<module_layout url="#rackId1-4">
-											<row>1</row>
-											<column>6</column>
-										</module_layout>
-									</string>
-								</mppt>
+									<pv:string id="string1">
+										<pv:module_array>
+											<!-- Cable between the module_array and the inverter -->
+											<pv:cable_to_parent url="#CableModel1" length="3" id="cableInstance2" />
+											<pv:module_layout url="#rackId1-1">
+												<pv:position_in_string>1</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>1</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-1">
+												<pv:position_in_string>2</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>2</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-1">
+												<pv:position_in_string>3</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>3</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-1">
+												<pv:position_in_string>4</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>4</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-1">
+												<pv:position_in_string>5</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>5</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-1">
+												<pv:position_in_string>6</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>6</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-2">
+												<pv:position_in_string>7</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>1</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-2">
+												<pv:position_in_string>8</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>2</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-2">
+												<pv:position_in_string>9</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>3</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-2">
+												<pv:position_in_string>10</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>4</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-2">
+												<pv:position_in_string>11</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>5</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-2">
+												<pv:position_in_string>12</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>6</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-3">
+												<pv:position_in_string>13</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>1</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-3">
+												<pv:position_in_string>14</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>2</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-3">
+												<pv:position_in_string>15</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>3</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-3">
+												<pv:position_in_string>16</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>4</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-3">
+												<pv:position_in_string>17</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>5</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-3">
+												<pv:position_in_string>18</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>6</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-4">
+												<pv:position_in_string>19</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>1</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-4">
+												<pv:position_in_string>20</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>2</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-4">
+												<pv:position_in_string>21</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>3</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-4">
+												<pv:position_in_string>22</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>4</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-4">
+												<pv:position_in_string>23</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>5</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-4">
+												<pv:position_in_string>24</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>6</pv:column>
+											</pv:module_layout>
+										</pv:module_array>
+									</pv:string>
+								</pv:mppt>
 								<!-- second mppt tag -->
-								<mppt>
+								<pv:mppt>
 									<!-- second string tag => the string connected to this mppt input -->
-									<string id="string2">
-										<!-- Cable between the string and the inverter -->
-										<cable_to_parent url="#CableModel1" length="3"/>
-										<module_layout url="#rackId1-1">
-											<row>2</row>
-											<column>1</column>
-										</module_layout>
-										<module_layout url="#rackId1-1">
-											<row>2</row>
-											<column>2</column>
-										</module_layout>
-										<module_layout url="#rackId1-1">
-											<row>2</row>
-											<column>3</column>
-										</module_layout>
-										<module_layout url="#rackId1-1">
-											<row>2</row>
-											<column>4</column>
-										</module_layout>
-										<module_layout url="#rackId1-1">
-											<row>2</row>
-											<column>5</column>
-										</module_layout>
-										<module_layout url="#rackId1-1">
-											<row>2</row>
-											<column>6</column>
-										</module_layout>
-										<module_layout url="#rackId1-2">
-											<row>2</row>
-											<column>1</column>
-										</module_layout>
-										<module_layout url="#rackId1-2">
-											<row>2</row>
-											<column>2</column>
-										</module_layout>
-										<module_layout url="#rackId1-2">
-											<row>2</row>
-											<column>3</column>
-										</module_layout>
-										<module_layout url="#rackId1-2">
-											<row>2</row>
-											<column>4</column>
-										</module_layout>
-										<module_layout url="#rackId1-2">
-											<row>2</row>
-											<column>5</column>
-										</module_layout>
-										<module_layout url="#rackId1-2">
-											<row>2</row>
-											<column>6</column>
-										</module_layout>
-										<module_layout url="#rackId1-3">
-											<row>2</row>
-											<column>1</column>
-										</module_layout>
-										<module_layout url="#rackId1-3">
-											<row>2</row>
-											<column>2</column>
-										</module_layout>
-										<module_layout url="#rackId1-3">
-											<row>2</row>
-											<column>3</column>
-										</module_layout>
-										<module_layout url="#rackId1-3">
-											<row>2</row>
-											<column>4</column>
-										</module_layout>
-										<module_layout url="#rackId1-3">
-											<row>2</row>
-											<column>5</column>
-										</module_layout>
-										<module_layout url="#rackId1-3">
-											<row>2</row>
-											<column>6</column>
-										</module_layout>
-										<module_layout url="#rackId1-4">
-											<row>2</row>
-											<column>1</column>
-										</module_layout>
-										<module_layout url="#rackId1-4">
-											<row>2</row>
-											<column>2</column>
-										</module_layout>
-										<module_layout url="#rackId1-4">
-											<row>2</row>
-											<column>3</column>
-										</module_layout>
-										<module_layout url="#rackId1-4">
-											<row>2</row>
-											<column>4</column>
-										</module_layout>
-										<module_layout url="#rackId1-4">
-											<row>2</row>
-											<column>5</column>
-										</module_layout>
-										<module_layout url="#rackId1-4">
-											<row>2</row>
-											<column>6</column>
-										</module_layout>
-									</string>
-								</mppt>
+									<pv:string id="string2">
+										<pv:module_array>
+										<!-- Cable between the module_array and the inverter -->
+										<pv:cable_to_parent url="#CableModel1" length="3" id="cableInstance3"/>
+											<pv:module_layout url="#rackId1-1">
+												<pv:position_in_string>1</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>1</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-1">
+												<pv:position_in_string>2</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>2</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-1">
+												<pv:position_in_string>3</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>3</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-1">
+												<pv:position_in_string>4</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>4</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-1">
+												<pv:position_in_string>5</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>5</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-1">
+												<pv:position_in_string>6</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>6</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-2">
+												<pv:position_in_string>7</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>1</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-2">
+												<pv:position_in_string>8</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>2</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-2">
+												<pv:position_in_string>9</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>3</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-2">
+												<pv:position_in_string>10</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>4</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-2">
+												<pv:position_in_string>11</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>5</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-2">
+												<pv:position_in_string>12</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>6</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-3">
+												<pv:position_in_string>13</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>1</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-3">
+												<pv:position_in_string>14</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>2</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-3">
+												<pv:position_in_string>15</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>3</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-3">
+												<pv:position_in_string>16</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>4</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-3">
+												<pv:position_in_string>17</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>5</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-3">
+												<pv:position_in_string>18</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>6</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-4">
+												<pv:position_in_string>19</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>1</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-4">
+												<pv:position_in_string>20</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>2</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-4">
+												<pv:position_in_string>21</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>3</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-4">
+												<pv:position_in_string>22</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>4</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-4">
+												<pv:position_in_string>23</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>5</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId1-4">
+												<pv:position_in_string>24</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>6</pv:column>
+											</pv:module_layout>
+										</pv:module_array>
+									</pv:string>
+								</pv:mppt>
 								<!-- third mppt tag -->
-								<mppt>
+								<pv:mppt>
 									<!-- third string tag => the string connected to this mppt input -->
-									<string id="string3">
-										<!-- Cable between the string and the inverter -->
-										<cable_to_parent url="#CableModel1" length="3"/>
-										<module_layout url="#rackId2-1">
-											<row>1</row>
-											<column>1</column>
-										</module_layout>
-										<module_layout url="#rackId2-1">
-											<row>1</row>
-											<column>2</column>
-										</module_layout>
-										<module_layout url="#rackId2-1">
-											<row>1</row>
-											<column>3</column>
-										</module_layout>
-										<module_layout url="#rackId2-1">
-											<row>1</row>
-											<column>4</column>
-										</module_layout>
-										<module_layout url="#rackId2-1">
-											<row>1</row>
-											<column>5</column>
-										</module_layout>
-										<module_layout url="#rackId2-1">
-											<row>1</row>
-											<column>6</column>
-										</module_layout>
-										<module_layout url="#rackId2-2">
-											<row>1</row>
-											<column>1</column>
-										</module_layout>
-										<module_layout url="#rackId2-2">
-											<row>1</row>
-											<column>2</column>
-										</module_layout>
-										<module_layout url="#rackId2-2">
-											<row>1</row>
-											<column>3</column>
-										</module_layout>
-										<module_layout url="#rackId2-2">
-											<row>1</row>
-											<column>4</column>
-										</module_layout>
-										<module_layout url="#rackId2-2">
-											<row>1</row>
-											<column>5</column>
-										</module_layout>
-										<module_layout url="#rackId2-2">
-											<row>1</row>
-											<column>6</column>
-										</module_layout>
-										<module_layout url="#rackId2-3">
-											<row>1</row>
-											<column>1</column>
-										</module_layout>
-										<module_layout url="#rackId2-3">
-											<row>1</row>
-											<column>2</column>
-										</module_layout>
-										<module_layout url="#rackId2-3">
-											<row>1</row>
-											<column>3</column>
-										</module_layout>
-										<module_layout url="#rackId2-3">
-											<row>1</row>
-											<column>4</column>
-										</module_layout>
-										<module_layout url="#rackId2-3">
-											<row>1</row>
-											<column>5</column>
-										</module_layout>
-										<module_layout url="#rackId2-3">
-											<row>1</row>
-											<column>6</column>
-										</module_layout>
-										<module_layout url="#rackId2-4">
-											<row>1</row>
-											<column>1</column>
-										</module_layout>
-										<module_layout url="#rackId2-4">
-											<row>1</row>
-											<column>2</column>
-										</module_layout>
-										<module_layout url="#rackId2-4">
-											<row>1</row>
-											<column>3</column>
-										</module_layout>
-										<module_layout url="#rackId2-4">
-											<row>1</row>
-											<column>4</column>
-										</module_layout>
-										<module_layout url="#rackId2-4">
-											<row>1</row>
-											<column>5</column>
-										</module_layout>
-										<module_layout url="#rackId2-4">
-											<row>1</row>
-											<column>6</column>
-										</module_layout>
-									</string>
-								</mppt>
+									<pv:string id="string3">
+										<pv:module_array>
+											<!-- Cable between the module_array and the inverter -->
+											<pv:cable_to_parent url="#CableModel1" length="3" id="cableInstance4"/>
+											<pv:module_layout url="#rackId2-1">
+												<pv:position_in_string>1</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>1</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-1">
+												<pv:position_in_string>2</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>2</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-1">
+												<pv:position_in_string>3</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>3</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-1">
+												<pv:position_in_string>4</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>4</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-1">
+												<pv:position_in_string>5</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>5</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-1">
+												<pv:position_in_string>6</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>6</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-2">
+												<pv:position_in_string>7</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>1</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-2">
+												<pv:position_in_string>8</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>2</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-2">
+												<pv:position_in_string>9</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>3</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-2">
+												<pv:position_in_string>10</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>4</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-2">
+												<pv:position_in_string>11</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>5</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-2">
+												<pv:position_in_string>12</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>6</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-3">
+												<pv:position_in_string>13</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>1</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-3">
+												<pv:position_in_string>14</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>2</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-3">
+												<pv:position_in_string>15</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>3</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-3">
+												<pv:position_in_string>16</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>4</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-3">
+												<pv:position_in_string>17</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>5</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-3">
+												<pv:position_in_string>18</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>6</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-4">
+												<pv:position_in_string>19</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>1</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-4">
+												<pv:position_in_string>20</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>2</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-4">
+												<pv:position_in_string>21</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>3</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-4">
+												<pv:position_in_string>22</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>4</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-4">
+												<pv:position_in_string>23</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>5</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-4">
+												<pv:position_in_string>24</pv:position_in_string>
+												<pv:row>1</pv:row>
+												<pv:column>6</pv:column>
+											</pv:module_layout>
+										</pv:module_array>
+									</pv:string>
+								</pv:mppt>
 								<!-- fourth mppt tag -->
-								<mppt>
+								<pv:mppt>
 									<!-- fourth string tag => the string connected to this mppt input -->
-									<string id="string4">
-										<!-- Cable between the string and the inverter -->
-										<cable_to_parent url="#CableModel1" length="3"/>
-										<module_layout url="#rackId2-1">
-											<row>2</row>
-											<column>1</column>
-										</module_layout>
-										<module_layout url="#rackId2-1">
-											<row>2</row>
-											<column>2</column>
-										</module_layout>
-										<module_layout url="#rackId2-1">
-											<row>2</row>
-											<column>3</column>
-										</module_layout>
-										<module_layout url="#rackId2-1">
-											<row>2</row>
-											<column>4</column>
-										</module_layout>
-										<module_layout url="#rackId2-1">
-											<row>2</row>
-											<column>5</column>
-										</module_layout>
-										<module_layout url="#rackId2-1">
-											<row>2</row>
-											<column>6</column>
-										</module_layout>
-										<module_layout url="#rackId2-2">
-											<row>2</row>
-											<column>1</column>
-										</module_layout>
-										<module_layout url="#rackId2-2">
-											<row>2</row>
-											<column>2</column>
-										</module_layout>
-										<module_layout url="#rackId2-2">
-											<row>2</row>
-											<column>3</column>
-										</module_layout>
-										<module_layout url="#rackId2-2">
-											<row>2</row>
-											<column>4</column>
-										</module_layout>
-										<module_layout url="#rackId2-2">
-											<row>2</row>
-											<column>5</column>
-										</module_layout>
-										<module_layout url="#rackId2-2">
-											<row>2</row>
-											<column>6</column>
-										</module_layout>
-										<module_layout url="#rackId2-3">
-											<row>2</row>
-											<column>1</column>
-										</module_layout>
-										<module_layout url="#rackId2-3">
-											<row>2</row>
-											<column>2</column>
-										</module_layout>
-										<module_layout url="#rackId2-3">
-											<row>2</row>
-											<column>3</column>
-										</module_layout>
-										<module_layout url="#rackId2-3">
-											<row>2</row>
-											<column>4</column>
-										</module_layout>
-										<module_layout url="#rackId2-3">
-											<row>2</row>
-											<column>5</column>
-										</module_layout>
-										<module_layout url="#rackId2-3">
-											<row>2</row>
-											<column>6</column>
-										</module_layout>
-										<module_layout url="#rackId2-4">
-											<row>2</row>
-											<column>1</column>
-										</module_layout>
-										<module_layout url="#rackId2-4">
-											<row>2</row>
-											<column>2</column>
-										</module_layout>
-										<module_layout url="#rackId2-4">
-											<row>2</row>
-											<column>3</column>
-										</module_layout>
-										<module_layout url="#rackId2-4">
-											<row>2</row>
-											<column>4</column>
-										</module_layout>
-										<module_layout url="#rackId2-4">
-											<row>2</row>
-											<column>5</column>
-										</module_layout>
-										<module_layout url="#rackId2-4">
-											<row>2</row>
-											<column>6</column>
-										</module_layout>
-									</string>
-								</mppt>
+									<pv:string id="string4">
+										<pv:module_array>
+											<!-- Cable between the module_array and the inverter -->
+											<pv:cable_to_parent url="#CableModel1" length="3" id="cableInstance5"/>
+											<pv:module_layout url="#rackId2-1">
+												<pv:position_in_string>1</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>1</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-1">
+												<pv:position_in_string>2</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>2</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-1">
+												<pv:position_in_string>3</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>3</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-1">
+												<pv:position_in_string>4</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>4</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-1">
+												<pv:position_in_string>5</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>5</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-1">
+												<pv:position_in_string>6</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>6</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-2">
+												<pv:position_in_string>7</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>1</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-2">
+												<pv:position_in_string>8</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>2</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-2">
+												<pv:position_in_string>9</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>3</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-2">
+												<pv:position_in_string>10</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>4</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-2">
+												<pv:position_in_string>11</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>5</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-2">
+												<pv:position_in_string>12</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>6</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-3">
+												<pv:position_in_string>13</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>1</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-3">
+												<pv:position_in_string>14</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>2</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-3">
+												<pv:position_in_string>15</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>3</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-3">
+												<pv:position_in_string>16</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>4</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-3">
+												<pv:position_in_string>17</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>5</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-3">
+												<pv:position_in_string>18</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>6</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-4">
+												<pv:position_in_string>19</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>1</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-4">
+												<pv:position_in_string>20</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>2</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-4">
+												<pv:position_in_string>21</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>3</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-4">
+												<pv:position_in_string>22</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>4</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-4">
+												<pv:position_in_string>23</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>5</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId2-4">
+												<pv:position_in_string>24</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>6</pv:column>
+											</pv:module_layout>
+										</pv:module_array>
+									</pv:string>
+								</pv:mppt>
 								<!-- fifth mppt tag -->
-								<mppt>
+								<pv:mppt>
 									<!-- fifth string tag => the string connected to this mppt input -->
-									<string id="string5">
-										<!-- Cable between the string and the inverter -->
-										<cable_to_parent url="#CableModel1" length="3"/>
-										<module_layout url="#rackId3-1">
-											<row>1</row>
-											<column>1</column>
-										</module_layout>
-										<module_layout url="#rackId3-1">
-											<row>1</row>
-											<column>2</column>
-										</module_layout>
-										<module_layout url="#rackId3-1">
-											<row>1</row>
-											<column>3</column>
-										</module_layout>
-										<module_layout url="#rackId3-1">
-											<row>1</row>
-											<column>4</column>
-										</module_layout>
-										<module_layout url="#rackId3-1">
-											<row>1</row>
-											<column>5</column>
-										</module_layout>
-										<module_layout url="#rackId3-1">
-											<row>1</row>
-											<column>6</column>
-										</module_layout>
-										<module_layout url="#rackId3-2">
-											<row>1</row>
-											<column>1</column>
-										</module_layout>
-										<module_layout url="#rackId3-2">
-											<row>1</row>
-											<column>2</column>
-										</module_layout>
-										<module_layout url="#rackId3-2">
-											<row>1</row>
-											<column>3</column>
-										</module_layout>
-										<module_layout url="#rackId3-2">
-											<row>1</row>
-											<column>4</column>
-										</module_layout>
-										<module_layout url="#rackId3-2">
-											<row>1</row>
-											<column>5</column>
-										</module_layout>
-										<module_layout url="#rackId3-2">
-											<row>1</row>
-											<column>6</column>
-										</module_layout>
-										<module_layout url="#rackId3-3">
-											<row>1</row>
-											<column>1</column>
-										</module_layout>
-										<module_layout url="#rackId3-3">
-											<row>1</row>
-											<column>2</column>
-										</module_layout>
-										<module_layout url="#rackId3-3">
-											<row>1</row>
-											<column>3</column>
-										</module_layout>
-										<module_layout url="#rackId3-3">
-											<row>1</row>
-											<column>4</column>
-										</module_layout>
-										<module_layout url="#rackId3-3">
-											<row>1</row>
-											<column>5</column>
-										</module_layout>
-										<module_layout url="#rackId3-3">
-											<row>1</row>
-											<column>6</column>
-										</module_layout>
-										<module_layout url="#rackId3-4">
-											<row>1</row>
-											<column>1</column>
-										</module_layout>
-										<module_layout url="#rackId3-4">
-											<row>1</row>
-											<column>2</column>
-										</module_layout>
-										<module_layout url="#rackId3-4">
-											<row>1</row>
-											<column>3</column>
-										</module_layout>
-										<module_layout url="#rackId3-4">
-											<row>1</row>
-											<column>4</column>
-										</module_layout>
-										<module_layout url="#rackId3-4">
-											<row>1</row>
-											<column>5</column>
-										</module_layout>
-										<module_layout url="#rackId3-4">
-											<row>1</row>
-											<column>6</column>
-										</module_layout>
-									</string>
-								</mppt>
+									<pv:string id="string5">
+										<pv:module_array>
+										<!-- Cable between the module_array and the inverter -->
+										<pv:cable_to_parent url="#CableModel1" length="3" id="cableInstance6"/>
+										<pv:module_layout url="#rackId3-1">
+											<pv:position_in_string>1</pv:position_in_string>
+											<pv:row>1</pv:row>
+											<pv:column>1</pv:column>
+										</pv:module_layout>
+										<pv:module_layout url="#rackId3-1">
+											<pv:position_in_string>2</pv:position_in_string>
+											<pv:row>1</pv:row>
+											<pv:column>2</pv:column>
+										</pv:module_layout>
+										<pv:module_layout url="#rackId3-1">
+											<pv:position_in_string>3</pv:position_in_string>
+											<pv:row>1</pv:row>
+											<pv:column>3</pv:column>
+										</pv:module_layout>
+										<pv:module_layout url="#rackId3-1">
+											<pv:position_in_string>4</pv:position_in_string>
+											<pv:row>1</pv:row>
+											<pv:column>4</pv:column>
+										</pv:module_layout>
+										<pv:module_layout url="#rackId3-1">
+											<pv:position_in_string>5</pv:position_in_string>
+											<pv:row>1</pv:row>
+											<pv:column>5</pv:column>
+										</pv:module_layout>
+										<pv:module_layout url="#rackId3-1">
+											<pv:position_in_string>6</pv:position_in_string>
+											<pv:row>1</pv:row>
+											<pv:column>6</pv:column>
+										</pv:module_layout>
+										<pv:module_layout url="#rackId3-2">
+											<pv:position_in_string>7</pv:position_in_string>
+											<pv:row>1</pv:row>
+											<pv:column>1</pv:column>
+										</pv:module_layout>
+										<pv:module_layout url="#rackId3-2">
+											<pv:position_in_string>8</pv:position_in_string>
+											<pv:row>1</pv:row>
+											<pv:column>2</pv:column>
+										</pv:module_layout>
+										<pv:module_layout url="#rackId3-2">
+											<pv:position_in_string>9</pv:position_in_string>
+											<pv:row>1</pv:row>
+											<pv:column>3</pv:column>
+										</pv:module_layout>
+										<pv:module_layout url="#rackId3-2">
+											<pv:position_in_string>10</pv:position_in_string>
+											<pv:row>1</pv:row>
+											<pv:column>4</pv:column>
+										</pv:module_layout>
+										<pv:module_layout url="#rackId3-2">
+											<pv:position_in_string>11</pv:position_in_string>
+											<pv:row>1</pv:row>
+											<pv:column>5</pv:column>
+										</pv:module_layout>
+										<pv:module_layout url="#rackId3-2">
+											<pv:position_in_string>12</pv:position_in_string>
+											<pv:row>1</pv:row>
+											<pv:column>6</pv:column>
+										</pv:module_layout>
+										<pv:module_layout url="#rackId3-3">
+											<pv:position_in_string>13</pv:position_in_string>
+											<pv:row>1</pv:row>
+											<pv:column>1</pv:column>
+										</pv:module_layout>
+										<pv:module_layout url="#rackId3-3">
+											<pv:position_in_string>14</pv:position_in_string>
+											<pv:row>1</pv:row>
+											<pv:column>2</pv:column>
+										</pv:module_layout>
+										<pv:module_layout url="#rackId3-3">
+											<pv:position_in_string>15</pv:position_in_string>
+											<pv:row>1</pv:row>
+											<pv:column>3</pv:column>
+										</pv:module_layout>
+										<pv:module_layout url="#rackId3-3">
+											<pv:position_in_string>16</pv:position_in_string>
+											<pv:row>1</pv:row>
+											<pv:column>4</pv:column>
+										</pv:module_layout>
+										<pv:module_layout url="#rackId3-3">
+											<pv:position_in_string>17</pv:position_in_string>
+											<pv:row>1</pv:row>
+											<pv:column>5</pv:column>
+										</pv:module_layout>
+										<pv:module_layout url="#rackId3-3">
+											<pv:position_in_string>18</pv:position_in_string>
+											<pv:row>1</pv:row>
+											<pv:column>6</pv:column>
+										</pv:module_layout>
+										<pv:module_layout url="#rackId3-4">
+											<pv:position_in_string>19</pv:position_in_string>
+											<pv:row>1</pv:row>
+											<pv:column>1</pv:column>
+										</pv:module_layout>
+										<pv:module_layout url="#rackId3-4">
+											<pv:position_in_string>20</pv:position_in_string>
+											<pv:row>1</pv:row>
+											<pv:column>2</pv:column>
+										</pv:module_layout>
+										<pv:module_layout url="#rackId3-4">
+											<pv:position_in_string>21</pv:position_in_string>
+											<pv:row>1</pv:row>
+											<pv:column>3</pv:column>
+										</pv:module_layout>
+										<pv:module_layout url="#rackId3-4">
+											<pv:position_in_string>22</pv:position_in_string>
+											<pv:row>1</pv:row>
+											<pv:column>4</pv:column>
+										</pv:module_layout>
+										<pv:module_layout url="#rackId3-4">
+											<pv:position_in_string>23</pv:position_in_string>
+											<pv:row>1</pv:row>
+											<pv:column>5</pv:column>
+										</pv:module_layout>
+										<pv:module_layout url="#rackId3-4">
+											<pv:position_in_string>24</pv:position_in_string>
+											<pv:row>1</pv:row>
+											<pv:column>6</pv:column>
+										</pv:module_layout>
+										</pv:module_array>
+									</pv:string>
+								</pv:mppt>
 								<!-- sixth mppt tag -->
-								<mppt>
+								<pv:mppt>
 									<!-- sixth string tag => the string connected to this mppt input -->
-									<string id="string6">
-										<!-- Cable between the string and the inverter -->
-										<cable_to_parent url="#CableModel1" length="3"/>
-										<module_layout url="#rackId3-1">
-											<row>2</row>
-											<column>1</column>
-										</module_layout>
-										<module_layout url="#rackId3-1">
-											<row>2</row>
-											<column>2</column>
-										</module_layout>
-										<module_layout url="#rackId3-1">
-											<row>2</row>
-											<column>3</column>
-										</module_layout>
-										<module_layout url="#rackId3-1">
-											<row>2</row>
-											<column>4</column>
-										</module_layout>
-										<module_layout url="#rackId3-1">
-											<row>2</row>
-											<column>5</column>
-										</module_layout>
-										<module_layout url="#rackId3-1">
-											<row>2</row>
-											<column>6</column>
-										</module_layout>
-										<module_layout url="#rackId3-2">
-											<row>2</row>
-											<column>1</column>
-										</module_layout>
-										<module_layout url="#rackId3-2">
-											<row>2</row>
-											<column>2</column>
-										</module_layout>
-										<module_layout url="#rackId3-2">
-											<row>2</row>
-											<column>3</column>
-										</module_layout>
-										<module_layout url="#rackId3-2">
-											<row>2</row>
-											<column>4</column>
-										</module_layout>
-										<module_layout url="#rackId3-2">
-											<row>2</row>
-											<column>5</column>
-										</module_layout>
-										<module_layout url="#rackId3-2">
-											<row>2</row>
-											<column>6</column>
-										</module_layout>
-										<module_layout url="#rackId3-3">
-											<row>2</row>
-											<column>1</column>
-										</module_layout>
-										<module_layout url="#rackId3-3">
-											<row>2</row>
-											<column>2</column>
-										</module_layout>
-										<module_layout url="#rackId3-3">
-											<row>2</row>
-											<column>3</column>
-										</module_layout>
-										<module_layout url="#rackId3-3">
-											<row>2</row>
-											<column>4</column>
-										</module_layout>
-										<module_layout url="#rackId3-3">
-											<row>2</row>
-											<column>5</column>
-										</module_layout>
-										<module_layout url="#rackId3-3">
-											<row>2</row>
-											<column>6</column>
-										</module_layout>
-										<module_layout url="#rackId3-4">
-											<row>2</row>
-											<column>1</column>
-										</module_layout>
-										<module_layout url="#rackId3-4">
-											<row>2</row>
-											<column>2</column>
-										</module_layout>
-										<module_layout url="#rackId3-4">
-											<row>2</row>
-											<column>3</column>
-										</module_layout>
-										<module_layout url="#rackId3-4">
-											<row>2</row>
-											<column>4</column>
-										</module_layout>
-										<module_layout url="#rackId3-4">
-											<row>2</row>
-											<column>5</column>
-										</module_layout>
-										<module_layout url="#rackId3-4">
-											<row>2</row>
-											<column>6</column>
-										</module_layout>
-									</string>
-								</mppt>
-							</mppts>
-						</instance_inverter>
-					</injection_point>
-				</circuit>
+									<pv:string id="string6">
+										<pv:module_array>
+											<!-- Cable between the module_array and the inverter -->
+											<pv:cable_to_parent url="#CableModel1" length="3" id="cableInstance7"/>
+											<pv:module_layout url="#rackId3-1">
+												<pv:position_in_string>1</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>1</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId3-1">
+												<pv:position_in_string>2</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>2</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId3-1">
+												<pv:position_in_string>3</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>3</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId3-1">
+												<pv:position_in_string>4</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>4</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId3-1">
+												<pv:position_in_string>5</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>5</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId3-1">
+												<pv:position_in_string>6</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>6</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId3-2">
+												<pv:position_in_string>7</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>1</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId3-2">
+												<pv:position_in_string>8</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>2</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId3-2">
+												<pv:position_in_string>9</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>3</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId3-2">
+												<pv:position_in_string>10</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>4</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId3-2">
+												<pv:position_in_string>11</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>5</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId3-2">
+												<pv:position_in_string>12</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>6</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId3-3">
+												<pv:position_in_string>13</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>1</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId3-3">
+												<pv:position_in_string>14</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>2</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId3-3">
+												<pv:position_in_string>15</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>3</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId3-3">
+												<pv:position_in_string>16</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>4</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId3-3">
+												<pv:position_in_string>17</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>5</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId3-3">
+												<pv:position_in_string>18</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>6</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId3-4">
+												<pv:position_in_string>19</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>1</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId3-4">
+												<pv:position_in_string>20</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>2</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId3-4">
+												<pv:position_in_string>21</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>3</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId3-4">
+												<pv:position_in_string>22</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>4</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId3-4">
+												<pv:position_in_string>23</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>5</pv:column>
+											</pv:module_layout>
+											<pv:module_layout url="#rackId3-4">
+												<pv:position_in_string>24</pv:position_in_string>
+												<pv:row>2</pv:row>
+												<pv:column>6</pv:column>
+											</pv:module_layout>
+										</pv:module_array>
+									</pv:string>
+								</pv:mppt>
+							</pv:mppts>
+						</pv:instance_inverter>
+					</pv:circuit_root>
+				</pv:circuit>
 			</technique>
 		</extra>
 	</asset>
@@ -707,7 +874,29 @@
 		</material>
 	</library_materials>
 	<library_effects>
-		<effect id="Material1EffectId" name="Dummy Material Effect"/>
+		<effect id="Material1EffectId" name="Dummy Material Effect">
+		    <profile_COMMON>
+				<technique sid="standard">
+					<lambert>
+						<emission>
+							<color sid="emission">0.000000 0.000000 0.000000 1.000000</color>
+						</emission>
+						<ambient>
+							<color sid="ambient">0.200000 0.200000 0.200000 1.000000</color>
+						</ambient>
+						<diffuse>
+							<color sid="diffuse">0.250000 0.500000 0.000000 1.000000</color>
+						</diffuse>
+						<transparent opaque="RGB_ZERO">
+							<color sid="transparent">0.000000 0.000000 0.000000 1.000000</color>
+						</transparent>
+						<transparency>
+							<float sid="transparency">0</float>
+						</transparency>
+					</lambert>
+				</technique>
+			</profile_COMMON>
+		</effect>
 	</library_effects>
 	<library_geometries>
 		<!-- We define a terrain -->
@@ -739,11 +928,13 @@
 			</mesh>
 			<extra>
 				<technique profile="PVCollada-2.0">
-					<!-- terrain tag, child tags for illustrative purpose only -->
-					<terrain>
-						<vertex_count>4</vertex_count>
-						<triangle_count>2</triangle_count>
-					</terrain>
+					<!-- terrain tag -->
+					<pv:terrain sid="Terrain">
+						<pv:vertex_count>4</pv:vertex_count>
+						<pv:triangle_count>2</pv:triangle_count>
+						<pv:bounding_box_min>-10.0 -20.0 -30.0</pv:bounding_box_min>
+						<pv:bounding_box_max>10.0 20.0 30.0</pv:bounding_box_max>
+					</pv:terrain>
 				</technique>
 			</extra>
 		</geometry>
@@ -775,12 +966,18 @@
 			</mesh>
 			<extra>
 				<technique profile="PVCollada-2.0">
-					<!-- rack tag, child tags for illustrative purpose only -->
-					<rack>
-						<module_id>ModuleModel1</module_id>
-						<module_rows>2</module_rows>
-						<module_columns>6</module_columns>
-					</rack>
+					<!-- rack tag -->
+					<pv:rack>
+						<pv:rack_type>tracker</pv:rack_type>
+						<pv:row_spacing>2</pv:row_spacing>
+						<pv:column_spacing>2</pv:column_spacing>
+						<pv:module_rows>2</pv:module_rows>
+						<pv:module_columns>6</pv:module_columns>
+						<pv:module_orientation>portrait</pv:module_orientation>
+						<pv:tracker_azimuth>0</pv:tracker_azimuth>
+						<pv:tracker_slope>0</pv:tracker_slope>
+						<pv:module_id>ModuleModel1</pv:module_id>
+					</pv:rack>
 				</technique>
 			</extra>
 		</geometry>
@@ -821,10 +1018,13 @@
 			</mesh>
 			<extra>
 				<technique profile="PVCollada-2.0">
-					<!-- gap tag, child tags for illustrative purpose only -->
-					<gap>
-						<type>joint</type>
-					</gap>
+					<!-- gap tag -->
+					<pv:gap>
+						<pv:type>joint</pv:type>
+						<pv:rigid>false</pv:rigid>
+						<pv:width>20</pv:width>
+						<pv:joint_angle>3</pv:joint_angle>
+					</pv:gap>
 				</technique>
 			</extra>
 		</geometry>
@@ -859,10 +1059,12 @@
 			</mesh>
 			<extra>
 				<technique profile="PVCollada-2.0">
-					<!-- gap tag, child tags for illustrative purpose only -->
-					<gap>
-						<type>motor</type>
-					</gap>
+					<!-- gap tag -->
+					<pv:gap>
+						<pv:type>motor</pv:type>
+						<pv:rigid>true</pv:rigid>
+						<pv:width>50</pv:width>
+					</pv:gap>
 				</technique>
 			</extra>
 		</geometry>
@@ -902,10 +1104,15 @@
 			</mesh>
 			<extra>
 				<technique profile="PVCollada-2.0">
-					<!-- post tag, child tags for illustrative purpose only -->
-					<post>
-						<type>table</type>
-					</post>
+					<!-- post tag -->
+					<pv:post>
+						<pv:type>rack</pv:type>
+						<pv:depth>50.0</pv:depth>
+						<pv:length>100.0</pv:length>
+						<pv:diameter>10.0</pv:diameter>
+						<pv:inclination>vertical</pv:inclination>
+						<pv:shape>circle</pv:shape>
+					</pv:post>
 				</technique>
 			</extra>
 		</geometry>
@@ -925,8 +1132,7 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_post tag -->
-							<instance_post id="postInstance1">
-		      </instance_post>
+							<pv:instance_post id="postInstance1" />
 						</technique>
 					</extra>
 				</instance_geometry>
@@ -943,8 +1149,7 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_rack tag -->
-							<instance_rack id="rackInstance1">
-		      </instance_rack>
+							<pv:instance_rack id="rackInstance1" />
 						</technique>
 					</extra>
 				</instance_geometry>
@@ -961,8 +1166,9 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_post tag -->
-							<instance_post id="postInstance2">
-		      </instance_post>
+							<pv:instance_post id="postInstance2">
+								<pv:installed_depth>40.0</pv:installed_depth>
+							</pv:instance_post>
 						</technique>
 					</extra>
 				</instance_geometry>
@@ -979,8 +1185,7 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_gap tag, might not have any child tags at the start but can be useful in the future  -->
-							<instance_gap id="gapInstance1">
-		      </instance_gap>
+							<pv:instance_gap id="gapInstance1" />
 						</technique>
 					</extra>
 				</instance_geometry>
@@ -997,8 +1202,7 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_post tag -->
-							<instance_post id="postInstance3">
-		      </instance_post>
+							<pv:instance_post id="postInstance3" />
 						</technique>
 					</extra>
 				</instance_geometry>
@@ -1015,8 +1219,7 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_rack tag -->
-							<instance_rack id="rackInstance2">
-		      </instance_rack>
+							<pv:instance_rack id="rackInstance2" />
 						</technique>
 					</extra>
 				</instance_geometry>
@@ -1033,8 +1236,7 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_post tag -->
-							<instance_post id="postInstance4">
-		      </instance_post>
+							<pv:instance_post id="postInstance4" />
 						</technique>
 					</extra>
 				</instance_geometry>
@@ -1051,8 +1253,7 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_gap tag, might not have any child tags at the start but can be useful in the future  -->
-							<instance_gap id="gapInstance2">
-		      </instance_gap>
+							<pv:instance_gap id="gapInstance2" />
 						</technique>
 					</extra>
 				</instance_geometry>
@@ -1069,8 +1270,7 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_post tag -->
-							<instance_post id="postInstance5">
-	          </instance_post>
+							<pv:instance_post id="postInstance5" />
 						</technique>
 					</extra>
 				</instance_geometry>
@@ -1087,8 +1287,7 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_rack tag -->
-							<instance_rack id="rackInstance3">
-		      </instance_rack>
+							<pv:instance_rack id="rackInstance3" />
 						</technique>
 					</extra>
 				</instance_geometry>
@@ -1105,8 +1304,7 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_post tag -->
-							<instance_post id="postInstance6">
-		      </instance_post>
+							<pv:instance_post id="postInstance6" />
 						</technique>
 					</extra>
 				</instance_geometry>
@@ -1123,8 +1321,7 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_gap tag, might not have any child tags at the start but can be useful in the future  -->
-							<instance_gap id="gapInstance3">
-		      </instance_gap>
+							<pv:instance_gap id="gapInstance3" />
 						</technique>
 					</extra>
 				</instance_geometry>
@@ -1141,8 +1338,7 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_post tag -->
-							<instance_post id="postInstance7">
-		      </instance_post>
+							<pv:instance_post id="postInstance7" />
 						</technique>
 					</extra>
 				</instance_geometry>
@@ -1159,8 +1355,7 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_rack tag -->
-							<instance_rack id="rackInstance4">
-		      </instance_rack>
+							<pv:instance_rack id="rackInstance4" />
 						</technique>
 					</extra>
 				</instance_geometry>
@@ -1177,21 +1372,17 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_post tag -->
-							<instance_post id="postInstance8">
-		      </instance_post>
+							<pv:instance_post id="postInstance8" />
 						</technique>
 					</extra>
 				</instance_geometry>
 			</node>
 			<extra>
 				<technique profile="PVCollada-2.0">
-					<!-- table tag, child tags for illustrative purpose only -->
-					<table>
-						<type>tracker</type>
-						<tilt>0</tilt>
-						<azimuth>0</azimuth>
-						<base_slope/>
-					</table>
+					<!-- table tag -->
+					<pv:table>
+						<pv:type>tracker</pv:type>
+					</pv:table>
 				</technique>
 			</extra>
 		</node>
@@ -1204,7 +1395,7 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_terrain tag, might not have any child tags at the start but can be useful in the future -->
-							<instance_terrain/>
+							<pv:instance_terrain/>
 						</technique>
 					</extra>
 				</instance_geometry>
@@ -1214,14 +1405,14 @@
 				<instance_node url="#TrackerModel1">
 					<extra>
 						<technique profile="PVCollada-2.0">
-							<instance_table>
-								<racks>
-									<rack id="rackId1-1" url="#rackInstance1"/>
-									<rack id="rackId1-2" url="#rackInstance2"/>
-									<rack id="rackId1-3" url="#rackInstance3"/>
-									<rack id="rackId1-4" url="#rackInstance4"/>
-								</racks>
-							</instance_table>
+							<pv:instance_table>
+								<pv:instance_racks_array>
+									<pv:instance_rack_ref id="rackId1-1" url="#rackInstance1"/>
+									<pv:instance_rack_ref id="rackId1-2" url="#rackInstance2"/>
+									<pv:instance_rack_ref id="rackId1-3" url="#rackInstance3"/>
+									<pv:instance_rack_ref id="rackId1-4" url="#rackInstance4"/>
+								</pv:instance_racks_array>
+							</pv:instance_table>
 						</technique>
 					</extra>
 				</instance_node>
@@ -1232,17 +1423,14 @@
 				<instance_node url="#TrackerModel1">
 					<extra>
 						<technique profile="PVCollada-2.0">
-							<instance_table>
-								<racks>
-									<rack id="rackId2-1" url="#rackInstance1"/>
-									<rack id="rackId2-2" url="#rackInstance2"/>
-									<rack id="rackId2-3" url="#rackInstance3"/>
-									<rack id="rackId2-4" url="#rackInstance4"/>
-								</racks>
-								<tilt>18</tilt>
-								<azimuth>23</azimuth>
-								<base_slope>28</base_slope>
-							</instance_table>
+							<pv:instance_table>
+								<pv:instance_racks_array>
+									<pv:instance_rack_ref id="rackId2-1" url="#rackInstance1"/>
+									<pv:instance_rack_ref id="rackId2-2" url="#rackInstance2"/>
+									<pv:instance_rack_ref id="rackId2-3" url="#rackInstance3"/>
+									<pv:instance_rack_ref id="rackId2-4" url="#rackInstance4"/>
+								</pv:instance_racks_array>
+							</pv:instance_table>
 						</technique>
 					</extra>
 				</instance_node>
@@ -1253,14 +1441,14 @@
 				<instance_node url="#TrackerModel1">
 					<extra>
 						<technique profile="PVCollada-2.0">
-							<instance_table>
-								<racks>
-									<rack id="rackId3-1" url="#rackInstance1"/>
-									<rack id="rackId3-2" url="#rackInstance2"/>
-									<rack id="rackId3-3" url="#rackInstance3"/>
-									<rack id="rackId3-4" url="#rackInstance4"/>
-								</racks>
-							</instance_table>
+							<pv:instance_table>
+								<pv:instance_racks_array>
+									<pv:instance_rack_ref id="rackId3-1" url="#rackInstance1"/>
+									<pv:instance_rack_ref id="rackId3-2" url="#rackInstance2"/>
+									<pv:instance_rack_ref id="rackId3-3" url="#rackInstance3"/>
+									<pv:instance_rack_ref id="rackId3-4" url="#rackInstance4"/>
+								</pv:instance_racks_array>
+							</pv:instance_table>
 						</technique>
 					</extra>
 				</instance_node>

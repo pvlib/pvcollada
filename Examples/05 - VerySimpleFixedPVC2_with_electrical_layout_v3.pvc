@@ -9,11 +9,11 @@
 			<comments>PVC 2.0 sample file : 1 terrain and 3 tables, all based on the same model. Electrical components and circuit (3 inverters, 1 AC combiner, 1 tranformer)</comments>
 		</contributor>
 		<coverage>
-  		<geographic_location>
-		  	<longitude>6.1432</longitude>
-	  		<latitude>46.2044</latitude>
-			  <altitude mode="absolute">375</altitude>		  
-		  </geographic_location>
+			<geographic_location>
+				<longitude>6.1432</longitude>
+				<latitude>46.2044</latitude>
+				<altitude mode="absolute">375</altitude>
+			</geographic_location>
 		</coverage>
 		<created>2024-06-06T13:32:31Z</created>
 		<modified>2024-06-06T13:32:31Z</modified>
@@ -85,11 +85,11 @@
 							<pv:v_mpp_min>40</pv:v_mpp_min>
 							<pv:v_mpp_max>560</pv:v_mpp_max>
 							<pv:v_mpp_nom>360</pv:v_mpp_nom>
-							<pv:i_max_dc>9.10</pv:i_max_dc>							
+							<pv:i_max_dc>9.10</pv:i_max_dc>
 							<pv:mppt_count>1</pv:mppt_count>
 							<pv:mppts>
-							  <pv:mppt id="MPPT1">
-								  <pv:input_count>1</pv:input_count>
+								<pv:mppt id="MPPT1">
+									<pv:input_count>1</pv:input_count>
 								</pv:mppt>
 							</pv:mppts>
 							<pv:v_out_ac>230</pv:v_out_ac>
@@ -127,7 +127,7 @@
 							<pv:efficiency>95.0</pv:efficiency>
 							<pv:iron_loss>10</pv:iron_loss>
 							<pv:copper_loss>15</pv:copper_loss>
-							<pv:night_disconnect>false</pv:night_disconnect>							
+							<pv:night_disconnect>false</pv:night_disconnect>
 						</pv:transformer>
 					</pv:transformers>
 					<!-- List of cables -->
@@ -221,7 +221,7 @@
 													<pv:string id="string2">
 														<pv:module_array>
 															<!-- Cable between the module_array and the inverter -->
-  														<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance10" />
+															<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance10" />
 															<pv:module_layout url="#rackId2">
 																<pv:position_in_string>1</pv:position_in_string>
 																<pv:row>1</pv:row>
@@ -301,7 +301,7 @@
 	</library_materials>
 	<library_effects>
 		<effect id="Material1EffectId" name="Dummy Material Effect">
-		    <profile_COMMON>
+			<profile_COMMON>
 				<technique sid="standard">
 					<lambert>
 						<emission>
@@ -332,7 +332,7 @@
 					<float_array id="terrain1FloatArray" count="12">
 						2000 -2500 0
 						-2000 -2500 0
-						-2000 2500 0          
+						-2000 2500 0
 						2000 2500 0
 					</float_array>
 					<technique_common>
@@ -403,7 +403,7 @@
 						<pv:tilt>21.8</pv:tilt>
 						<pv:azimuth>0</pv:azimuth>
 						<pv:slope>0</pv:slope>
-						<pv:module_id>ModuleModel1</pv:module_id> 
+						<pv:module_id>ModuleModel1</pv:module_id>
 					</pv:rack>
 				</technique>
 			</extra>
@@ -443,7 +443,7 @@
 					<pv:inverter3d inverter_id="InverterModel1" />
 				</technique>
 			</extra>
-		</geometry>		
+		</geometry>
 		<!-- We define the 3D model for combiners (contains the geometry of the combiner) -->
 		<geometry id="Combiner3DModel">
 			<mesh>
@@ -479,7 +479,7 @@
 					<pv:combiner3d combiner_id="CombinerModel1" />
 				</technique>
 			</extra>
-		</geometry>	
+		</geometry>
 		<!-- We define the 3D model for transformers (contains the geometry of the transformer) -->
 		<geometry id="Transformer3DModel">
 			<mesh>
@@ -538,6 +538,7 @@
 				<technique profile="PVCollada-2.0">
 					<!-- table tag -->
 					<pv:table>
+						<pv:type>fixed</pv:type>
 					</pv:table>
 				</technique>
 			</extra>
@@ -570,10 +571,10 @@
 						</technique>
 					</extra>
 				</instance_node>
-			</node>		
+			</node>
 			<!-- We instantiate the first inverter -->
 			<node id="Inverter3DNode1" name="Inverter3DNode1" sid="Inverter3DNode1">
-			  <translate>100 -100 0</translate>
+				<translate>100 -100 0</translate>
 				<instance_geometry url="#Inverter3DModel1">
 					<extra>
 						<technique profile="PVCollada-2.0">
@@ -582,7 +583,7 @@
 						</technique>
 					</extra>
 				</instance_geometry>
-			</node>			
+			</node>
 			<!-- We instantiate a second fixed tilt table (with a translation) -->
 			<node id="PVnode2" name="PVnode2" sid="PVnode2">
 				<translate>0 -800 0</translate>
@@ -601,7 +602,7 @@
 			</node>
 			<!-- We instantiate the second inverter -->
 			<node id="Inverter3DNode2" name="Inverter3DNode2" sid="Inverter3DNode2">
-			  <translate>100 -900 0</translate>
+				<translate>100 -900 0</translate>
 				<instance_geometry url="#Inverter3DModel1">
 					<extra>
 						<technique profile="PVCollada-2.0">
@@ -629,7 +630,7 @@
 			</node>
 			<!-- We instantiate the third inverter -->
 			<node id="Inverter3DNode3" name="Inverter3DNode3" sid="Inverter3DNode3">
-			    <translate>100 -1700 0</translate>
+				<translate>100 -1700 0</translate>
 				<instance_geometry url="#Inverter3DModel1">
 					<extra>
 						<technique profile="PVCollada-2.0">
@@ -641,7 +642,7 @@
 			</node>
 			<!-- We instantiate the combiner -->
 			<node id="Combiner3DNode" name="Combiner3DNode" sid="Combiner3DNode">
-			    <translate>600 -900 0</translate>
+				<translate>600 -900 0</translate>
 				<instance_geometry url="#Combiner3DModel">
 					<extra>
 						<technique profile="PVCollada-2.0">
@@ -650,10 +651,10 @@
 						</technique>
 					</extra>
 				</instance_geometry>
-			</node>	
+			</node>
 			<!-- We instantiate the transformer -->
 			<node id="Transformer3DNode" name="Transformer3DNode" sid="Transformer3DNode">
-			    <translate>1800 -850 0</translate>
+				<translate>1800 -850 0</translate>
 				<instance_geometry url="#Transformer3DModel">
 					<extra>
 						<technique profile="PVCollada-2.0">
@@ -662,7 +663,7 @@
 						</technique>
 					</extra>
 				</instance_geometry>
-			</node>			
+			</node>
 		</visual_scene>
 	</library_visual_scenes>
 	<scene>
