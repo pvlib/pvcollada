@@ -111,7 +111,7 @@
 			<extra>
 				<technique profile="PVCollada-2.0">
 					<!-- terrain tag -->
-					<pv:terrain sid="Terrain">
+					<pv:terrain>
 						<pv:vertex_count>4</pv:vertex_count>
 						<pv:triangle_count>2</pv:triangle_count>
 						<pv:bounding_box_min>-10.0 -20.0 -30.0</pv:bounding_box_min>
