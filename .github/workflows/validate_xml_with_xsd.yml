@@ -1,39 +1,65 @@
+# .github/workflows/validate_xml_with_xsd.yml
 name: Validate PVCollada XML examples
 
 on:
   push:
     paths:
-      - schema/pvcollada_schema_0.1.xsd
-      - schema/collada_schema_1_5.xsd
+      - Examples/**
+      - schema/**
       - .github/workflows/validate_xml_with_xsd.py
       - .github/workflows/validate_xml_with_xsd.yml
 
-      - Examples/05 - VerySimpleFixedPVC2_with_electrical_layout_v3.pvc
   pull_request:
     paths:
-      - schema/pvcollada_schema_0.1.xsd
-      - schema/collada_schema_1_5.xsd
+      - Examples/**
+      - schema/**
       - .github/workflows/validate_xml_with_xsd.py
       - .github/workflows/validate_xml_with_xsd.yml
 
-      - Examples/05 - VerySimpleFixedPVC2_with_electrical_layout_v3.pvc
   workflow_dispatch:
 
 jobs:
-  validate-schema:
-    strategy:
-      matrix:
-        xml_doc:
-          - Examples/05 - VerySimpleFixedPVC2_with_electrical_layout_v3.pvc
-    name: Validate XML
+  discover:
+    name: Discover *.pv2 example files
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.build.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: build
+        shell: bash
+        run: |
+          python3 - <<'PY' > matrix.json
+          import json, re, pathlib
+          root = pathlib.Path("Examples")
+          pattern = re.compile(r".+\.pv2$", re.IGNORECASE)
+          files = []
+          if root.exists():
+              for p in sorted(root.iterdir()):
+                  if p.is_file() and pattern.match(p.name):
+                      files.append(f"{root}/{p.name}")
+          print(json.dumps({"xml_doc": files}))
+          PY
+          echo "matrix=$(cat matrix.json)" >> "$GITHUB_OUTPUT"
+
+  validate-schema:
+    name: Validate XML
+    needs: discover
+    runs-on: ubuntu-latest
+    # Skip job cleanly if no files matched (prevents a matrix on an empty list)
+    if: ${{ fromJSON(needs.discover.outputs.matrix).xml_doc && join(fromJSON(needs.discover.outputs.matrix).xml_doc) != '' }}
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.discover.outputs.matrix) }}
     steps:
       - name: Install Python 3.10
         uses: actions/setup-python@v5
         with:
           python-version: "3.10"
+
       - name: Install lxml Python dependency
         run: pip3 install lxml==5.3.1
+
       - name: Checkout PVCollada and COLLADA schemas, the validation script, and the XML doc
         uses: actions/checkout@v4
         with:
@@ -43,6 +69,10 @@ jobs:
             .github/workflows/validate_xml_with_xsd.py
             ${{ matrix.xml_doc }}
           sparse-checkout-cone-mode: false
+
       - name: Run validation
         working-directory: schema
-        run: python3 "$GITHUB_WORKSPACE"/.github/workflows/validate_xml_with_xsd.py pvcollada_schema_0.1.xsd "$GITHUB_WORKSPACE"/"${{ matrix.xml_doc }}"
+        run: |
+          python3 "$GITHUB_WORKSPACE"/.github/workflows/validate_xml_with_xsd.py \
+            pvcollada_schema_0.1.xsd \
+            "$GITHUB_WORKSPACE"/"${{ matrix.xml_doc }}"
