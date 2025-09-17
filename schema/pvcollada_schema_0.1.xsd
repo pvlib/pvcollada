@@ -1014,7 +1014,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
             <xs:documentation>True of a gap is rigid, false if the gap allows the tracker torque tube to flex.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="width" type="collada:float_type">
+        <xs:element name="width" type="collada:float_type" minOccurs="0">
           <xs:annotation>
             <xs:documentation>The nominal width of the gap, i.e., the distance between the two racks.</xs:documentation>
           </xs:annotation>
