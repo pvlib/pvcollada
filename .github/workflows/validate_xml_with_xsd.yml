@@ -32,7 +32,7 @@ jobs:
           python3 - <<'PY' > matrix.json
           import json, re, pathlib
           root = pathlib.Path("Examples")
-          pattern = re.compile(r"^\d{2} .+\.pvc$", re.IGNORECASE)
+          pattern = re.compile(r".+\.pv2$", re.IGNORECASE)
           files = []
           if root.exists():
               for p in sorted(root.iterdir()):
