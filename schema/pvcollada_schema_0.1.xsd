@@ -761,23 +761,17 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
             <xs:documentation>Number of triangular faces in the terrain surface.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="bounding_box_min" type="collada:float3_type">
+        <xs:element name="bounding_box_min" type="collada:float3_type" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Corner of bounding box. Opposite corner in bounding_box_max.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="bounding_box_max" type="collada:float3_type">
+        <xs:element name="bounding_box_max" type="collada:float3_type" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Corner of bounding box. Opposite corner in bounding_box_min.</xs:documentation>
           </xs:annotation>
         </xs:element>
       </xs:sequence>
-      <xs:attribute name="sid" type="collada:sid_type" use="required">
-        <xs:annotation>
-          <xs:documentation>The sid attribute is a text string value containing the sub-identifier of this element. This value must
-          be unique within the scope of the parent element.</xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
     </xs:complexType>
   </xs:element>
   <xs:element name="components">
