@@ -679,6 +679,9 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
   </xs:complexType>
 	<!-- asset objects -->
   <xs:element name="software">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of the Collada/asset tag.</xs:documentation>
+    </xs:annotation>
     <!-- add version, or read from technique label? -->
     <xs:complexType>
       <xs:sequence>
@@ -688,6 +691,9 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
     </xs:complexType>
   </xs:element>
   <xs:element name="project">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of the Collada/asset tag.</xs:documentation>
+    </xs:annotation>
     <xs:complexType>
       <xs:sequence>
         <xs:element name="name" type="xs:string" />
@@ -748,6 +754,10 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
     </xs:complexType>
   </xs:element>
   <xs:element name="terrain">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada geometry tag to signal a 3D model
+      for a terrain.</xs:documentation>
+    </xs:annotation>
     <!-- need to add: albedo, areal picture, ground_slope, ground_azimuth, digital_elevation_model -->
     <xs:complexType>
       <xs:sequence>
@@ -775,6 +785,9 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
     </xs:complexType>
   </xs:element>
   <xs:element name="components">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of the Collada/asset tag.</xs:documentation>
+    </xs:annotation>
     <xs:complexType>
       <xs:all>
         <xs:element name="modules" minOccurs="0">
@@ -1028,7 +1041,11 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
     </xs:complexType>
   </xs:element>
   <!-- instances -->
-  <xs:element name="circuit" type="circuit_type" />
+  <xs:element name="circuit" type="circuit_type">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of the Collada/asset tag.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="instance_terrain">
     <xs:annotation>
       <xs:documentation>This tag should only appear in the extra/technique section of a Collada instance_geometry tag to signal the
