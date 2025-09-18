@@ -761,23 +761,17 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
             <xs:documentation>Number of triangular faces in the terrain surface.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="bounding_box_min" type="collada:float3_type">
+        <xs:element name="bounding_box_min" type="collada:float3_type" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Corner of bounding box. Opposite corner in bounding_box_max.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="bounding_box_max" type="collada:float3_type">
+        <xs:element name="bounding_box_max" type="collada:float3_type" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Corner of bounding box. Opposite corner in bounding_box_min.</xs:documentation>
           </xs:annotation>
         </xs:element>
       </xs:sequence>
-      <xs:attribute name="sid" type="collada:sid_type" use="required">
-        <xs:annotation>
-          <xs:documentation>The sid attribute is a text string value containing the sub-identifier of this element. This value must
-          be unique within the scope of the parent element.</xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
     </xs:complexType>
   </xs:element>
   <xs:element name="components">
@@ -974,27 +968,27 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
             <xs:documentation>The type of post (rack, tracker, fence).</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="depth" type="collada:float_type">
+        <xs:element name="depth" type="collada:float_type" minOccurs="0">
           <xs:annotation>
             <xs:documentation>The nominal underground depth of the post.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="length" type="collada:float_type">
+        <xs:element name="length" type="collada:float_type" minOccurs="0">
           <xs:annotation>
             <xs:documentation>The total length of the post including the portion underground.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="diameter" type="collada:float_type">
+        <xs:element name="diameter" type="collada:float_type" minOccurs="0">
           <xs:annotation>
             <xs:documentation>The diameter of the post cross-section.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="inclination" type="post_inclin_enum">
+        <xs:element name="inclination" type="post_inclin_enum" minOccurs="0">
           <xs:annotation>
             <xs:documentation>The nominal inclination of the post (vertical, perpendicular).</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="shape" type="post_shape_enum">
+        <xs:element name="shape" type="post_shape_enum" minOccurs="0">
           <xs:annotation>
             <xs:documentation>The shape of the post cross-section (rectangle, circle, h-shape).</xs:documentation>
           </xs:annotation>
@@ -1020,7 +1014,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
             <xs:documentation>True of a gap is rigid, false if the gap allows the tracker torque tube to flex.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="width" type="collada:float_type">
+        <xs:element name="width" type="collada:float_type" minOccurs="0">
           <xs:annotation>
             <xs:documentation>The nominal width of the gap, i.e., the distance between the two racks.</xs:documentation>
           </xs:annotation>
