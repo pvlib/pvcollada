@@ -1066,7 +1066,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
     <xs:complexType>
       <xs:attribute name="id" type="xs:ID">
         <xs:annotation>
-          <xs:documentation>Unique id for the rack instance (will be referenced in instance_table)</xs:documentation>
+          <xs:documentation>Unique id for the rack instance</xs:documentation>
         </xs:annotation>
       </xs:attribute>
     </xs:complexType>
@@ -1124,7 +1124,21 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
 			</xs:sequence>
       <xs:attribute name="id" type="xs:ID">
         <xs:annotation>
-          <xs:documentation>Unique id for the post instance (can be referenced in instance_tracker or instance_fence)</xs:documentation>
+          <xs:documentation>Unique id for the post instance</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="instance_gap">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada instance_geometry tag to signal the
+      instance of a gap inside a table model. The attribute url of the instance_geometry must reference a Collada geometry that is
+      a model for a gap (has a gap tag in its extra/technique tag).</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>Unique id for the gap instance</xs:documentation>
         </xs:annotation>
       </xs:attribute>
     </xs:complexType>
