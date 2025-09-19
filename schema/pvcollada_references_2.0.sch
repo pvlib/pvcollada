@@ -96,6 +96,19 @@
             </assert>
         </rule>
     </pattern>
+	
+    <!-- Pattern: Validate instance_cable3d references -->
+    <pattern id="instance_cable3d_references">
+        <rule context="pv:instance_cable3d">
+            <let name="instance_geom" value="ancestor::collada:instance_geometry"/>
+            <let name="geom_url" value="substring-after($instance_geom/@url, '#')"/>
+            <let name="referenced_geom" value="//collada:geometry[@id=$geom_url]"/>
+            <assert test="$referenced_geom//pv:cable3d">
+                instance_cable3d must be in an instance_geometry that references a geometry containing a cable3d element.
+                Referenced geometry: <value-of select="$geom_url"/>
+            </assert>
+        </rule>
+    </pattern>
     
     <!-- Pattern: Validate instance_table references -->
     <pattern id="instance_table_references">
@@ -131,7 +144,7 @@
             </assert>
         </rule>
     </pattern>
-    
+	   
     <!-- Pattern: Validate combiner3d component references -->
     <pattern id="combiner3d_component_references">
         <rule context="pv:combiner3d[@combiner_id]">
@@ -139,6 +152,17 @@
             <assert test="//pv:combiner_ac[@id=$combiner_ref] or //pv:combiner_dc[@id=$combiner_ref]">
                 combiner3d element references non-existent combiner '<value-of select="$combiner_ref"/>'.
                 Must reference a combiner_ac or combiner_dc defined in components.
+            </assert>
+        </rule>
+    </pattern>
+
+    <!-- Pattern: Validate cable3d component references -->
+    <pattern id="cable3d_component_references">
+        <rule context="pv:cable3d[@cable_id]">
+            <let name="cable_ref" value="@cable_id"/>
+            <assert test="//pv:cable[@id=$cable_ref]">
+                cable3d element references non-existent cable '<value-of select="$cable_ref"/>'.
+                Must reference a cable defined in components/cables.
             </assert>
         </rule>
     </pattern>
@@ -172,6 +196,17 @@
             <assert test="//pv:instance_combiner_ac[@id=$instance_ref] or //pv:instance_combiner_dc[@id=$instance_ref]">
                 instance_combiner3d element references non-existent combiner instance '<value-of select="$instance_ref"/>'.
                 Must reference an instance_combiner_ac or instance_combiner_dc defined in the circuit.
+            </assert>
+        </rule>
+    </pattern>
+
+    <!-- Pattern: Validate instance_cable3d circuit references -->
+    <pattern id="instance_cable3d_circuit_references">
+        <rule context="pv:instance_cable3d[@cable_to_parent_id]">
+            <let name="cable_to_parent_ref" value="@cable_to_parent_id"/>
+            <assert test="//pv:cable_to_parent[@id=$cable_to_parent_ref]">
+                instance_cable3d element references non-existent cable_to_parent '<value-of select="$cable_to_parent_ref"/>'.
+                Must reference a cable_to_parent defined in the circuit.
             </assert>
         </rule>
     </pattern>

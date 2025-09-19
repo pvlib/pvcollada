@@ -1225,4 +1225,31 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       </xs:attribute>
     </xs:complexType>
   </xs:element>
+  <xs:element name="cable3d">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada geometry tag to signal a 3D model
+      for a cable.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="cable_id" type="xs:IDREF">
+        <xs:annotation>
+          <xs:documentation>Id of the cable defined in the components part</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="instance_cable3d">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada instance_geometry tag to signal a
+      3D instance of a cable. The attribute url of the instance_geometry must reference a Collada geometry that is a model
+      for a cable3d (has an cable3d tag in its extra/technique tag).</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="cable_to_parent_id" type="xs:IDREF">
+        <xs:annotation>
+          <xs:documentation>Id of the cable_to_parent defined in the circuit part</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

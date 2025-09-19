@@ -56,7 +56,7 @@
     <!-- Pattern: Geometry-level PVCollada elements placement -->
     <pattern id="geometry_pvcollada_placement">
         <rule context="pv:terrain | pv:rack | pv:post | pv:gap | 
-                      pv:inverter3d | pv:combiner3d | pv:transformer3d">
+                      pv:inverter3d | pv:combiner3d | pv:transformer3d | pv:cable3d">
             <assert test="parent::collada:technique/parent::collada:extra/parent::collada:geometry">
                 Element '<name/>' must be inside geometry/extra/technique
             </assert>
@@ -67,10 +67,10 @@
     <pattern id="geometry_unique_elements">
         <rule context="collada:technique[@profile='PVCollada-2.0'][parent::collada:extra/parent::collada:geometry]">
             <assert test="count(pv:terrain | pv:rack | pv:post | pv:gap | 
-                               pv:inverter3d | pv:combiner3d | pv:transformer3d) &lt;= 1">
-                Only one terrain, rack, post, gap, inverter3d, combiner3d or transformer3d element is allowed per geometry. 
+                               pv:inverter3d | pv:combiner3d | pv:transformer3d | pv:cable3d) &lt;= 1">
+                Only one terrain, rack, post, gap, inverter3d, combiner3d, transformer3d or cable3d element is allowed per geometry. 
                 Found <value-of select="count(pv:terrain | pv:rack | pv:post | pv:gap | 
-                                            pv:inverter3d | pv:combiner3d | pv:transformer3d)"/> elements.
+                                            pv:inverter3d | pv:combiner3d | pv:transformer3d | pv:cable3d)"/> elements.
             </assert>
         </rule>
     </pattern>
@@ -78,7 +78,7 @@
     <!-- Pattern: Instance_geometry-level PVCollada elements placement -->
     <pattern id="instance_geometry_pvcollada_placement">
         <rule context="pv:instance_terrain | pv:instance_rack | pv:instance_post | pv:instance_gap | 
-                      pv:instance_inverter3d | pv:instance_combiner3d | pv:instance_transformer3d">
+                      pv:instance_inverter3d | pv:instance_combiner3d | pv:instance_transformer3d | pv:instance_cable3d">
             <assert test="parent::collada:technique/parent::collada:extra/parent::collada:instance_geometry">
                 Element '<name/>' must be inside instance_geometry/extra/technique
             </assert>
@@ -89,10 +89,10 @@
     <pattern id="instance_geometry_unique_elements">
         <rule context="collada:technique[@profile='PVCollada-2.0'][parent::collada:extra/parent::collada:instance_geometry]">
             <assert test="count(pv:instance_terrain | pv:instance_rack | pv:instance_post | pv:instance_gap | 
-                               pv:instance_inverter3d | pv:instance_combiner3d | pv:instance_transformer3d) &lt;= 1">
-                Only one instance_terrain, instance_rack, instance_post, instance_gap, instance_inverter3d, instance_combiner3d or instance_transformer3d element is allowed per instance_geometry. 
+                               pv:instance_inverter3d | pv:instance_combiner3d | pv:instance_transformer3d | pv:instance_cable3d) &lt;= 1">
+                Only one instance_terrain, instance_rack, instance_post, instance_gap, instance_inverter3d, instance_combiner3d, instance_transformer3d or pv:instance_cable3d element is allowed per instance_geometry. 
                 Found <value-of select="count(pv:instance_terrain |  pv:instance_rack | pv:instance_post | pv:instance_gap | 
-                                            pv:instance_inverter3d | pv:instance_combiner3d | pv:instance_transformer3d)"/> elements.
+                                            pv:instance_inverter3d | pv:instance_combiner3d | pv:instance_transformer3d | pv:instance_cable3d)"/> elements.
             </assert>
         </rule>
     </pattern>
