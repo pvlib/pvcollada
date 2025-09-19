@@ -66,6 +66,7 @@ jobs:
           sparse-checkout: |
             schema/pvcollada_schema_0.1.xsd
             schema/pvcollada_structure_2.0.sch
+            schema/pvcollada_references_2.0.sch
             schema/collada_schema_1_5.xsd
             .github/workflows/validate_xml_with_xsd_and_schematron.py
             ${{ matrix.xml_doc }}
@@ -77,4 +78,5 @@ jobs:
           python3 "$GITHUB_WORKSPACE"/.github/workflows/validate_xml_with_xsd_and_schematron.py \
             "$GITHUB_WORKSPACE"/"${{ matrix.xml_doc }}" \
             pvcollada_schema_0.1.xsd \
-            pvcollada_structure_2.0.sch
+            pvcollada_structure_2.0.sch \
+            pvcollada_references_2.0.sch
