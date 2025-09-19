@@ -1,16 +1,10 @@
 import sys
+import argparse
 from lxml import etree, isoschematron
 
 
-if __name__ == '__main__':
-    assert len(sys.argv) == 6
-    xml_filepath, xsd_filepath, sch_structure_filepath, sch_references_filepath, sch_business_filepath = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5]
-    
-    # Parse XML document once
-    with open(xml_filepath, 'rb') as xml:
-        xml_doc = etree.parse(xml)
-    
-    # Validate against XSD
+def validate_xsd(xml_doc, xsd_filepath):
+    """Validate XML document against XSD schema."""
     with open(xsd_filepath, 'rb') as xsd:
         xsd_doc = etree.parse(xsd)
     schema = etree.XMLSchema(xsd_doc)
@@ -20,69 +14,72 @@ if __name__ == '__main__':
         print('! XSD validation failed.')
         for error in schema.error_log:
             print(' -', error.message)
+        return False
     else:
         print('XSD validation passed.')
-    
-    # Validate against Structure Schematron
-    with open(sch_structure_filepath, 'rb') as sch:
+        return True
+
+
+def validate_schematron(xml_doc, sch_filepath, validation_type):
+    """Validate XML document against Schematron schema."""
+    with open(sch_filepath, 'rb') as sch:
         sch_doc = etree.parse(sch)
     schematron = isoschematron.Schematron(sch_doc, store_report=True)
-    sch_structure_valid = schematron.validate(xml_doc)
+    sch_valid = schematron.validate(xml_doc)
     
-    if not sch_structure_valid:
-        print('! Schematron structure validation failed.')
+    if not sch_valid:
+        print(f'! Schematron {validation_type} validation failed.')
         svrl = schematron.validation_report
         if svrl is not None:
             for failed in svrl.xpath('//svrl:failed-assert', 
-                                     namespaces={'svrl': 'http://purl.oclc.org/dsdl/svrl'}):
+                                   namespaces={'svrl': 'http://purl.oclc.org/dsdl/svrl'}):
                 location = failed.get('location', 'unknown')
                 messages = failed.xpath('svrl:text/text()', 
-                                       namespaces={'svrl': 'http://purl.oclc.org/dsdl/svrl'})
+                                      namespaces={'svrl': 'http://purl.oclc.org/dsdl/svrl'})
                 message = messages[0].strip() if messages else 'No message provided'
                 print(f' - {location}: {message}')
+        return False
     else:
-        print('Schematron structure validation passed.')
+        print(f'Schematron {validation_type} validation passed.')
+        return True
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Validate XML against XSD and Schematron schemas')
+    parser.add_argument('xml_file', help='Path to XML file to validate')
+    parser.add_argument('--xsd', help='Path to XSD schema file')
+    parser.add_argument('--schematron', help='Path to Schematron schema file')
     
-    # Validate against References Schematron
-    with open(sch_references_filepath, 'rb') as sch:
-        sch_doc = etree.parse(sch)
-    schematron = isoschematron.Schematron(sch_doc, store_report=True)
-    sch_references_valid = schematron.validate(xml_doc)
+    args = parser.parse_args()
     
-    if not sch_references_valid:
-        print('! Schematron references validation failed.')
-        svrl = schematron.validation_report
-        if svrl is not None:
-            for failed in svrl.xpath('//svrl:failed-assert', 
-                                     namespaces={'svrl': 'http://purl.oclc.org/dsdl/svrl'}):
-                location = failed.get('location', 'unknown')
-                messages = failed.xpath('svrl:text/text()', 
-                                       namespaces={'svrl': 'http://purl.oclc.org/dsdl/svrl'})
-                message = messages[0].strip() if messages else 'No message provided'
-                print(f' - {location}: {message}')
-    else:
-        print('Schematron references validation passed.')
+    if not args.xsd and not args.schematron:
+        print('Error: Either --xsd or --schematron must be specified')
+        sys.exit(1)
     
-    # Validate against Business Rules Schematron
-    with open(sch_business_filepath, 'rb') as sch:
-        sch_doc = etree.parse(sch)
-    schematron = isoschematron.Schematron(sch_doc, store_report=True)
-    sch_business_valid = schematron.validate(xml_doc)
+    # Parse XML document once
+    with open(args.xml_file, 'rb') as xml:
+        xml_doc = etree.parse(xml)
     
-    if not sch_business_valid:
-        print('! Schematron business validation failed.')
-        svrl = schematron.validation_report
-        if svrl is not None:
-            for failed in svrl.xpath('//svrl:failed-assert', 
-                                     namespaces={'svrl': 'http://purl.oclc.org/dsdl/svrl'}):
-                location = failed.get('location', 'unknown')
-                messages = failed.xpath('svrl:text/text()', 
-                                       namespaces={'svrl': 'http://purl.oclc.org/dsdl/svrl'})
-                message = messages[0].strip() if messages else 'No message provided'
-                print(f' - {location}: {message}')
-    else:
-        print('Schematron business validation passed.')
+    validation_passed = True
     
-    # Exit with error if any validation failed
-    if not (xsd_valid and sch_structure_valid and sch_references_valid and sch_business_valid):
-        exit(1)
+    # Validate against XSD if specified
+    if args.xsd:
+        validation_passed = validate_xsd(xml_doc, args.xsd)
+    
+    # Validate against Schematron if specified
+    if args.schematron:
+        # Determine validation type from filename
+        validation_type = "unknown"
+        if "structure" in args.schematron.lower():
+            validation_type = "structure"
+        elif "references" in args.schematron.lower():
+            validation_type = "references"
+        elif "business" in args.schematron.lower():
+            validation_type = "business"
+        
+        schematron_result = validate_schematron(xml_doc, args.schematron, validation_type)
+        validation_passed = validation_passed and schematron_result
+    
+    # Exit with error if validation failed
+    if not validation_passed:
+        sys.exit(1)
