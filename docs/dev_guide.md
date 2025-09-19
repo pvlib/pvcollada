@@ -8,7 +8,7 @@ This guide explains how to use the `pvcollada_schema_0.1.xsd` XML schema file in
 
 The schema file is located at:
 ```
-schema/pvcollada_schema_0.1.xsd
+schema/pvcollada_schema_2.0.xsd
 ```
 
 This schema imports the COLLADA schema (`collada_schema_1_5.xsd`) and defines enumerations and types specific to photovoltaic (PV) system design.
@@ -42,8 +42,8 @@ A Python script is provided at `schema/validate.py` that uses `lxml` to validate
 ```python
 from lxml import etree
 
-XML_FILE_PATH = "../Examples/05 - VerySimpleFixedPVC2_with_electrical_layout_v3.pvc"
-XSD_FILE_PATH = "pvcollada_schema_0.1.xsd"
+XML_FILE_PATH = "../Examples/05 - VerySimpleFixedPVC2_with_electrical_layout.pvc2"
+XSD_FILE_PATH = "pvcollada_schema_2.0.xsd"
 
 with open(XML_FILE_PATH, "rb") as xml:
     xml_doc = etree.XML(xml.read())
@@ -67,7 +67,7 @@ else:
 ### Automatically (using GitHub Actions)
 
 The repository includes a GitHub Actions workflow:  
-`.github/workflows/validate_xml_with_xsd.yml`
+`.github/workflows/validate_xml_with_xsd_and_schematron.yml`
 
 This workflow automatically validates example PVCollada XML files on every push or pull request affecting relevant files.
 
@@ -82,15 +82,14 @@ Key steps:
 
 Example XMLs are found in the `Examples/` directory.  
 Example:  
-`Examples/05 - VerySimpleFixedPVC2_with_electrical_layout_v3.pvc`
+`Examples/05 - VerySimpleFixedPVC2_with_electrical_layout.pvc2`
 
 ---
 
 ## 5. Extending the Schema
 
 If you need to add new enumerations or elements:
-- Edit `schema/pvcollada_schema_0.1.xsd`.
-- Ensure new values are added as `<xs:enumeration value="..."/>` or new types as needed.
+- Edit `schema/pvcollada_schema_2.0.xsd`.
 - Update or add example XML files to reflect the changes.
 - Run the validation script to confirm correctness.
 
@@ -98,9 +97,9 @@ If you need to add new enumerations or elements:
 
 ## 6. References
 
-- [pvcollada_schema_0.1.xsd (GitHub link)](https://github.com/pvlib/pvcollada/blob/main/schema/pvcollada_schema_0.1.xsd)
+- [pvcollada_schema_2.0.xsd (GitHub link)](https://github.com/pvlib/pvcollada/blob/main/schema/pvcollada_schema_2.0.xsd)
 - [validate.py](https://github.com/pvlib/pvcollada/blob/main/schema/validate.py)
-- [Validation Workflow](https://github.com/pvlib/pvcollada/blob/main/.github/workflows/validate_xml_with_xsd.yml)
+- [Validation Workflow](https://github.com/pvlib/pvcollada/blob/main/.github/workflows/validate_xml_with_xsd_and_schematron.yml)
 - [Browse more files in the repository](https://github.com/pvlib/pvcollada)
 
 ---
