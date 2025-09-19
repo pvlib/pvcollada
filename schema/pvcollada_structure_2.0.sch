@@ -133,4 +133,13 @@
         </rule>
     </pattern>
     
+    <!-- Pattern: Ensure table nodes contain rack instances -->
+    <pattern id="table_must_contain_racks">
+        <rule context="collada:node[.//pv:table]">
+            <assert test=".//pv:instance_rack">
+                A node containing a table element must have at least one instance_geometry child with an instance_rack element
+            </assert>
+        </rule>
+    </pattern>
+    
 </schema>
