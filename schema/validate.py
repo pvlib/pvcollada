@@ -14,7 +14,7 @@ from lxml import etree, isoschematron
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Default file paths
-DEFAULT_XML_FILE = os.path.join(SCRIPT_DIR, "../Examples/05 - VerySimpleFixedPVC2_with_electrical_layout.pv2")
+DEFAULT_XML_FILE = os.path.join(SCRIPT_DIR, "../Examples/05 - VerySimpleFixedPVC2_with_electrical_layout.pvc2")
 XSD_FILE_PATH = os.path.join(SCRIPT_DIR, "pvcollada_schema_2.0.xsd")
 SCH_STRUCTURE_FILE = os.path.join(SCRIPT_DIR, "pvcollada_structure_2.0.sch")
 SCH_REFERENCES_FILE = os.path.join(SCRIPT_DIR, "pvcollada_references_2.0.sch")

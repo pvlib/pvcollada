@@ -67,7 +67,7 @@ else:
 ### Automatically (using GitHub Actions)
 
 The repository includes a GitHub Actions workflow:  
-`.github/workflows/validate_xml_with_xsd.yml`
+`.github/workflows/validate_xml_with_xsd_and_schematron.yml`
 
 This workflow automatically validates example PVCollada XML files on every push or pull request affecting relevant files.
 
@@ -90,7 +90,6 @@ Example:
 
 If you need to add new enumerations or elements:
 - Edit `schema/pvcollada_schema_2.0.xsd`.
-- Ensure new values are added as `<xs:enumeration value="..."/>` or new types as needed.
 - Update or add example XML files to reflect the changes.
 - Run the validation script to confirm correctness.
 
@@ -100,7 +99,7 @@ If you need to add new enumerations or elements:
 
 - [pvcollada_schema_2.0.xsd (GitHub link)](https://github.com/pvlib/pvcollada/blob/main/schema/pvcollada_schema_2.0.xsd)
 - [validate.py](https://github.com/pvlib/pvcollada/blob/main/schema/validate.py)
-- [Validation Workflow](https://github.com/pvlib/pvcollada/blob/main/.github/workflows/validate_xml_with_xsd.yml)
+- [Validation Workflow](https://github.com/pvlib/pvcollada/blob/main/.github/workflows/validate_xml_with_xsd_and_schematron.yml)
 - [Browse more files in the repository](https://github.com/pvlib/pvcollada)
 
 ---
