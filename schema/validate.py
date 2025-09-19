@@ -18,6 +18,7 @@ DEFAULT_XML_FILE = os.path.join(SCRIPT_DIR, "../Examples/05 - VerySimpleFixedPVC
 XSD_FILE_PATH = os.path.join(SCRIPT_DIR, "pvcollada_schema_0.1.xsd")
 SCH_STRUCTURE_FILE = os.path.join(SCRIPT_DIR, "pvcollada_structure_2.0.sch")
 SCH_REFERENCES_FILE = os.path.join(SCRIPT_DIR, "pvcollada_references_2.0.sch")
+SCH_BUSINESS_FILE = os.path.join(SCRIPT_DIR, "pvcollada_business_2.0.sch")
 
 # Get XML file from command line or use default
 if len(sys.argv) > 1:
@@ -29,6 +30,7 @@ print(f"XML file: {XML_FILE_PATH}")
 print(f"XSD file: {XSD_FILE_PATH}")
 print(f"SCH structure file: {SCH_STRUCTURE_FILE}")
 print(f"SCH references file: {SCH_REFERENCES_FILE}")
+print(f"SCH business file: {SCH_BUSINESS_FILE}")
 print("-" * 50)
 
 # Parse XML document once
@@ -94,10 +96,33 @@ else:
             print(f"  - {location}")
             print(f"    {message}")
 
+# Validate against Business Rules Schematron
+print()
+with open(SCH_BUSINESS_FILE, "rb") as sch:
+    sch_doc = etree.parse(sch)
+
+schematron = isoschematron.Schematron(sch_doc, store_report=True)
+sch_business_valid = schematron.validate(xml_doc)
+
+if sch_business_valid:
+    print("Schematron business rules validation passed.")
+else:
+    print("! Schematron business rules validation failed.")
+    svrl = schematron.validation_report
+    if svrl is not None:
+        for failed in svrl.xpath('//svrl:failed-assert', 
+                                 namespaces={'svrl': 'http://purl.oclc.org/dsdl/svrl'}):
+            location = failed.get('location', 'unknown')
+            messages = failed.xpath('svrl:text/text()', 
+                                   namespaces={'svrl': 'http://purl.oclc.org/dsdl/svrl'})
+            message = messages[0].strip() if messages else 'No message provided'
+            print(f"  - {location}")
+            print(f"    {message}")
+
 # Summary
 print()
 print("=" * 50)
-if xsd_valid and sch_structure_valid and sch_references_valid:
+if xsd_valid and sch_structure_valid and sch_references_valid and sch_business_valid:
     print("✓ All validations passed")
 else:
     print("✗ Validation failed")

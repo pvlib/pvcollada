@@ -3,8 +3,8 @@ from lxml import etree, isoschematron
 
 
 if __name__ == '__main__':
-    assert len(sys.argv) == 5
-    xml_filepath, xsd_filepath, sch_structure_filepath, sch_references_filepath = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
+    assert len(sys.argv) == 6
+    xml_filepath, xsd_filepath, sch_structure_filepath, sch_references_filepath, sch_business_filepath = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5]
     
     # Parse XML document once
     with open(xml_filepath, 'rb') as xml:
@@ -63,6 +63,26 @@ if __name__ == '__main__':
     else:
         print('Schematron references validation passed.')
     
+    # Validate against Business Rules Schematron
+    with open(sch_business_filepath, 'rb') as sch:
+        sch_doc = etree.parse(sch)
+    schematron = isoschematron.Schematron(sch_doc, store_report=True)
+    sch_business_valid = schematron.validate(xml_doc)
+    
+    if not sch_business_valid:
+        print('! Schematron business validation failed.')
+        svrl = schematron.validation_report
+        if svrl is not None:
+            for failed in svrl.xpath('//svrl:failed-assert', 
+                                     namespaces={'svrl': 'http://purl.oclc.org/dsdl/svrl'}):
+                location = failed.get('location', 'unknown')
+                messages = failed.xpath('svrl:text/text()', 
+                                       namespaces={'svrl': 'http://purl.oclc.org/dsdl/svrl'})
+                message = messages[0].strip() if messages else 'No message provided'
+                print(f' - {location}: {message}')
+    else:
+        print('Schematron business validation passed.')
+    
     # Exit with error if any validation failed
-    if not (xsd_valid and sch_structure_valid and sch_references_valid):
+    if not (xsd_valid and sch_structure_valid and sch_references_valid and sch_business_valid):
         exit(1)
