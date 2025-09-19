@@ -679,6 +679,9 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
   </xs:complexType>
 	<!-- asset objects -->
   <xs:element name="software">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of the Collada/asset tag.</xs:documentation>
+    </xs:annotation>
     <!-- add version, or read from technique label? -->
     <xs:complexType>
       <xs:sequence>
@@ -688,6 +691,9 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
     </xs:complexType>
   </xs:element>
   <xs:element name="project">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of the Collada/asset tag.</xs:documentation>
+    </xs:annotation>
     <xs:complexType>
       <xs:sequence>
         <xs:element name="name" type="xs:string" />
@@ -748,6 +754,10 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
     </xs:complexType>
   </xs:element>
   <xs:element name="terrain">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada geometry tag to signal a 3D model
+      for a terrain.</xs:documentation>
+    </xs:annotation>
     <!-- need to add: albedo, areal picture, ground_slope, ground_azimuth, digital_elevation_model -->
     <xs:complexType>
       <xs:sequence>
@@ -775,6 +785,9 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
     </xs:complexType>
   </xs:element>
   <xs:element name="components">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of the Collada/asset tag.</xs:documentation>
+    </xs:annotation>
     <xs:complexType>
       <xs:all>
         <xs:element name="modules" minOccurs="0">
@@ -1028,7 +1041,11 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
     </xs:complexType>
   </xs:element>
   <!-- instances -->
-  <xs:element name="circuit" type="circuit_type" />
+  <xs:element name="circuit" type="circuit_type">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of the Collada/asset tag.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="instance_terrain">
     <xs:annotation>
       <xs:documentation>This tag should only appear in the extra/technique section of a Collada instance_geometry tag to signal the
@@ -1049,7 +1066,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
     <xs:complexType>
       <xs:attribute name="id" type="xs:ID">
         <xs:annotation>
-          <xs:documentation>Unique id for the rack instance (will be referenced in instance_table)</xs:documentation>
+          <xs:documentation>Unique id for the rack instance</xs:documentation>
         </xs:annotation>
       </xs:attribute>
     </xs:complexType>
@@ -1107,7 +1124,21 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
 			</xs:sequence>
       <xs:attribute name="id" type="xs:ID">
         <xs:annotation>
-          <xs:documentation>Unique id for the post instance (can be referenced in instance_tracker or instance_fence)</xs:documentation>
+          <xs:documentation>Unique id for the post instance</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="instance_gap">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada instance_geometry tag to signal the
+      instance of a gap inside a table model. The attribute url of the instance_geometry must reference a Collada geometry that is
+      a model for a gap (has a gap tag in its extra/technique tag).</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>Unique id for the gap instance</xs:documentation>
         </xs:annotation>
       </xs:attribute>
     </xs:complexType>
@@ -1190,6 +1221,33 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       <xs:attribute name="instance_transformer_id" type="xs:IDREF">
         <xs:annotation>
           <xs:documentation>Id of the instance_transformer defined in the circuit part</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="cable3d">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada geometry tag to signal a 3D model
+      for a cable.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="cable_id" type="xs:IDREF">
+        <xs:annotation>
+          <xs:documentation>Id of the cable defined in the components part</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="instance_cable3d">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada instance_geometry tag to signal a
+      3D instance of a cable. The attribute url of the instance_geometry must reference a Collada geometry that is a model
+      for a cable3d (has an cable3d tag in its extra/technique tag).</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="cable_to_parent_id" type="xs:IDREF">
+        <xs:annotation>
+          <xs:documentation>Id of the cable_to_parent defined in the circuit part</xs:documentation>
         </xs:annotation>
       </xs:attribute>
     </xs:complexType>

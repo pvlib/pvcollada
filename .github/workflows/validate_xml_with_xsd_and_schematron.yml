@@ -1,4 +1,4 @@
-# .github/workflows/validate_xml_with_xsd.yml
+# .github/workflows/validate_xml_with_xsd_and_schematron.yml
 name: Validate PVCollada XML examples
 
 on:
@@ -6,15 +6,15 @@ on:
     paths:
       - Examples/**
       - schema/**
-      - .github/workflows/validate_xml_with_xsd.py
-      - .github/workflows/validate_xml_with_xsd.yml
+      - .github/workflows/validate_xml_with_xsd_and_schematron.py
+      - .github/workflows/validate_xml_with_xsd_and_schematron.yml
 
   pull_request:
     paths:
       - Examples/**
       - schema/**
-      - .github/workflows/validate_xml_with_xsd.py
-      - .github/workflows/validate_xml_with_xsd.yml
+      - .github/workflows/validate_xml_with_xsd_and_schematron.py
+      - .github/workflows/validate_xml_with_xsd_and_schematron.yml
 
   workflow_dispatch:
 
@@ -60,19 +60,43 @@ jobs:
       - name: Install lxml Python dependency
         run: pip3 install lxml==5.3.1
 
-      - name: Checkout PVCollada and COLLADA schemas, the validation script, and the XML doc
+      - name: Checkout schemas, validation script, and XML doc
         uses: actions/checkout@v4
         with:
           sparse-checkout: |
             schema/pvcollada_schema_0.1.xsd
+            schema/pvcollada_structure_2.0.sch
+            schema/pvcollada_references_2.0.sch
+            schema/pvcollada_business_2.0.sch
             schema/collada_schema_1_5.xsd
-            .github/workflows/validate_xml_with_xsd.py
+            .github/workflows/validate_xml_with_xsd_and_schematron.py
             ${{ matrix.xml_doc }}
           sparse-checkout-cone-mode: false
 
-      - name: Run validation
+      - name: Validate against XSD Schema
         working-directory: schema
         run: |
-          python3 "$GITHUB_WORKSPACE"/.github/workflows/validate_xml_with_xsd.py \
-            pvcollada_schema_0.1.xsd \
-            "$GITHUB_WORKSPACE"/"${{ matrix.xml_doc }}"
+          python3 "$GITHUB_WORKSPACE"/.github/workflows/validate_xml_with_xsd_and_schematron.py \
+            "$GITHUB_WORKSPACE"/"${{ matrix.xml_doc }}" \
+            --xsd pvcollada_schema_0.1.xsd
+
+      - name: Validate against Structure Schematron
+        working-directory: schema
+        run: |
+          python3 "$GITHUB_WORKSPACE"/.github/workflows/validate_xml_with_xsd_and_schematron.py \
+            "$GITHUB_WORKSPACE"/"${{ matrix.xml_doc }}" \
+            --schematron pvcollada_structure_2.0.sch
+
+      - name: Validate against References Schematron
+        working-directory: schema
+        run: |
+          python3 "$GITHUB_WORKSPACE"/.github/workflows/validate_xml_with_xsd_and_schematron.py \
+            "$GITHUB_WORKSPACE"/"${{ matrix.xml_doc }}" \
+            --schematron pvcollada_references_2.0.sch
+
+      - name: Validate against Business Rules Schematron
+        working-directory: schema
+        run: |
+          python3 "$GITHUB_WORKSPACE"/.github/workflows/validate_xml_with_xsd_and_schematron.py \
+            "$GITHUB_WORKSPACE"/"${{ matrix.xml_doc }}" \
+            --schematron pvcollada_business_2.0.sch
