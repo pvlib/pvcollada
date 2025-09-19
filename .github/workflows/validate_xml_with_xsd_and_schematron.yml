@@ -20,7 +20,7 @@ on:
 
 jobs:
   discover:
-    name: Discover *.pv2 example files
+    name: Discover *.pvc2 example files
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.build.outputs.matrix }}
@@ -32,7 +32,7 @@ jobs:
           python3 - <<'PY' > matrix.json
           import json, re, pathlib
           root = pathlib.Path("Examples")
-          pattern = re.compile(r".+\.pv2$", re.IGNORECASE)
+          pattern = re.compile(r".+\.pvc2$", re.IGNORECASE)
           files = []
           if root.exists():
               for p in sorted(root.iterdir()):
@@ -64,7 +64,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           sparse-checkout: |
-            schema/pvcollada_schema_0.1.xsd
+            schema/pvcollada_schema_2.0.xsd
             schema/pvcollada_structure_2.0.sch
             schema/pvcollada_references_2.0.sch
             schema/pvcollada_business_2.0.sch
@@ -78,7 +78,7 @@ jobs:
         run: |
           python3 "$GITHUB_WORKSPACE"/.github/workflows/validate_xml_with_xsd_and_schematron.py \
             "$GITHUB_WORKSPACE"/"${{ matrix.xml_doc }}" \
-            --xsd pvcollada_schema_0.1.xsd
+            --xsd pvcollada_schema_2.0.xsd
 
       - name: Validate against Structure Schematron
         working-directory: schema
