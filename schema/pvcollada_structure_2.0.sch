@@ -25,6 +25,18 @@
             </assert>
         </rule>
     </pattern>
+	
+	<!-- Pattern: Ensure up_axis is Z_UP -->
+	<pattern id="asset_up_axis_requirement">
+		<rule context="collada:COLLADA/collada:asset">
+			<assert test="collada:up_axis">
+				Asset must contain an up_axis element
+			</assert>
+			<assert test="collada:up_axis = 'Z_UP'">
+				up_axis must have value 'Z_UP'. Found '<value-of select="collada:up_axis"/>'
+			</assert>
+		</rule>
+	</pattern>
     
     <!-- Pattern: Asset-level PVCollada elements placement -->
     <pattern id="asset_pvcollada_placement">
