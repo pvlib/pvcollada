@@ -373,11 +373,6 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
-      <xs:element name="mesh_id" type="collada:sidref_type" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Mesh describing inverter object in 3D scene.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
     </xs:sequence>
     <xs:attribute name="id" use="required" type="xs:ID" />
   </xs:complexType>
@@ -469,11 +464,6 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       <xs:element name="night_disconnect" type="xs:boolean" minOccurs="0">
         <xs:annotation>
           <xs:documentation>true if the transformer automatically disconnects from the grid at night.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="mesh_id" type="collada:sidref_type" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Mesh describing transformer object in 3D scene.</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
