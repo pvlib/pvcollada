@@ -71,14 +71,27 @@
         </rule>
     </pattern>
     
-    <!-- Pattern: Validate instance_combiner3d references -->
-    <pattern id="instance_combiner3d_references">
-        <rule context="pv:instance_combiner3d">
+    <!-- Pattern: Validate instance_combiner_ac3d references -->
+    <pattern id="instance_combiner_ac3d_references">
+        <rule context="pv:instance_combiner_ac3d">
             <let name="instance_geom" value="ancestor::collada:instance_geometry"/>
             <let name="geom_url" value="substring-after($instance_geom/@url, '#')"/>
             <let name="referenced_geom" value="//collada:geometry[@id=$geom_url]"/>
-            <assert test="$referenced_geom//pv:combiner3d">
-                instance_combiner3d must be in an instance_geometry that references a geometry containing a combiner3d element.
+            <assert test="$referenced_geom//pv:combiner_ac3d">
+                instance_combiner_ac3d must be in an instance_geometry that references a geometry containing a combiner_ac3d element.
+                Referenced geometry: <value-of select="$geom_url"/>
+            </assert>
+        </rule>
+    </pattern>
+
+    <!-- Pattern: Validate instance_combiner_dc3d references -->
+    <pattern id="instance_combiner_dc3d_references">
+        <rule context="pv:instance_combiner_dc3d">
+            <let name="instance_geom" value="ancestor::collada:instance_geometry"/>
+            <let name="geom_url" value="substring-after($instance_geom/@url, '#')"/>
+            <let name="referenced_geom" value="//collada:geometry[@id=$geom_url]"/>
+            <assert test="$referenced_geom//pv:combiner_dc3d">
+                instance_combiner_dc3d must be in an instance_geometry that references a geometry containing a combiner_dc3d element.
                 Referenced geometry: <value-of select="$geom_url"/>
             </assert>
         </rule>
@@ -145,13 +158,24 @@
         </rule>
     </pattern>
 	   
-    <!-- Pattern: Validate combiner3d component references -->
-    <pattern id="combiner3d_component_references">
-        <rule context="pv:combiner3d[@combiner_id]">
-            <let name="combiner_ref" value="@combiner_id"/>
-            <assert test="//pv:combiner_ac[@id=$combiner_ref] or //pv:combiner_dc[@id=$combiner_ref]">
-                combiner3d element references non-existent combiner '<value-of select="$combiner_ref"/>'.
-                Must reference a combiner_ac or combiner_dc defined in components.
+    <!-- Pattern: Validate combiner_ac3d component references -->
+    <pattern id="combiner_ac3d_component_references">
+        <rule context="pv:combiner_ac3d[@combiner_ac_id]">
+            <let name="combiner_ac_ref" value="@combiner_ac_id"/>
+            <assert test="//pv:combiner_ac[@id=$combiner_ac_ref]">
+                combiner_ac3d element references non-existent combiner_ac '<value-of select="$combiner_ac_ref"/>'.
+                Must reference a combiner_ac defined in components.
+            </assert>
+        </rule>
+    </pattern>
+	
+    <!-- Pattern: Validate combiner_dc3d component references -->
+    <pattern id="combiner_dc3d_component_references">
+        <rule context="pv:combiner_dc3d[@combiner_dc_id]">
+            <let name="combiner_dc_ref" value="@combiner_dc_id"/>
+            <assert test="//pv:combiner_dc[@id=$combiner_dc_ref]">
+                combiner_dc3d element references non-existent combiner_dc '<value-of select="$combiner_dc_ref"/>'.
+                Must reference a combiner_dc defined in components.
             </assert>
         </rule>
     </pattern>
@@ -189,13 +213,24 @@
         </rule>
     </pattern>
     
-    <!-- Pattern: Validate instance_combiner3d circuit references -->
-    <pattern id="instance_combiner3d_circuit_references">
-        <rule context="pv:instance_combiner3d[@instance_combiner_id]">
-            <let name="instance_ref" value="@instance_combiner_id"/>
-            <assert test="//pv:instance_combiner_ac[@id=$instance_ref] or //pv:instance_combiner_dc[@id=$instance_ref]">
-                instance_combiner3d element references non-existent combiner instance '<value-of select="$instance_ref"/>'.
-                Must reference an instance_combiner_ac or instance_combiner_dc defined in the circuit.
+    <!-- Pattern: Validate instance_combiner_ac3d circuit references -->
+    <pattern id="instance_combiner_ac3d_circuit_references">
+        <rule context="pv:instance_combiner_ac3d[@instance_combiner_ac_id]">
+            <let name="instance_ref" value="@instance_combiner_ac_id"/>
+            <assert test="//pv:instance_combiner_ac[@id=$instance_ref]">
+                instance_combiner_ac3d element references non-existent combiner_ac instance '<value-of select="$instance_ref"/>'.
+                Must reference an instance_combiner_ac defined in the circuit.
+            </assert>
+        </rule>
+    </pattern>
+	
+    <!-- Pattern: Validate instance_combiner_dc3d circuit references -->
+    <pattern id="instance_combiner_dc3d_circuit_references">
+        <rule context="pv:instance_combiner_dc3d[@instance_combiner_dc_id]">
+            <let name="instance_ref" value="@instance_combiner_dc_id"/>
+            <assert test="//pv:instance_combiner_dc[@id=$instance_ref]">
+                instance_combiner_dc3d element references non-existent combiner_dc instance '<value-of select="$instance_ref"/>'.
+                Must reference an instance_combiner_dc defined in the circuit.
             </assert>
         </rule>
     </pattern>

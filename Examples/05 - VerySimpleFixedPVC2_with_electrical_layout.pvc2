@@ -108,10 +108,10 @@
 					</pv:inverters>
 					<!-- List of AC combiners -->
 					<pv:combiners_ac>
-						<!-- combiner tag -->
-						<pv:combiner_ac id="CombinerModel1">
+						<!-- combiner_ac tag -->
+						<pv:combiner_ac id="CombinerACModel1">
 							<pv:manufacturer>Generic</pv:manufacturer>
-							<pv:name>Generic combiner</pv:name>
+							<pv:name>Generic AC combiner</pv:name>
 							<pv:input_count>3</pv:input_count>
 						</pv:combiner_ac>
 					</pv:combiners_ac>
@@ -166,7 +166,7 @@
 							<pv:cable_to_parent url="#ACCableModel1" length="5" id="cableInstance1" />
 							<pv:inputs>
 								<!-- instance_combiner_ac tag, the AC combiner that will combine the 3 strings -->
-								<pv:instance_combiner_ac url="#CombinerModel1" id="combinerInstance">
+								<pv:instance_combiner_ac url="#CombinerACModel1" id="combinerAcInstance">
 									<!-- Cable between the AC combiner and the transformer -->
 									<pv:cable_to_parent url="#ACCableModel1" length="10" id="cableInstance2" />
 									<!-- inputs tag => the 3 inverters strings -->
@@ -444,27 +444,27 @@
 				</technique>
 			</extra>
 		</geometry>
-		<!-- We define the 3D model for combiners (contains the geometry of the combiner) -->
-		<geometry id="Combiner3DModel">
+		<!-- We define the 3D model for AC combiners (contains the geometry of the AC combiner) -->
+		<geometry id="CombinerAC3DModel">
 			<mesh>
-				<source id="combiner_positions">
-					<float_array id="combiner_positions_array" count="24">
+				<source id="combiner_ac_positions">
+					<float_array id="combiner_ac_positions_array" count="24">
 						-100 -100 0 100 -100 0 100 100 0 -100 100 0
 						-100 -100 120 100 -100 120 100 100 120 -100 100 120
 					</float_array>
 					<technique_common>
-						<accessor source="#combiner_positions_array" count="8" stride="3">
+						<accessor source="#combiner_ac_positions_array" count="8" stride="3">
 							<param name="X" type="float" />
 							<param name="Y" type="float" />
 							<param name="Z" type="float" />
 						</accessor>
 					</technique_common>
 				</source>
-				<vertices id="combiner_vertices">
-					<input semantic="POSITION" source="#combiner_positions" />
+				<vertices id="combiner_ac_vertices">
+					<input semantic="POSITION" source="#combiner_ac_positions" />
 				</vertices>
 				<polygons count="6">
-					<input semantic="VERTEX" source="#combiner_vertices" offset="0" />
+					<input semantic="VERTEX" source="#combiner_ac_vertices" offset="0" />
 					<p>0 1 2 3</p>
 					<p>4 5 6 7</p>
 					<p>0 1 5 4</p>
@@ -475,8 +475,8 @@
 			</mesh>
 			<extra>
 				<technique profile="PVCollada-2.0">
-					<!-- combiner3d tag, references the combiner defined in components -->
-					<pv:combiner3d combiner_id="CombinerModel1" />
+					<!-- combiner_ac3d tag, references the combiner_ac defined in components -->
+					<pv:combiner_ac3d combiner_ac_id="CombinerACModel1" />
 				</technique>
 			</extra>
 		</geometry>
@@ -640,14 +640,14 @@
 					</extra>
 				</instance_geometry>
 			</node>
-			<!-- We instantiate the combiner -->
-			<node id="Combiner3DNode" name="Combiner3DNode" sid="Combiner3DNode">
+			<!-- We instantiate the AC combiner -->
+			<node id="CombinerAC3DNode" name="CombinerAC3DNode" sid="CombinerAC3DNode">
 				<translate>600 -900 0</translate>
-				<instance_geometry url="#Combiner3DModel">
+				<instance_geometry url="#CombinerAC3DModel">
 					<extra>
 						<technique profile="PVCollada-2.0">
-							<!-- instance_combiner3d tag, references the corresponding instance_combiner of the circuit -->
-							<pv:instance_combiner3d instance_combiner_id="combinerInstance" />
+							<!-- instance_combiner_ac3d tag, references the corresponding instance_combiner_ac of the circuit -->
+							<pv:instance_combiner_ac3d instance_combiner_ac_id="combinerAcInstance" />
 						</technique>
 					</extra>
 				</instance_geometry>
