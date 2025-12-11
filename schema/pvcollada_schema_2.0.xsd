@@ -1161,29 +1161,56 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       </xs:attribute>
     </xs:complexType>
   </xs:element>
-  <xs:element name="combiner3d">
+  <xs:element name="combiner_ac3d">
     <xs:annotation>
       <xs:documentation>This tag should only appear in the extra/technique section of a Collada geometry tag to signal a 3D model
-      for a combiner.</xs:documentation>
+      for an AC combiner.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attribute name="combiner_id" type="xs:IDREF">
+      <xs:attribute name="combiner_ac_id" type="xs:IDREF">
         <xs:annotation>
-          <xs:documentation>Id of the combiner defined in the components part</xs:documentation>
+          <xs:documentation>Id of the AC combiner defined in the components part</xs:documentation>
         </xs:annotation>
       </xs:attribute>
     </xs:complexType>
   </xs:element>
-  <xs:element name="instance_combiner3d">
+  <xs:element name="instance_combiner_ac3d">
     <xs:annotation>
       <xs:documentation>This tag should only appear in the extra/technique section of a Collada instance_geometry tag to signal a
-      3D instance of a combiner. The attribute url of the instance_geometry must reference a Collada geometry that is a model for a
-      combiner3d (has an combiner3d tag in its extra/technique tag).</xs:documentation>
+      3D instance of an AC combiner. The attribute url of the instance_geometry must reference a Collada geometry that is a model
+	  for a combiner_ac3d (has an combiner_ac3d tag in its extra/technique tag).</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attribute name="instance_combiner_id" type="xs:IDREF">
+      <xs:attribute name="instance_combiner_ac_id" type="xs:IDREF">
         <xs:annotation>
-          <xs:documentation>Id of the instance_combiner defined in the circuit part</xs:documentation>
+          <xs:documentation>Id of the instance_combiner_ac defined in the circuit part</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="combiner_dc3d">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada geometry tag to signal a 3D model
+      for an DC combiner.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="combiner_dc_id" type="xs:IDREF">
+        <xs:annotation>
+          <xs:documentation>Id of the DC combiner defined in the components part</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="instance_combiner_dc3d">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada instance_geometry tag to signal a
+      3D instance of an DC combiner. The attribute url of the instance_geometry must reference a Collada geometry that is a model
+	  for a combiner_dc3d (has an combiner_dc3d tag in its extra/technique tag).</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="instance_combiner_dc_id" type="xs:IDREF">
+        <xs:annotation>
+          <xs:documentation>Id of the instance_combiner_dc defined in the circuit part</xs:documentation>
         </xs:annotation>
       </xs:attribute>
     </xs:complexType>

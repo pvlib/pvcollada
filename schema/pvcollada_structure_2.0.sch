@@ -64,11 +64,21 @@
             </assert>
         </rule>
     </pattern>
+
+	<!-- Pattern: Validate only known PVCollada elements in asset -->
+	<pattern id="valid_asset_pvcollada_elements">
+		<rule context="collada:technique[@profile='PVCollada-2.0'][parent::collada:extra/parent::collada:asset]/pv:*">
+			<assert test="self::pv:software or self::pv:project or self::pv:components or self::pv:circuit">
+				Unknown PVCollada element '<name/>' in asset technique. 
+				Allowed elements: software, project, components, circuit.
+			</assert>
+		</rule>
+	</pattern>
     
     <!-- Pattern: Geometry-level PVCollada elements placement -->
     <pattern id="geometry_pvcollada_placement">
         <rule context="pv:terrain | pv:rack | pv:post | pv:gap | 
-                      pv:inverter3d | pv:combiner3d | pv:transformer3d | pv:cable3d">
+                      pv:inverter3d | pv:combiner_ac3d | pv:combiner_dc3d | pv:transformer3d | pv:cable3d">
             <assert test="parent::collada:technique/parent::collada:extra/parent::collada:geometry">
                 Element '<name/>' must be inside geometry/extra/technique
             </assert>
@@ -79,18 +89,30 @@
     <pattern id="geometry_unique_elements">
         <rule context="collada:technique[@profile='PVCollada-2.0'][parent::collada:extra/parent::collada:geometry]">
             <assert test="count(pv:terrain | pv:rack | pv:post | pv:gap | 
-                               pv:inverter3d | pv:combiner3d | pv:transformer3d | pv:cable3d) &lt;= 1">
-                Only one terrain, rack, post, gap, inverter3d, combiner3d, transformer3d or cable3d element is allowed per geometry. 
+                               pv:inverter3d | pv:combiner_ac3d | pv:combiner_dc3d | pv:transformer3d | pv:cable3d) &lt;= 1">
+                Only one terrain, rack, post, gap, inverter3d, combiner_ac3d, combiner_dc3d, transformer3d or cable3d element is allowed per geometry. 
                 Found <value-of select="count(pv:terrain | pv:rack | pv:post | pv:gap | 
-                                            pv:inverter3d | pv:combiner3d | pv:transformer3d | pv:cable3d)"/> elements.
+                                            pv:inverter3d | pv:combiner_ac3d | pv:combiner_dc3d | pv:transformer3d | pv:cable3d)"/> elements.
             </assert>
         </rule>
     </pattern>
+
+	<!-- Pattern: Validate only known PVCollada elements in geometry -->
+	<pattern id="valid_geometry_pvcollada_elements">
+		<rule context="collada:technique[@profile='PVCollada-2.0'][parent::collada:extra/parent::collada:geometry]/pv:*">
+			<assert test="self::pv:terrain or self::pv:rack or self::pv:post or self::pv:gap or 
+						  self::pv:inverter3d or self::pv:combiner_ac3d or self::pv:combiner_dc3d or 
+						  self::pv:transformer3d or self::pv:cable3d">
+				Unknown PVCollada element '<name/>' in geometry technique. 
+				Allowed elements: terrain, rack, post, gap, inverter3d, combiner_ac3d, combiner_dc3d, transformer3d, cable3d.
+			</assert>
+		</rule>
+	</pattern>
     
     <!-- Pattern: Instance_geometry-level PVCollada elements placement -->
     <pattern id="instance_geometry_pvcollada_placement">
         <rule context="pv:instance_terrain | pv:instance_rack | pv:instance_post | pv:instance_gap | 
-                      pv:instance_inverter3d | pv:instance_combiner3d | pv:instance_transformer3d | pv:instance_cable3d">
+                      pv:instance_inverter3d | pv:instance_combiner_ac3d | pv:instance_combiner_dc3d | pv:instance_transformer3d | pv:instance_cable3d">
             <assert test="parent::collada:technique/parent::collada:extra/parent::collada:instance_geometry">
                 Element '<name/>' must be inside instance_geometry/extra/technique
             </assert>
@@ -101,13 +123,25 @@
     <pattern id="instance_geometry_unique_elements">
         <rule context="collada:technique[@profile='PVCollada-2.0'][parent::collada:extra/parent::collada:instance_geometry]">
             <assert test="count(pv:instance_terrain | pv:instance_rack | pv:instance_post | pv:instance_gap | 
-                               pv:instance_inverter3d | pv:instance_combiner3d | pv:instance_transformer3d | pv:instance_cable3d) &lt;= 1">
-                Only one instance_terrain, instance_rack, instance_post, instance_gap, instance_inverter3d, instance_combiner3d, instance_transformer3d or pv:instance_cable3d element is allowed per instance_geometry. 
+                               pv:instance_inverter3d | pv:instance_combiner_ac3d | pv:instance_combiner_dc3d | pv:instance_transformer3d | pv:instance_cable3d) &lt;= 1">
+                Only one instance_terrain, instance_rack, instance_post, instance_gap, instance_inverter3d, instance_combiner_ac3d, instance_combiner_dc3d, instance_transformer3d or pv:instance_cable3d element is allowed per instance_geometry. 
                 Found <value-of select="count(pv:instance_terrain |  pv:instance_rack | pv:instance_post | pv:instance_gap | 
-                                            pv:instance_inverter3d | pv:instance_combiner3d | pv:instance_transformer3d | pv:instance_cable3d)"/> elements.
+                                            pv:instance_inverter3d | pv:instance_combiner_ac3d | pv:instance_combiner_dc3d | pv:instance_transformer3d | pv:instance_cable3d)"/> elements.
             </assert>
         </rule>
     </pattern>
+
+	<!-- Pattern: Validate only known PVCollada elements in instance_geometry -->
+	<pattern id="valid_instance_geometry_pvcollada_elements">
+		<rule context="collada:technique[@profile='PVCollada-2.0'][parent::collada:extra/parent::collada:instance_geometry]/pv:*">
+			<assert test="self::pv:instance_terrain or self::pv:instance_rack or self::pv:instance_post or self::pv:instance_gap or 
+						  self::pv:instance_inverter3d or self::pv:instance_combiner_ac3d or self::pv:instance_combiner_dc3d or 
+						  self::pv:instance_transformer3d or self::pv:instance_cable3d">
+				Unknown PVCollada element '<name/>' in instance_geometry technique. 
+				Allowed elements: instance_terrain, instance_rack, instance_post, instance_gap, instance_inverter3d, instance_combiner_ac3d, instance_combiner_dc3d, instance_transformer3d, instance_cable3d.
+			</assert>
+		</rule>
+	</pattern>
     
     <!-- Pattern: Node-level PVCollada elements placement -->
     <pattern id="node_pvcollada_placement">
@@ -126,6 +160,16 @@
             </assert>
         </rule>
     </pattern>
+	
+	<!-- Pattern: Validate only known PVCollada elements in node -->
+	<pattern id="valid_node_pvcollada_elements">
+		<rule context="collada:technique[@profile='PVCollada-2.0'][parent::collada:extra/parent::collada:node]/pv:*">
+			<assert test="self::pv:table">
+				Unknown PVCollada element '<name/>' in node technique. 
+				Allowed elements: table.
+			</assert>
+		</rule>
+	</pattern>
     
     <!-- Pattern: Instance_node-level PVCollada elements placement -->
     <pattern id="instance_node_pvcollada_placement">
@@ -144,6 +188,16 @@
             </assert>
         </rule>
     </pattern>
+
+	<!-- Pattern: Validate only known PVCollada elements in instance_node -->
+	<pattern id="valid_instance_node_pvcollada_elements">
+		<rule context="collada:technique[@profile='PVCollada-2.0'][parent::collada:extra/parent::collada:instance_node]/pv:*">
+			<assert test="self::pv:instance_table">
+				Unknown PVCollada element '<name/>' in instance_node technique. 
+				Allowed elements: instance_table.
+			</assert>
+		</rule>
+	</pattern>
     
     <!-- Pattern: Ensure table nodes contain rack instances -->
     <pattern id="table_must_contain_racks">
