@@ -1043,8 +1043,11 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       terrain (has a terrain tag in its extra/technique tag).</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <!-- no child elements allowed -->
-      <xs:sequence />
+      <xs:attribute name="id" use="required" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>Unique id for the terrain instance</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>  
     </xs:complexType>
   </xs:element>
   <xs:element name="instance_rack">
@@ -1054,7 +1057,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       a model for a rack (has a rack tag in its extra/technique tag).</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attribute name="id" type="xs:ID">
+      <xs:attribute name="id" use="required" type="xs:ID">
         <xs:annotation>
           <xs:documentation>Unique id for the rack instance</xs:documentation>
         </xs:annotation>
@@ -1078,7 +1081,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
             <xs:sequence>
               <xs:element name="instance_rack_ref" maxOccurs="unbounded">
                 <xs:complexType>
-                  <xs:attribute name="id" type="xs:ID">
+                  <xs:attribute name="id" use="required" type="xs:ID">
                     <xs:annotation>
                       <xs:documentation>Unique id for the rack instance reference (will be referenced within the strings in the
                       circuit part)</xs:documentation>
@@ -1096,6 +1099,11 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
           </xs:complexType>
         </xs:element>
       </xs:sequence>
+      <xs:attribute name="id" use="required" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>Unique id for the table instance</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
     </xs:complexType>
   </xs:element>
   <xs:element name="instance_post">
@@ -1112,7 +1120,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
           </xs:annotation>
 	  		</xs:element>
 			</xs:sequence>
-      <xs:attribute name="id" type="xs:ID">
+      <xs:attribute name="id" use="required" type="xs:ID">
         <xs:annotation>
           <xs:documentation>Unique id for the post instance</xs:documentation>
         </xs:annotation>
@@ -1126,7 +1134,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       a model for a gap (has a gap tag in its extra/technique tag).</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attribute name="id" type="xs:ID">
+      <xs:attribute name="id" use="required" type="xs:ID">
         <xs:annotation>
           <xs:documentation>Unique id for the gap instance</xs:documentation>
         </xs:annotation>
@@ -1154,6 +1162,11 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       a inverter3d (has an inverter3d tag in its extra/technique tag).</xs:documentation>
     </xs:annotation>
     <xs:complexType>
+      <xs:attribute name="id" use="required" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>Unique id for the inverter3d instance</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
       <xs:attribute name="instance_inverter_id" type="xs:IDREF">
         <xs:annotation>
           <xs:documentation>Id of the instance_inverter defined in the circuit part</xs:documentation>
@@ -1181,6 +1194,11 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
 	  for a combiner_ac3d (has an combiner_ac3d tag in its extra/technique tag).</xs:documentation>
     </xs:annotation>
     <xs:complexType>
+      <xs:attribute name="id" use="required" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>Unique id for the combiner_ac3d instance</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
       <xs:attribute name="instance_combiner_ac_id" type="xs:IDREF">
         <xs:annotation>
           <xs:documentation>Id of the instance_combiner_ac defined in the circuit part</xs:documentation>
@@ -1208,6 +1226,11 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
 	  for a combiner_dc3d (has an combiner_dc3d tag in its extra/technique tag).</xs:documentation>
     </xs:annotation>
     <xs:complexType>
+      <xs:attribute name="id" use="required" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>Unique id for the combiner_dc3d instance</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
       <xs:attribute name="instance_combiner_dc_id" type="xs:IDREF">
         <xs:annotation>
           <xs:documentation>Id of the instance_combiner_dc defined in the circuit part</xs:documentation>
@@ -1235,6 +1258,11 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       for a transformer3d (has an transformer3d tag in its extra/technique tag).</xs:documentation>
     </xs:annotation>
     <xs:complexType>
+      <xs:attribute name="id" use="required" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>Unique id for the transformer3d instance</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
       <xs:attribute name="instance_transformer_id" type="xs:IDREF">
         <xs:annotation>
           <xs:documentation>Id of the instance_transformer defined in the circuit part</xs:documentation>
@@ -1262,7 +1290,12 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       for a cable3d (has an cable3d tag in its extra/technique tag).</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attribute name="cable_to_parent_id" type="xs:IDREF">
+      <xs:attribute name="id" use="required" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>Unique id for the cable3d instance</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>      
+	  <xs:attribute name="cable_to_parent_id" type="xs:IDREF">
         <xs:annotation>
           <xs:documentation>Id of the cable_to_parent defined in the circuit part</xs:documentation>
         </xs:annotation>

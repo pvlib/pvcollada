@@ -577,7 +577,7 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_terrain tag, might not have any child tags at the start but can be useful in the future -->
-							<pv:instance_terrain />
+							<pv:instance_terrain id="InstanceTerrain" />
 						</technique>
 					</extra>
 				</instance_geometry>
@@ -587,7 +587,7 @@
 				<instance_node url="#TrackerModel1">
 					<extra>
 						<technique profile="PVCollada-2.0">
-							<pv:instance_table>
+							<pv:instance_table id="InstanceTable1">
 								<pv:instance_racks_array>
 									<pv:instance_rack_ref id="rackId1-1" url="#rackInstance1"/>
 									<pv:instance_rack_ref id="rackId1-2" url="#rackInstance2"/>
@@ -605,7 +605,7 @@
 				<instance_node url="#TrackerModel1">
 					<extra>
 						<technique profile="PVCollada-2.0">
-							<pv:instance_table>
+							<pv:instance_table id="InstanceTable2">
 								<pv:instance_racks_array>
 									<pv:instance_rack_ref id="rackId2-1" url="#rackInstance1"/>
 									<pv:instance_rack_ref id="rackId2-2" url="#rackInstance2"/>
@@ -623,7 +623,7 @@
 				<instance_node url="#TrackerModel1">
 					<extra>
 						<technique profile="PVCollada-2.0">
-							<pv:instance_table>
+							<pv:instance_table id="InstanceTable3">
 								<pv:instance_racks_array>
 									<pv:instance_rack_ref id="rackId3-1" url="#rackInstance1"/>
 									<pv:instance_rack_ref id="rackId3-2" url="#rackInstance2"/>
