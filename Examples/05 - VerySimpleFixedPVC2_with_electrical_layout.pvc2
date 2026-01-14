@@ -552,7 +552,7 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_terrain tag, might not have any child tags at the start but can be useful in the future -->
-							<pv:instance_terrain />
+							<pv:instance_terrain id="InstanceTerrain" />
 						</technique>
 					</extra>
 				</instance_geometry>
@@ -563,7 +563,7 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_table tag -->
-							<pv:instance_table>
+							<pv:instance_table id="InstanceTable1">
 								<pv:instance_racks_array>
 									<pv:instance_rack_ref id="rackId1" url="#rackInstance1" />
 								</pv:instance_racks_array>
@@ -579,7 +579,7 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_inverter3d tag, references the corresponding instance_inverter of the circuit -->
-							<pv:instance_inverter3d instance_inverter_id="inverterInstance1" />
+							<pv:instance_inverter3d id="instanceInverter3D1" instance_inverter_id="inverterInstance1" />
 						</technique>
 					</extra>
 				</instance_geometry>
@@ -591,7 +591,7 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_table tag -->
-							<pv:instance_table>
+							<pv:instance_table id="InstanceTable2">
 								<pv:instance_racks_array>
 									<pv:instance_rack_ref id="rackId2" url="#rackInstance1" />
 								</pv:instance_racks_array>
@@ -607,7 +607,7 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_inverter3d tag, references the corresponding instance_inverter of the circuit -->
-							<pv:instance_inverter3d instance_inverter_id="inverterInstance2" />
+							<pv:instance_inverter3d id="instanceInverter3D2" instance_inverter_id="inverterInstance2" />
 						</technique>
 					</extra>
 				</instance_geometry>
@@ -619,7 +619,7 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_table tag -->
-							<pv:instance_table>
+							<pv:instance_table id="InstanceTable3">
 								<pv:instance_racks_array>
 									<pv:instance_rack_ref id="rackId3" url="#rackInstance1" />
 								</pv:instance_racks_array>
@@ -635,7 +635,7 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_inverter3d tag, references the corresponding instance_inverter of the circuit -->
-							<pv:instance_inverter3d instance_inverter_id="inverterInstance3" />
+							<pv:instance_inverter3d id="instanceInverter3D3" instance_inverter_id="inverterInstance3" />
 						</technique>
 					</extra>
 				</instance_geometry>
@@ -647,7 +647,7 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_combiner_ac3d tag, references the corresponding instance_combiner_ac of the circuit -->
-							<pv:instance_combiner_ac3d instance_combiner_ac_id="combinerAcInstance" />
+							<pv:instance_combiner_ac3d id="instanceCombinerAc3D" instance_combiner_ac_id="combinerAcInstance" />
 						</technique>
 					</extra>
 				</instance_geometry>
@@ -659,7 +659,7 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_transformer3d tag, references the corresponding instance_transformer of the circuit -->
-							<pv:instance_transformer3d instance_transformer_id="transformerInstance" />
+							<pv:instance_transformer3d id="instanceTransformer3D" instance_transformer_id="transformerInstance" />
 						</technique>
 					</extra>
 				</instance_geometry>
