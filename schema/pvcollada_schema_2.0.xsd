@@ -707,7 +707,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
         </xs:element>
         <xs:element name="boundary" type="collada:sidref_type" minOccurs="0">
           <xs:annotation>
-            <xs:documentation xml:lang="en">ID for a COLLADA geometry describing the project boundary.</xs:documentation>
+            <xs:documentation xml:lang="en">SIDREF for a COLLADA instance_geometry describing the project boundary.</xs:documentation>
           </xs:annotation>
         </xs:element>
         <xs:element name="module_count" type="xs:positiveInteger" minOccurs="0">
