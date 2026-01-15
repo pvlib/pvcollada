@@ -157,29 +157,29 @@
             </assert>
         </rule>
     </pattern>
-	   
+    
     <!-- Pattern: Validate combiner_ac3d component references -->
     <pattern id="combiner_ac3d_component_references">
         <rule context="pv:combiner_ac3d[@combiner_ac_id]">
             <let name="combiner_ac_ref" value="@combiner_ac_id"/>
             <assert test="//pv:combiner_ac[@id=$combiner_ac_ref]">
                 combiner_ac3d element references non-existent combiner_ac '<value-of select="$combiner_ac_ref"/>'.
-                Must reference a combiner_ac defined in components.
+                Must reference a combiner_ac defined in components/combiners_ac.
             </assert>
         </rule>
     </pattern>
-	
+    
     <!-- Pattern: Validate combiner_dc3d component references -->
     <pattern id="combiner_dc3d_component_references">
         <rule context="pv:combiner_dc3d[@combiner_dc_id]">
             <let name="combiner_dc_ref" value="@combiner_dc_id"/>
             <assert test="//pv:combiner_dc[@id=$combiner_dc_ref]">
                 combiner_dc3d element references non-existent combiner_dc '<value-of select="$combiner_dc_ref"/>'.
-                Must reference a combiner_dc defined in components.
+                Must reference a combiner_dc defined in components/combiners_dc.
             </assert>
         </rule>
     </pattern>
-
+    
     <!-- Pattern: Validate cable3d component references -->
     <pattern id="cable3d_component_references">
         <rule context="pv:cable3d[@cable_id]">
@@ -253,6 +253,26 @@
             <assert test="//pv:inverter[@id=$component_ref]">
                 instance_inverter references non-existent inverter component '<value-of select="@url"/>'.
                 Must reference an inverter defined in components/inverters.
+            </assert>
+        </rule>
+    </pattern>
+	
+    <!-- Pattern: Validate mppt URL references within instance_inverter -->
+    <!-- The mppt url must reference an existing mppt sid defined in the inverter component -->
+    <pattern id="mppt_url_references">
+        <rule context="pv:instance_inverter/pv:mppts/pv:mppt[@url]">
+            <!-- Get the mppt sid being referenced (part after #) -->
+            <let name="mppt_sid_ref" value="substring-after(@url, '#')"/>
+            <!-- Get the parent instance_inverter's url to find the inverter component -->
+            <let name="inverter_url" value="ancestor::pv:instance_inverter/@url"/>
+            <let name="inverter_id" value="substring-after($inverter_url, '#')"/>
+            <!-- Find the referenced inverter component -->
+            <let name="inverter_component" value="//pv:inverter[@id=$inverter_id]"/>
+            <!-- Check that the mppt sid exists in the inverter component's mppts -->
+            <assert test="$inverter_component/pv:mppts/pv:mppt[@sid=$mppt_sid_ref]">
+                mppt url '<value-of select="@url"/>' references non-existent mppt sid '<value-of select="$mppt_sid_ref"/>' 
+                in inverter '<value-of select="$inverter_id"/>'.
+                Must reference an mppt defined in the corresponding inverter component's mppts.
             </assert>
         </rule>
     </pattern>

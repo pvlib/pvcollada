@@ -240,7 +240,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
         </xs:annotation>
       </xs:element>
     </xs:sequence>
-    <xs:attribute name="id" use="required" type="xs:ID" />
+    <xs:attribute name="sid" use="required" type="collada:sid_type" />
   </xs:complexType>
   <xs:complexType name="inverter_type_object">
     <xs:annotation>
@@ -592,6 +592,12 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       <xs:element name="string" type="string_type" />
       <xs:element name="instance_combiner_dc" type="instance_combiner_dc_type" />
     </xs:choice>
+    <xs:attribute name="url" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>Contains # followed by the sid of the corresponding mppt tag 
+		from the inverter object model (defined in components)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
   </xs:complexType>
   <!-- Instance Combiner DC: requires a cable_to_parent and an inputs container -->
   <xs:complexType name="instance_combiner_dc_type">
@@ -1087,7 +1093,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
                       circuit part)</xs:documentation>
                     </xs:annotation>
                   </xs:attribute>
-                  <xs:attribute name="url" type="xs:string">
+                  <xs:attribute name="url" use="required" type="xs:string">
                     <xs:annotation>
                       <xs:documentation>Contains # followed by the id of the instance_rack tag from the table
                       model</xs:documentation>

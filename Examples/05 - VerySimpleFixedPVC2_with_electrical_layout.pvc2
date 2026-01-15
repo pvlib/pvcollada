@@ -88,7 +88,7 @@
 							<pv:i_max_dc>9.10</pv:i_max_dc>
 							<pv:mppt_count>1</pv:mppt_count>
 							<pv:mppts>
-								<pv:mppt id="MPPT1">
+								<pv:mppt sid="MPPT1">
 									<pv:input_count>1</pv:input_count>
 								</pv:mppt>
 							</pv:mppts>
@@ -178,7 +178,7 @@
 											<!-- mppts tag -->
 											<pv:mppts>
 												<!-- mppt tag -->
-												<pv:mppt>
+												<pv:mppt url="#MPPT1">
 													<!-- first string tag => the string connected to this mppt input -->
 													<pv:string id="string1">
 														<pv:module_array>
@@ -216,7 +216,7 @@
 											<!-- mppts tag -->
 											<pv:mppts>
 												<!-- mppt tag -->
-												<pv:mppt>
+												<pv:mppt url="#MPPT1">
 													<!-- second string tag => the string connected to this mppt input -->
 													<pv:string id="string2">
 														<pv:module_array>
@@ -254,7 +254,7 @@
 											<!-- mppts tag -->
 											<pv:mppts>
 												<!-- mppt tag -->
-												<pv:mppt>
+												<pv:mppt url="#MPPT1">
 													<!-- third string tag => the string connected to this mppt input -->
 													<pv:string id="string3">
 														<pv:module_array>

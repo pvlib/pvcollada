@@ -52,5 +52,17 @@
             </assert>
         </rule>
     </pattern>
+	
+    <!-- Pattern: Validate mppt URL uniqueness within mppts container -->
+    <!-- All mppt url values within a single mppts element must be distinct -->
+    <pattern id="mppt_url_uniqueness">
+        <rule context="pv:instance_inverter/pv:mppts/pv:mppt[@url]">
+            <!-- Check that no preceding sibling mppt has the same url -->
+            <assert test="not(preceding-sibling::pv:mppt[@url = current()/@url])">
+                Duplicate mppt url '<value-of select="@url"/>' found within instance_inverter '<value-of select="ancestor::pv:instance_inverter/@id"/>'.
+                All mppt url values must be distinct within the same mppts container.
+            </assert>
+        </rule>
+    </pattern>
     
 </schema>
