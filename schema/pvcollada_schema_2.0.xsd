@@ -414,6 +414,24 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
     </xs:sequence>
     <xs:attribute name="id" use="required" type="xs:ID" />
   </xs:complexType>
+  <xs:complexType name="optimizer_type_object">
+    <xs:annotation>
+      <xs:documentation>Optimizer product-level data</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="manufacturer" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Optimizer manufacturer name.</xs:documentation>
+        </xs:annotation>  
+	  </xs:element>
+      <xs:element name="name" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Optimizer model name.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="id" use="required" type="xs:ID" />
+  </xs:complexType>
   <xs:complexType name="transformer_type_object">
     <xs:annotation>
       <xs:documentation>Transformer product-level data</xs:documentation>
@@ -626,7 +644,11 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       </xs:choice>
       <xs:element name="inputs" type="optimizer_inputs_type" />
     </xs:sequence>
-    <xs:attribute name="url" type="xs:string" use="required" />
+    <xs:attribute name="url" use="required" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>Contains # followed by the id of the optimizer model defined in the components part</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
     <xs:attribute name="id" type="xs:ID" use="required" />
     <xs:attribute name="name" type="xs:string" use="optional" />
   </xs:complexType>
@@ -804,6 +826,13 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="combiner_dc" type="combiner_dc_type_object" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="optimizers" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="optimizer" type="optimizer_type_object" maxOccurs="unbounded" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1240,6 +1269,38 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       <xs:attribute name="instance_combiner_dc_id" type="xs:IDREF">
         <xs:annotation>
           <xs:documentation>Id of the instance_combiner_dc defined in the circuit part</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="optimizer3d">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada geometry tag to signal a 3D model
+      for an optimizer.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="optimizer_id" type="xs:IDREF">
+        <xs:annotation>
+          <xs:documentation>Id of the optimizer defined in the components part</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="instance_optimizer3d">
+    <xs:annotation>
+      <xs:documentation>This tag should only appear in the extra/technique section of a Collada instance_geometry tag to signal a
+      3D instance of an optimizer. The attribute url of the instance_geometry must reference a Collada geometry that is a model
+	  for an optimizer3d (has an optimizer3d tag in its extra/technique tag).</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="id" use="required" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>Unique id for the optimizer3d instance</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="instance_optimizer_id" type="xs:IDREF">
+        <xs:annotation>
+          <xs:documentation>Id of the instance_optimizer defined in the circuit part</xs:documentation>
         </xs:annotation>
       </xs:attribute>
     </xs:complexType>
