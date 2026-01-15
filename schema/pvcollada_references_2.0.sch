@@ -96,6 +96,19 @@
             </assert>
         </rule>
     </pattern>
+
+    <!-- Pattern: Validate instance_optimizer3d references -->
+    <pattern id="instance_optimizer3d_references">
+        <rule context="pv:instance_optimizer3d">
+            <let name="instance_geom" value="ancestor::collada:instance_geometry"/>
+            <let name="geom_url" value="substring-after($instance_geom/@url, '#')"/>
+            <let name="referenced_geom" value="//collada:geometry[@id=$geom_url]"/>
+            <assert test="$referenced_geom//pv:optimizer3d">
+                instance_optimizer3d must be in an instance_geometry that references a geometry containing an optimizer3d element.
+                Referenced geometry: <value-of select="$geom_url"/>
+            </assert>
+        </rule>
+    </pattern>
     
     <!-- Pattern: Validate instance_transformer3d references -->
     <pattern id="instance_transformer3d_references">
@@ -179,6 +192,17 @@
             </assert>
         </rule>
     </pattern>
+
+    <!-- Pattern: Validate optimizer3d component references -->
+    <pattern id="optimizer3d_component_references">
+        <rule context="pv:optimizer3d[@optimizer_id]">
+            <let name="optimizer_ref" value="@optimizer_id"/>
+            <assert test="//pv:optimizer[@id=$optimizer_ref]">
+                optimzer3d element references non-existent optimizer '<value-of select="$optimizer_ref"/>'.
+                Must reference an optimizer defined in components/optimizers.
+            </assert>
+        </rule>
+    </pattern>
     
     <!-- Pattern: Validate cable3d component references -->
     <pattern id="cable3d_component_references">
@@ -231,6 +255,17 @@
             <assert test="//pv:instance_combiner_dc[@id=$instance_ref]">
                 instance_combiner_dc3d element references non-existent combiner_dc instance '<value-of select="$instance_ref"/>'.
                 Must reference an instance_combiner_dc defined in the circuit.
+            </assert>
+        </rule>
+    </pattern>
+	
+    <!-- Pattern: Validate instance_optimizer3d circuit references -->
+    <pattern id="instance_optimizer3d_circuit_references">
+        <rule context="pv:instance_optimizer3d[@instance_optimizer_id]">
+            <let name="instance_ref" value="@instance_optimizer_id"/>
+            <assert test="//pv:instance_optimizer[@id=$instance_ref]">
+                instance_optimizer3d element references non-existent optimizer instance '<value-of select="$instance_ref"/>'.
+                Must reference an instance_optimizer defined in the circuit.
             </assert>
         </rule>
     </pattern>
@@ -306,6 +341,17 @@
             <assert test="//pv:combiner_dc[@id=$component_ref]">
                 instance_combiner_dc references non-existent combiner_dc component '<value-of select="@url"/>'.
                 Must reference a combiner_dc defined in components/combiners_dc.
+            </assert>
+        </rule>
+    </pattern>
+
+    <!-- Pattern: Validate instance_optimizer URL references -->
+    <pattern id="instance_optimizer_url_references">
+        <rule context="pv:instance_optimizer[@url]">
+            <let name="component_ref" value="substring-after(@url, '#')"/>
+            <assert test="//pv:optimizer[@id=$component_ref]">
+                instance_optimizer references non-existent optimizer component '<value-of select="@url"/>'.
+                Must reference an optimizer defined in components/optimizers.
             </assert>
         </rule>
     </pattern>
