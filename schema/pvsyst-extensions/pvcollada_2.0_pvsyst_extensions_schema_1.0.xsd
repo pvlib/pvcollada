@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="https://www.pvsyst.com/pvcollada-2.0-extensions"
+           xmlns="https://www.pvsyst.com/pvcollada-2.0-extensions"
+           elementFormDefault="qualified"
+		   xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
+  
+  <xs:import namespace="http://www.collada.org/2008/03/COLLADASchema" schemaLocation="../collada_schema_1_5.xsd" />
+  
+  <xs:complexType name="module_type_object">
+    <xs:annotation>
+      <xs:documentation>
+	  Module product-level data in PVsyst format.
+	  The PAN data or the data from the PVsyst database will be used for that module instead of the data defined in the PVCollada extension.
+	  </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="pan_file_name" type="xs:string">
+	    <xs:annotation>
+	      <xs:documentation>
+		  - PAN file name as it appears in PVsyst for existing modules.
+		  - PAN file name as it appears in PVsyst for manually imported modules.
+		  - Any unique name for modules not yet in PVsyst database and not yet imported.
+		  </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="pan_file_content" type="xs:string" minOccurs="0" maxOccurs="1">
+  	    <xs:annotation>
+	      <xs:documentation>
+		  Content of the PAN file in CDATA format.
+		  Optional, should be provided only for modules not existing in PVsyst database.
+		  </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+	</xs:sequence>
+    <xs:attribute name="module_id" use="required" type="xs:IDREF">
+	    <xs:annotation>
+	      <xs:documentation>
+		  Id of the module defined in the components/modules/module tag of the PVCollada extension.
+		  </xs:documentation>
+        </xs:annotation>
+	</xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="inverter_type_object">
+    <xs:annotation>
+      <xs:documentation>
+	  Inverter product-level data in PVsyst format.
+	  The OND data or the data from the PVsyst database will be used for that inverter instead of the data defined in the PVCollada extension.
+	  </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ond_file_name" type="xs:string">
+	    <xs:annotation>
+	      <xs:documentation>
+		  - OND file name as it appears in PVsyst for existing inverters.
+		  - OND file name as it appears in PVsyst for manually imported inverters.
+		  - Any unique name for inverters not yet in PVsyst database and not yet imported.
+		  </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ond_file_content" type="xs:string" minOccurs="0" maxOccurs="1">
+  	    <xs:annotation>
+	      <xs:documentation>
+		  Content of the OND file in CDATA format.
+		  Optional, should be provided only for inverters not existing in PVsyst database.
+		  </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+	</xs:sequence>
+    <xs:attribute name="inverter_id" use="required" type="xs:IDREF">
+	    <xs:annotation>
+	      <xs:documentation>
+		  Id of the inverter defined in the components/inverters/inverter tag of the PVCollada extension.
+		  </xs:documentation>
+        </xs:annotation>
+	</xs:attribute>
+  </xs:complexType>
+  
+  <xs:complexType name="optimizer_type_object">
+    <xs:annotation>
+      <xs:documentation>
+	  - Optimizer product-level data in PVsyst format.
+	  - The data from the PVsyst database will be used for that optimizer instead of the data defined in the PVCollada extension.
+	  </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="dcc_file_name" type="xs:string">
+	    <xs:annotation>
+	      <xs:documentation>
+		  DCC file name as it appears in PVsyst for existing optimizers.
+		  </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+	</xs:sequence>
+    <xs:attribute name="optimizer_id" use="required" type="xs:IDREF">
+	    <xs:annotation>
+	      <xs:documentation>
+		  Id of the optimizer defined in the components/optimizers/optimizer tag of the PVCollada extension.	  
+		  </xs:documentation>
+        </xs:annotation>
+	</xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="modules_type">
+    <xs:sequence>
+      <xs:element name="module" type="module_type_object" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="inverters_type">
+    <xs:sequence>
+      <xs:element name="inverter" type="inverter_type_object" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="optimizers_type">
+    <xs:sequence>
+      <xs:element name="optimizer" type="optimizer_type_object" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="components">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="modules" type="modules_type" minOccurs="0" maxOccurs="1"/>
+		<xs:element name="inverters" type="inverters_type" minOccurs="0" maxOccurs="1"/>
+		<xs:element name="optimizers" type="optimizers_type" minOccurs="0" maxOccurs="1"/>
+      </xs:all>
+	</xs:complexType> 
+  </xs:element>
+
+</xs:schema>

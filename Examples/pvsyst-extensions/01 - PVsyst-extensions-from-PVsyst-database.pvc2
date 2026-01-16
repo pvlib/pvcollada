@@ -1,0 +1,909 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:pv="http://www.example.com/pvcollada" 
+	xmlns:pvsyst="https://www.pvsyst.com/pvcollada-2.0-extensions" 
+	version="1.5.0" 
+	xmlns="http://www.collada.org/2008/03/COLLADASchema">
+	<asset>
+		<contributor>
+			<author>PVsyst</author>
+			<comments>PVC 2.0 sample file for test purpose : 1 optimizer array in a string</comments>
+		</contributor>
+		<coverage>
+			<geographic_location>
+				<longitude>6.1432</longitude>
+				<latitude>46.2044</latitude>
+				<altitude mode="absolute">375</altitude>
+			</geographic_location>
+		</coverage>
+		<created>2024-06-06T13:32:31Z</created>
+		<modified>2024-06-06T13:32:31Z</modified>
+		<unit meter="0.01" name="cm"/>
+		<up_axis>Z_UP</up_axis>
+		<extra>
+			<technique profile="PVCollada-2.0">
+				<!-- software tag -->
+				<pv:software>
+					<pv:source>Helios 3D</pv:source>
+					<pv:target>PVsyst</pv:target>
+				</pv:software>
+				<!-- project tag -->
+				<pv:project>
+					<pv:name>Project in Geneva</pv:name>
+					<pv:drawing>Project drawing</pv:drawing>
+					<pv:company>Test company</pv:company>
+					<pv:country>CH</pv:country>
+					<pv:timezone>Europe/Zurich</pv:timezone>
+					<pv:timezone_offset>2</pv:timezone_offset>
+					<pv:boundary>TerrainNode1/TerrainInstanceGeometry</pv:boundary>
+					<pv:module_count>12</pv:module_count>
+					<pv:table_count>3</pv:table_count>
+					<pv:string_count>3</pv:string_count>
+					<pv:capacity_dc>4800</pv:capacity_dc>
+					<pv:capacity_ac>4000</pv:capacity_ac>
+					<pv:interconnection_limit>12000</pv:interconnection_limit>
+				</pv:project>
+				<!-- components tag -->
+				<pv:components>
+					<!-- List of modules -->
+					<pv:modules>
+						<!-- Multiple modules to make sure the parser supports it -->
+						<pv:module id="ModuleModel0">
+							<!-- A module with just the required fields -->
+							<pv:name>Generic 400W bifacial</pv:name>
+							<pv:nom_power>400</pv:nom_power>
+							<pv:length>1992</pv:length>
+							<pv:width>1000</pv:width>
+							<pv:depth>6</pv:depth>
+						</pv:module>
+						<pv:module id="ModuleModel1">
+							<!-- A module with all the required and optional fields -->
+							<pv:manufacturer>Generic</pv:manufacturer>
+							<pv:name>Generic 400W bifacial</pv:name>
+							<pv:module_type>bifacial</pv:module_type>
+							<pv:nom_power>400</pv:nom_power>
+							<pv:length>1992</pv:length>
+							<pv:width>1000</pv:width>
+							<pv:depth>6</pv:depth>
+							<pv:num_cells>72</pv:num_cells>
+							<pv:num_cells_length>12</pv:num_cells_length>
+							<pv:num_cells_width>6</pv:num_cells_width>
+							<pv:num_cells_series>72</pv:num_cells_series>
+							<pv:num_strings>1</pv:num_strings>
+							<pv:cell_material>polySi</pv:cell_material>
+							<pv:cell_architecture>single_junction</pv:cell_architecture>
+							<pv:bifacial_factor>0.680</pv:bifacial_factor>
+							<pv:t_coef_power>-0.37</pv:t_coef_power>
+							<pv:t_coef_isc>-0.3</pv:t_coef_isc>
+							<pv:t_coef_voc>49.7</pv:t_coef_voc>
+							<pv:i_sc>10.35</pv:i_sc>
+							<pv:i_mpp>9.79</pv:i_mpp>
+							<pv:v_oc>49.63</pv:v_oc>
+							<pv:v_mpp>41.19</pv:v_mpp>
+						</pv:module>
+						<pv:module id="ModuleModel2">
+							<!-- A module with all the required fields and some optional fields -->
+							<pv:manufacturer>Generic2</pv:manufacturer>
+							<pv:name>Generic 500W bifacial</pv:name>
+							<pv:module_type>bifacial</pv:module_type>
+							<pv:nom_power>400</pv:nom_power>
+							<pv:length>1992</pv:length>
+							<pv:width>1000</pv:width>
+							<pv:depth>6</pv:depth>
+							<pv:num_cells>72</pv:num_cells>
+							<pv:num_cells_length>12</pv:num_cells_length>
+							<pv:num_cells_width>6</pv:num_cells_width>
+							<pv:num_cells_series>72</pv:num_cells_series>
+							<pv:num_strings>1</pv:num_strings>
+							<pv:cell_material>polySi</pv:cell_material>
+							<pv:bifacial_factor>0.680</pv:bifacial_factor>
+							<pv:t_coef_power>-0.37</pv:t_coef_power>
+							<pv:t_coef_isc>-0.3</pv:t_coef_isc>
+							<pv:t_coef_voc>49.7</pv:t_coef_voc>
+							<pv:i_sc>10.35</pv:i_sc>
+							<pv:i_mpp>9.79</pv:i_mpp>
+							<pv:v_oc>49.63</pv:v_oc>
+							<pv:v_mpp>41.19</pv:v_mpp>
+						</pv:module>
+					</pv:modules>
+					<!-- List of inverters -->
+					<pv:inverters>
+						<!-- Multiple inverters to make sure the parser supports it -->
+						<pv:inverter id="InverterModel0">
+							<!-- An inverter with 1 entry in mppts (empty is not allowed) and 1 entry in temperature_derate (empty is not allowed) -->
+							<pv:manufacturer>Generic</pv:manufacturer>
+							<pv:name>Generic 2kW inverter</pv:name>
+							<pv:inverter_type>string</pv:inverter_type>
+							<pv:nom_power_ac>2000</pv:nom_power_ac>
+							<pv:nom_power_dc>2050</pv:nom_power_dc>
+							<pv:capacity_ac>1900</pv:capacity_ac>
+							<pv:capacity_dc>1950</pv:capacity_dc>
+							<pv:v_mpp_min>40</pv:v_mpp_min>
+							<pv:v_mpp_max>560</pv:v_mpp_max>
+							<pv:v_mpp_nom>360</pv:v_mpp_nom>
+							<pv:i_max_dc>9.10</pv:i_max_dc>
+							<pv:mppt_count>1</pv:mppt_count>
+							<pv:mppts>
+								<pv:mppt sid="MPPT1">
+									<pv:input_count>1</pv:input_count>
+								</pv:mppt>
+							</pv:mppts>
+							<pv:v_out_ac>230</pv:v_out_ac>
+							<pv:self_consumption>5</pv:self_consumption>
+							<pv:night_tare>3</pv:night_tare>
+							<pv:temperature_derate>
+								<pv:pt>19.0 0.95</pv:pt>
+							</pv:temperature_derate>
+							<pv:efficiency>98.0</pv:efficiency>
+							<pv:efficiency_standard_value>97.0</pv:efficiency_standard_value>
+							<pv:efficiency_standard_type>EU</pv:efficiency_standard_type>
+						</pv:inverter>
+						<pv:inverter id="InverterModel1">
+							<!-- An inverter with 1 entry in mppts and 1 entry in temperature_derate -->
+							<pv:manufacturer>Generic</pv:manufacturer>
+							<pv:name>Generic 2kW inverter</pv:name>
+							<pv:inverter_type>string</pv:inverter_type>
+							<pv:nom_power_ac>2000</pv:nom_power_ac>
+							<pv:nom_power_dc>2050</pv:nom_power_dc>
+							<pv:capacity_ac>2000</pv:capacity_ac>
+							<pv:capacity_dc>2050</pv:capacity_dc>
+							<pv:v_mpp_min>40</pv:v_mpp_min>
+							<pv:v_mpp_max>560</pv:v_mpp_max>
+							<pv:v_mpp_nom>360</pv:v_mpp_nom>
+							<pv:i_max_dc>9.10</pv:i_max_dc>
+							<pv:mppt_count>1</pv:mppt_count>
+							<pv:mppts>
+								<!-- inverter MPPT tag -->
+								<pv:mppt sid="MPPT1">
+									<pv:input_count>4</pv:input_count>
+								</pv:mppt>
+							</pv:mppts>
+							<pv:v_out_ac>230</pv:v_out_ac>
+							<pv:self_consumption>5</pv:self_consumption>
+							<pv:night_tare>3</pv:night_tare>
+							<pv:temperature_derate>
+								<!-- inverter temperature_derate tag -->
+								<pv:pt>20.0 0.98</pv:pt>
+							</pv:temperature_derate>
+							<pv:efficiency>98.0</pv:efficiency>
+							<pv:efficiency_standard_value>97.0</pv:efficiency_standard_value>
+							<pv:efficiency_standard_type>EU</pv:efficiency_standard_type>
+						</pv:inverter>
+						<pv:inverter id="InverterModel2">
+							<!-- An inverter with multiple entries in mppts and multiple entries in temperature_derate -->
+							<!-- This inverter also has all required and all optional fields populated -->
+							<pv:manufacturer>Generic2</pv:manufacturer>
+							<pv:name>Generic2 2kW inverter</pv:name>
+							<pv:inverter_type>string</pv:inverter_type>
+							<pv:nom_power_ac>4000</pv:nom_power_ac>
+							<pv:nom_power_dc>4050</pv:nom_power_dc>
+							<pv:capacity_ac>3900</pv:capacity_ac>
+							<pv:capacity_dc>3950</pv:capacity_dc>
+							<pv:v_mpp_min>50</pv:v_mpp_min>
+							<pv:v_mpp_max>580</pv:v_mpp_max>
+							<pv:v_mpp_nom>380</pv:v_mpp_nom>
+							<pv:i_max_dc>9.50</pv:i_max_dc>
+							<pv:mppt_count>3</pv:mppt_count>
+							<pv:mppts>
+								<pv:mppt sid="MPPT1">
+									<pv:input_count>1</pv:input_count>
+								</pv:mppt>
+								<pv:mppt sid="MPPT2">
+									<pv:input_count>2</pv:input_count>
+								</pv:mppt>
+								<pv:mppt sid="MPPT3">
+									<pv:input_count>3</pv:input_count>
+								</pv:mppt>
+							</pv:mppts>
+							<pv:v_out_ac>250</pv:v_out_ac>
+							<pv:self_consumption>6</pv:self_consumption>
+							<pv:night_tare>4</pv:night_tare>
+							<pv:temperature_derate>
+								<pv:pt>25.0 0.99</pv:pt>
+								<pv:pt>35.0 0.98</pv:pt>
+								<pv:pt>45.0 0.96</pv:pt>
+								<pv:pt>55.1 0.82</pv:pt>
+							</pv:temperature_derate>
+							<pv:efficiency>99.0</pv:efficiency>
+							<pv:efficiency_standard_value>98.0</pv:efficiency_standard_value>
+							<pv:efficiency_standard_type>CEC</pv:efficiency_standard_type>
+						</pv:inverter>
+						<pv:inverter id="InverterModel3">
+							<!-- An inverter with just the required fields -->
+							<pv:name>Generic 2kW inverter</pv:name>
+							<pv:nom_power_ac>2000</pv:nom_power_ac>
+							<pv:nom_power_dc>2050</pv:nom_power_dc>
+						</pv:inverter>
+					</pv:inverters>
+					<!-- List of AC combiners -->
+					<pv:combiners_ac>
+						<!-- Multiple AC combiners to make sure the parser supports it -->
+						<pv:combiner_ac id="CombinerModel0">
+							<!-- An AC combiner with all the required and optional fields -->
+							<pv:manufacturer>Generic AC 0</pv:manufacturer>
+							<pv:name>Generic AC combiner 0</pv:name>
+							<pv:input_count>2</pv:input_count>
+						</pv:combiner_ac>
+						<pv:combiner_ac id="CombinerModel1">
+							<!-- An AC combiner with the required fields only -->
+							<pv:name>Generic AC combiner</pv:name>
+							<pv:input_count>3</pv:input_count>
+						</pv:combiner_ac>
+					</pv:combiners_ac>
+					<!-- List of DC combiners -->
+					<pv:combiners_dc>
+						<!-- Multiple DC combiners to make sure the parser supports it -->
+						<pv:combiner_dc id="CombinerDCModel0">
+							<!-- A DC combiner with all the required and optional fields -->
+							<pv:manufacturer>Generic DC 0</pv:manufacturer>
+							<pv:name>Generic DC combiner 0</pv:name>
+							<pv:input_count>3</pv:input_count>
+						</pv:combiner_dc>
+						<pv:combiner_dc id="CombinerDCModel1">
+							<!-- A DC combiner with the required fields only -->
+							<pv:name>Generic DC combiner</pv:name>
+							<pv:input_count>5</pv:input_count>
+						</pv:combiner_dc>
+					</pv:combiners_dc>
+					<!-- List of optimizers -->
+					<pv:optimizers>
+						<!-- Multiple optimizers to make sure the parser supports it -->
+						<pv:optimizer id="OptimizerModel0">
+							<!-- An optimizer with all the required and optional fields -->
+							<pv:manufacturer>Generic Manufacturer 0</pv:manufacturer>
+							<pv:name>Generic optimizer 0</pv:name>
+						</pv:optimizer>
+						<pv:optimizer id="OptimizerModel1">
+							<!-- An optimizer with the required fields only -->
+							<pv:name>Generic optimizer</pv:name>
+						</pv:optimizer>
+					</pv:optimizers>
+					<!-- List of transformers -->
+					<pv:transformers>
+						<!-- A transformer with the required fields only -->
+						<pv:transformer id="TransformerModel0">
+							<pv:name>Generic transformer 0</pv:name>
+							<pv:nom_power>5000</pv:nom_power>
+							<pv:v_in>260</pv:v_in>
+							<pv:v_out>1200</pv:v_out>
+						</pv:transformer>
+						<pv:transformer id="TransformerModel1">
+							<!-- A transformer with all the required and optional fields -->
+							<pv:manufacturer>Generic</pv:manufacturer>
+							<pv:name>Generic transformer</pv:name>
+							<pv:nom_power>6000</pv:nom_power>
+							<pv:v_in>230</pv:v_in>
+							<pv:v_out>1100</pv:v_out>
+							<pv:efficiency>95.0</pv:efficiency>
+							<pv:iron_loss>10</pv:iron_loss>
+							<pv:copper_loss>15</pv:copper_loss>
+							<pv:night_disconnect>true</pv:night_disconnect>
+						</pv:transformer>
+					</pv:transformers>
+					<!-- List of cables -->
+					<pv:cables>
+						<!-- cable tag -->
+						<!-- Multiple cables to make sure the parser supports it -->
+						<pv:cable id="CableModel0">
+							<pv:name>Generic cable</pv:name>
+							<pv:cross_section>2.5</pv:cross_section>
+							<pv:num_conductors>3</pv:num_conductors>
+						</pv:cable>
+						<pv:cable id="DCCableModel1">
+							<pv:manufacturer>Generic</pv:manufacturer>
+							<pv:name>Generic cable</pv:name>
+							<pv:cross_section>2.5</pv:cross_section>
+							<pv:num_conductors>3</pv:num_conductors>
+							<pv:material>copper</pv:material>
+							<pv:power_type>dc</pv:power_type>
+							<pv:resistance>10</pv:resistance>
+							<pv:impedance>25</pv:impedance>
+						</pv:cable>
+						<pv:cable id="ACCableModel1">
+							<pv:manufacturer>Generic</pv:manufacturer>
+							<pv:name>Generic cable</pv:name>
+							<pv:cross_section>2.5</pv:cross_section>
+							<pv:num_conductors>3</pv:num_conductors>
+							<pv:material>copper</pv:material>
+							<pv:power_type>ac</pv:power_type>
+							<pv:resistance>10</pv:resistance>
+							<pv:impedance>25</pv:impedance>
+						</pv:cable>
+					</pv:cables>
+				</pv:components>
+				<!-- circuit tag (tree) -->
+				<pv:circuit>
+					<!-- circuit_root tag => Always the parent of the tree -->
+					<pv:circuit_root>
+						<pv:connected_to>Connected to grid</pv:connected_to>
+						<!-- instance_inverter tag, in this case the inverter that will inject into the grid -->
+						<pv:instance_inverter url="#InverterModel1" id="inverterInstance1" name="Inverter #1">
+							<!-- Cable between the inverter and the circuit_root -->
+							<pv:cable_to_parent url="#ACCableModel1" length="5" id="cableInstance1"/>
+							<pv:mppts>
+								<pv:mppt url="#MPPT1">
+									<!-- string tag => the string connected to this inverter -->
+									<pv:string id="string1">
+										<pv:optimizer_array>
+											<pv:instance_optimizer url="#OptimizerModel1" id="InstanceOptimizer1" name="Instance Optimizer #1">
+												<pv:cable_to_parent url="#DCCableModel1" length="5" id="cableInstance2"/>
+												<pv:cable_to_neighbor url="#DCCableModel1" length="5" id="cableInstance3"/>
+												<pv:inputs>
+													<pv:module_layout url="#rackId1">
+														<pv:position_in_string>1</pv:position_in_string>
+														<pv:row>1</pv:row>
+														<pv:column>1</pv:column>
+													</pv:module_layout>
+													<pv:module_layout url="#rackId1">
+														<pv:position_in_string>2</pv:position_in_string>
+														<pv:row>1</pv:row>
+														<pv:column>2</pv:column>
+													</pv:module_layout>
+													<pv:module_layout url="#rackId1">
+														<pv:position_in_string>3</pv:position_in_string>
+														<pv:row>1</pv:row>
+														<pv:column>3</pv:column>
+													</pv:module_layout>
+													<pv:module_layout url="#rackId1">
+														<pv:position_in_string>4</pv:position_in_string>
+														<pv:row>1</pv:row>
+														<pv:column>4</pv:column>
+													</pv:module_layout>
+													<pv:module_layout url="#rackId2">
+														<pv:position_in_string>1</pv:position_in_string>
+														<pv:row>1</pv:row>
+														<pv:column>1</pv:column>
+													</pv:module_layout>
+													<pv:module_layout url="#rackId2">
+														<pv:position_in_string>2</pv:position_in_string>
+														<pv:row>1</pv:row>
+														<pv:column>2</pv:column>
+													</pv:module_layout>
+													<pv:module_layout url="#rackId2">
+														<pv:position_in_string>3</pv:position_in_string>
+														<pv:row>1</pv:row>
+														<pv:column>3</pv:column>
+													</pv:module_layout>
+													<pv:module_layout url="#rackId2">
+														<pv:position_in_string>4</pv:position_in_string>
+														<pv:row>1</pv:row>
+														<pv:column>4</pv:column>
+													</pv:module_layout>
+												</pv:inputs>
+											</pv:instance_optimizer>
+											<pv:instance_optimizer url="#OptimizerModel1" id="InstanceOptimizer2" name="Instance Optimizer #2">
+												<pv:cable_to_neighbor url="#DCCableModel1" length="5" id="cableInstance11"/>
+												<pv:cable_to_neighbor url="#DCCableModel1" length="5" id="cableInstance12"/>
+												<pv:inputs>
+													<pv:module_layout url="#rackId3">
+														<pv:position_in_string>1</pv:position_in_string>
+														<pv:row>1</pv:row>
+														<pv:column>1</pv:column>
+													</pv:module_layout>
+													<pv:module_layout url="#rackId3">
+														<pv:position_in_string>2</pv:position_in_string>
+														<pv:row>1</pv:row>
+														<pv:column>2</pv:column>
+													</pv:module_layout>
+													<pv:module_layout url="#rackId3">
+														<pv:position_in_string>3</pv:position_in_string>
+														<pv:row>1</pv:row>
+														<pv:column>3</pv:column>
+													</pv:module_layout>
+													<pv:module_layout url="#rackId3">
+														<pv:position_in_string>4</pv:position_in_string>
+														<pv:row>1</pv:row>
+														<pv:column>4</pv:column>
+													</pv:module_layout>
+													<pv:module_layout url="#rackId4">
+														<pv:position_in_string>1</pv:position_in_string>
+														<pv:row>1</pv:row>
+														<pv:column>1</pv:column>
+													</pv:module_layout>
+													<pv:module_layout url="#rackId4">
+														<pv:position_in_string>2</pv:position_in_string>
+														<pv:row>1</pv:row>
+														<pv:column>2</pv:column>
+													</pv:module_layout>
+													<pv:module_layout url="#rackId4">
+														<pv:position_in_string>3</pv:position_in_string>
+														<pv:row>1</pv:row>
+														<pv:column>3</pv:column>
+													</pv:module_layout>
+													<pv:module_layout url="#rackId4">
+														<pv:position_in_string>4</pv:position_in_string>
+														<pv:row>1</pv:row>
+														<pv:column>4</pv:column>
+													</pv:module_layout>
+												</pv:inputs>
+											</pv:instance_optimizer>
+											<pv:instance_optimizer url="#OptimizerModel1" id="InstanceOptimizer3">
+												<pv:cable_to_neighbor url="#DCCableModel1" length="5" id="cableInstance20"/>
+												<pv:inputs>
+													<pv:module_layout url="#rackId5">
+														<pv:position_in_string>1</pv:position_in_string>
+														<pv:row>1</pv:row>
+														<pv:column>1</pv:column>
+													</pv:module_layout>
+													<pv:module_layout url="#rackId5">
+														<pv:position_in_string>2</pv:position_in_string>
+														<pv:row>1</pv:row>
+														<pv:column>2</pv:column>
+													</pv:module_layout>
+													<pv:module_layout url="#rackId5">
+														<pv:position_in_string>3</pv:position_in_string>
+														<pv:row>1</pv:row>
+														<pv:column>3</pv:column>
+													</pv:module_layout>
+													<pv:module_layout url="#rackId5">
+														<pv:position_in_string>4</pv:position_in_string>
+														<pv:row>1</pv:row>
+														<pv:column>4</pv:column>
+													</pv:module_layout>
+													<pv:module_layout url="#rackId6">
+														<pv:position_in_string>1</pv:position_in_string>
+														<pv:row>1</pv:row>
+														<pv:column>1</pv:column>
+													</pv:module_layout>
+													<pv:module_layout url="#rackId6">
+														<pv:position_in_string>2</pv:position_in_string>
+														<pv:row>1</pv:row>
+														<pv:column>2</pv:column>
+													</pv:module_layout>
+													<pv:module_layout url="#rackId6">
+														<pv:position_in_string>3</pv:position_in_string>
+														<pv:row>1</pv:row>
+														<pv:column>3</pv:column>
+													</pv:module_layout>
+													<pv:module_layout url="#rackId6">
+														<pv:position_in_string>4</pv:position_in_string>
+														<pv:row>1</pv:row>
+														<pv:column>4</pv:column>
+													</pv:module_layout>
+												</pv:inputs>
+											</pv:instance_optimizer>
+										</pv:optimizer_array>
+									</pv:string>
+								</pv:mppt>
+							</pv:mppts>
+						</pv:instance_inverter>
+					</pv:circuit_root>
+				</pv:circuit>
+			</technique>
+			<technique profile="PVCollada-2.0-PVsyst-extensions">
+				<pvsyst:components>
+					<pvsyst:modules>
+					    <!-- Module "ModuleModel1" data will be retrieved from PVsyst database -->
+						<pvsyst:module module_id="ModuleModel1">
+							<pvsyst:pan_file_name>Generic_Mono_400W.PAN</pvsyst:pan_file_name>
+						</pvsyst:module>					
+					</pvsyst:modules>
+					<pvsyst:inverters>
+					    <!-- Inverter "InverterModel1" data will be retrieved from PVsyst database -->
+						<pvsyst:inverter inverter_id="InverterModel1">
+							<pvsyst:ond_file_name>Generic_2kW.OND</pvsyst:ond_file_name>
+						</pvsyst:inverter>
+					</pvsyst:inverters>
+					<pvsyst:optimizers>
+						<!-- Optimizer "OptimizerModel1" data will be retrieved from PVsyst database -->
+						<pvsyst:optimizer optimizer_id="OptimizerModel1">
+							<pvsyst:dcc_file_name>SUNGO_iOPT_800W.DCC</pvsyst:dcc_file_name>
+						</pvsyst:optimizer>
+					</pvsyst:optimizers>
+				</pvsyst:components>
+			</technique>
+		</extra>
+	</asset>
+	<library_materials>
+		<material id="Material1" name="Dummy Material">
+			<instance_effect url="#Material1EffectId"/>
+		</material>
+	</library_materials>
+	<library_effects>
+		<effect id="Material1EffectId" name="Dummy Material Effect">
+			<profile_COMMON>
+				<technique sid="standard">
+					<lambert>
+						<emission>
+							<color sid="emission">0.000000 0.000000 0.000000 1.000000</color>
+						</emission>
+						<ambient>
+							<color sid="ambient">0.200000 0.200000 0.200000 1.000000</color>
+						</ambient>
+						<diffuse>
+							<color sid="diffuse">0.250000 0.500000 0.000000 1.000000</color>
+						</diffuse>
+						<transparent opaque="RGB_ZERO">
+							<color sid="transparent">0.000000 0.000000 0.000000 1.000000</color>
+						</transparent>
+						<transparency>
+							<float sid="transparency">0</float>
+						</transparency>
+					</lambert>
+				</technique>
+			</profile_COMMON>
+		</effect>
+	</library_effects>
+	<library_geometries>
+		<!-- We define a terrain -->
+		<geometry id="TerrainModel1">
+			<mesh>
+				<source id="terrain1MeshSource">
+					<float_array id="terrain1FloatArray" count="12">
+						2000 -5000 0
+						-2000 -5000 0
+						-2000 2500 0
+						2000 2500 0
+					</float_array>
+					<technique_common>
+						<accessor count="4" source="#terrain1FloatArray" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<vertices id="terrain1VerticesSource">
+					<input semantic="POSITION" source="#terrain1MeshSource"/>
+				</vertices>
+				<polylist material="CommonMaterial" count="1">
+					<input offset="0" semantic="VERTEX" source="#terrain1VerticesSource"/>
+					<vcount>5</vcount>
+					<p>0 1 2 3 0</p>
+				</polylist>
+			</mesh>
+			<extra>
+				<technique profile="PVCollada-2.0">
+					<!-- terrain tag -->
+					<pv:terrain>
+						<pv:vertex_count>4</pv:vertex_count>
+						<pv:triangle_count>2</pv:triangle_count>
+						<pv:bounding_box_min>-10.0 -20.0 -30.0</pv:bounding_box_min>
+						<pv:bounding_box_max>10.0 20.0 30.0</pv:bounding_box_max>
+					</pv:terrain>
+				</technique>
+			</extra>
+		</geometry>
+		<!-- We define the model for a rack -->
+		<geometry id="RackModel1">
+			<mesh>
+				<source id="rack1MeshSource">
+					<float_array id="rack1FloatArray" count="12">
+						0 0 0
+						-1500 0 0
+						-1500 -500 200
+						0 -500 200
+					</float_array>
+					<technique_common>
+						<accessor count="4" source="#rack1FloatArray" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<vertices id="rack1VerticesSource">
+					<input semantic="POSITION" source="#rack1MeshSource"/>
+				</vertices>
+				<triangles count="2" material="CommonMaterial">
+					<input offset="0" semantic="VERTEX" source="#rack1VerticesSource"/>
+					<p>3 1 2 1 3 0</p>
+				</triangles>
+			</mesh>
+			<extra>
+				<technique profile="PVCollada-2.0">
+					<!-- rack tag -->
+					<pv:rack>
+						<pv:rack_type>fixed_tilt</pv:rack_type>
+						<pv:row_spacing>20</pv:row_spacing>
+						<pv:column_spacing>20</pv:column_spacing>
+						<pv:module_rows>1</pv:module_rows>
+						<pv:module_columns>4</pv:module_columns>
+						<pv:module_orientation>portrait</pv:module_orientation>
+						<pv:tilt>21.8</pv:tilt>
+						<pv:azimuth>0</pv:azimuth>
+						<pv:slope>0</pv:slope>
+						<pv:module_id>ModuleModel1</pv:module_id>
+					</pv:rack>
+				</technique>
+			</extra>
+		</geometry>
+		<!-- We define the 3D model for inverters (contains the geometry of the inverter) -->
+		<geometry id="Inverter3DModel1">
+			<mesh>
+				<source id="inverter_positions">
+					<float_array id="inverter_positions_array" count="24">
+						-50 -100 0 50 -100 0 50 100 0 -50 100 0
+						-50 -100 60 50 -100 60 50 100 60 -50 100 60
+					</float_array>
+					<technique_common>
+						<accessor source="#inverter_positions_array" count="8" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<vertices id="inverter_vertices">
+					<input semantic="POSITION" source="#inverter_positions"/>
+				</vertices>
+				<polygons count="6">
+					<input semantic="VERTEX" source="#inverter_vertices" offset="0"/>
+					<p>0 1 2 3</p>
+					<p>4 5 6 7</p>
+					<p>0 1 5 4</p>
+					<p>1 2 6 5</p>
+					<p>2 3 7 6</p>
+					<p>3 0 4 7</p>
+				</polygons>
+			</mesh>
+			<extra>
+				<technique profile="PVCollada-2.0">
+					<!-- inverter3d tag, references the inverter defined in components -->
+					<pv:inverter3d inverter_id="InverterModel1"/>
+				</technique>
+			</extra>
+		</geometry>
+		<!-- We define the 3D model for optimizers (contains the geometry of the optimizer) -->
+		<geometry id="Optimizer3DModel">
+			<mesh>
+				<source id="optimizer_positions">
+					<float_array id="optimizer_positions_array" count="24">
+						-100 -100 0 100 -100 0 100 100 0 -100 100 0
+						-100 -100 120 100 -100 120 100 100 120 -100 100 120
+					</float_array>
+					<technique_common>
+						<accessor source="#optimizer_positions_array" count="8" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<vertices id="optimizer_vertices">
+					<input semantic="POSITION" source="#optimizer_positions"/>
+				</vertices>
+				<polygons count="6">
+					<input semantic="VERTEX" source="#optimizer_vertices" offset="0"/>
+					<p>0 1 2 3</p>
+					<p>4 5 6 7</p>
+					<p>0 1 5 4</p>
+					<p>1 2 6 5</p>
+					<p>2 3 7 6</p>
+					<p>3 0 4 7</p>
+				</polygons>
+			</mesh>
+			<extra>
+				<technique profile="PVCollada-2.0">
+					<!-- optimizer3d tag, references the optimizer defined in components -->
+					<pv:optimizer3d optimizer_id="OptimizerModel1"/>
+				</technique>
+			</extra>
+		</geometry>
+		<!-- We define the 3D model for transformers (contains the geometry of the transformer) -->
+		<geometry id="Transformer3DModel">
+			<mesh>
+				<source id="transformer_positions">
+					<float_array id="transformer_positions_array" count="24">
+						-200 -200 0 200 -200 0 200 200 0 -200 200 0
+						-200 -200 240 200 -200 240 200 200 240 -200 200 240
+					</float_array>
+					<technique_common>
+						<accessor source="#transformer_positions_array" count="8" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<vertices id="transformer_vertices">
+					<input semantic="POSITION" source="#transformer_positions"/>
+				</vertices>
+				<polygons count="6">
+					<input semantic="VERTEX" source="#transformer_vertices" offset="0"/>
+					<p>0 1 2 3</p>
+					<p>4 5 6 7</p>
+					<p>0 1 5 4</p>
+					<p>1 2 6 5</p>
+					<p>2 3 7 6</p>
+					<p>3 0 4 7</p>
+				</polygons>
+			</mesh>
+			<extra>
+				<technique profile="PVCollada-2.0">
+					<!-- transformer3d tag, references the transformer defined in components -->
+					<pv:transformer3d transformer_id="TransformerModel1"/>
+				</technique>
+			</extra>
+		</geometry>
+	</library_geometries>
+	<library_nodes>
+		<!-- We define the model for a table with 1 rack -->
+		<node id="TableModel1" sid="TableModel1">
+			<!-- We instantiate the rack model -->
+			<instance_geometry url="#RackModel1">
+				<bind_material>
+					<technique_common>
+						<instance_material symbol="CommonMaterial" target="#Material1"/>
+					</technique_common>
+				</bind_material>
+				<extra>
+					<technique profile="PVCollada-2.0">
+						<!-- instance_rack tag -->
+						<pv:instance_rack id="rackInstance1"/>
+					</technique>
+				</extra>
+			</instance_geometry>
+			<extra>
+				<technique profile="PVCollada-2.0">
+					<!-- table tag -->
+					<pv:table>
+						<pv:type>fixed</pv:type>
+					</pv:table>
+				</technique>
+			</extra>
+		</node>
+	</library_nodes>
+	<library_visual_scenes>
+		<visual_scene id="VisualSceneModel" name="Visual Scene">
+			<!-- We instantiate the terrain -->
+			<node id="TerrainNode1" name="TerrainNode1" sid="TerrainNode1">
+				<instance_geometry url="#TerrainModel1" sid="TerrainInstanceGeometry">
+					<extra>
+						<technique profile="PVCollada-2.0">
+							<!-- instance_terrain tag, might not have any child tags at the start but can be useful in the future -->
+							<pv:instance_terrain id="instanceTerrain"/>
+						</technique>
+					</extra>
+				</instance_geometry>
+			</node>
+			<!-- We instantiate the first optimizer -->
+			<node id="Optimizer3DNode1" name="Optimizer3DNode1" sid="Optimizer3DNode1">
+				<translate>400 -650 0</translate>
+				<instance_geometry url="#Optimizer3DModel">
+					<extra>
+						<technique profile="PVCollada-2.0">
+							<!-- instance_optimizer3d tag, references the corresponding instance_optimizer of the circuit -->
+							<pv:instance_optimizer3d id="instanceOptimizer3D1" instance_optimizer_id="InstanceOptimizer1"/>
+						</technique>
+					</extra>
+				</instance_geometry>
+			</node>
+			<!-- We instantiate a first fixed tilt table, without any transformation -->
+			<node id="PVnode1" name="PVnode1" sid="PVnode1">
+				<instance_node url="#TableModel1">
+					<extra>
+						<technique profile="PVCollada-2.0">
+							<!-- instance_table tag -->
+							<pv:instance_table id="instanceTable1">
+								<pv:instance_racks_array>
+									<pv:instance_rack_ref id="rackId1" url="#rackInstance1"/>
+								</pv:instance_racks_array>
+							</pv:instance_table>
+						</technique>
+					</extra>
+				</instance_node>
+			</node>
+			<!-- We instantiate the inverter -->
+			<node id="Inverter3DNode1" name="Inverter3DNode1" sid="Inverter3DNode1">
+				<translate>1800 -100 0</translate>
+				<instance_geometry url="#Inverter3DModel1">
+					<extra>
+						<technique profile="PVCollada-2.0">
+							<!-- instance_inverter3d tag, references the corresponding instance_inverter of the circuit -->
+							<pv:instance_inverter3d id="instanceInverter3D" instance_inverter_id="inverterInstance1"/>
+						</technique>
+					</extra>
+				</instance_geometry>
+			</node>
+			<!-- We instantiate a second fixed tilt table (with a translation) -->
+			<node id="PVnode2" name="PVnode2" sid="PVnode2">
+				<translate>0 -800 0</translate>
+				<instance_node url="#TableModel1">
+					<extra>
+						<technique profile="PVCollada-2.0">
+							<!-- instance_table tag -->
+							<pv:instance_table id="instanceTable2">
+								<pv:instance_racks_array>
+									<pv:instance_rack_ref id="rackId2" url="#rackInstance1"/>
+								</pv:instance_racks_array>
+							</pv:instance_table>
+						</technique>
+					</extra>
+				</instance_node>
+			</node>
+			<!-- We instantiate the second optimizer -->
+			<node id="Optimizer3DNode2" name="Optimizer3DNode2" sid="Optimizer3DNode2">
+				<translate>400 -2250 0</translate>
+				<instance_geometry url="#Optimizer3DModel">
+					<extra>
+						<technique profile="PVCollada-2.0">
+							<!-- instance_optimizer3d tag, references the corresponding instance_optimizer of the circuit -->
+							<pv:instance_optimizer3d id="instanceOptimizer3D2" instance_optimizer_id="InstanceOptimizer2"/>
+						</technique>
+					</extra>
+				</instance_geometry>
+			</node>
+			<!-- We instantiate a third fixed tilt table (with another translation) -->
+			<node id="PVnode3" name="PVnode3" sid="PVnode3">
+				<translate>0 -1600 0</translate>
+				<instance_node url="#TableModel1">
+					<extra>
+						<technique profile="PVCollada-2.0">
+							<!-- instance_table tag -->
+							<pv:instance_table id="instanceTable3">
+								<pv:instance_racks_array>
+									<pv:instance_rack_ref id="rackId3" url="#rackInstance1"/>
+								</pv:instance_racks_array>
+							</pv:instance_table>
+						</technique>
+					</extra>
+				</instance_node>
+			</node>
+			<!-- We instantiate a fourth fixed tilt table (with another translation) -->
+			<node id="PVnode4" name="PVnode4" sid="PVnode4">
+				<translate>0 -2400 0</translate>
+				<instance_node url="#TableModel1">
+					<extra>
+						<technique profile="PVCollada-2.0">
+							<!-- instance_table tag -->
+							<pv:instance_table id="instanceTable4">
+								<pv:instance_racks_array>
+									<pv:instance_rack_ref id="rackId4" url="#rackInstance1"/>
+								</pv:instance_racks_array>
+							</pv:instance_table>
+						</technique>
+					</extra>
+				</instance_node>
+			</node>
+			<!-- We instantiate the third optimizer -->
+			<node id="Optimizer3DNode3" name="Optimizer3DNode3" sid="Optimizer3DNode3">
+				<translate>400 -3850 0</translate>
+				<instance_geometry url="#Optimizer3DModel">
+					<extra>
+						<technique profile="PVCollada-2.0">
+							<!-- instance_optimizer3d tag, references the corresponding instance_optimizer of the circuit -->
+							<pv:instance_optimizer3d id="instanceOptimizer3D3" instance_optimizer_id="InstanceOptimizer3"/>
+						</technique>
+					</extra>
+				</instance_geometry>
+			</node>
+			<!-- We instantiate a fifth fixed tilt table -->
+			<node id="PVnode5" name="PVnode5" sid="PVnode5">
+				<translate>0 -3200 0</translate>
+				<instance_node url="#TableModel1">
+					<extra>
+						<technique profile="PVCollada-2.0">
+							<!-- instance_table tag -->
+							<pv:instance_table id="instanceTable5">
+								<pv:instance_racks_array>
+									<pv:instance_rack_ref id="rackId5" url="#rackInstance1"/>
+								</pv:instance_racks_array>
+							</pv:instance_table>
+						</technique>
+					</extra>
+				</instance_node>
+			</node>
+			<!-- We instantiate the sixth fixed tilt table (with a translation) -->
+			<node id="PVnode6" name="PVnode6" sid="PVnode6">
+				<translate>0 -4000 0</translate>
+				<instance_node url="#TableModel1">
+					<extra>
+						<technique profile="PVCollada-2.0">
+							<!-- instance_table tag -->
+							<pv:instance_table id="instanceTable6">
+								<pv:instance_racks_array>
+									<pv:instance_rack_ref id="rackId6" url="#rackInstance1"/>
+								</pv:instance_racks_array>
+							</pv:instance_table>
+						</technique>
+					</extra>
+				</instance_node>
+			</node>
+		</visual_scene>
+	</library_visual_scenes>
+	<scene>
+		<instance_visual_scene url="#VisualSceneModel"/>
+	</scene>
+</COLLADA>
