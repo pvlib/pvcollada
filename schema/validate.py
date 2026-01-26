@@ -19,9 +19,9 @@ XSD_FILE_PATH = os.path.join(SCRIPT_DIR, "pvcollada_schema_2.0.xsd")
 SCH_STRUCTURE_FILE = os.path.join(SCRIPT_DIR, "pvcollada_structure_2.0.sch")
 SCH_REFERENCES_FILE = os.path.join(SCRIPT_DIR, "pvcollada_references_2.0.sch")
 SCH_BUSINESS_FILE = os.path.join(SCRIPT_DIR, "pvcollada_business_2.0.sch")
-PVSYST_XSD_FILE_PATH = os.path.join(SCRIPT_DIR, "pvsyst-extensions", "pvcollada_2.0_pvsyst_extensions_schema_1.0.xsd")
-PVSYST_SCH_STRUCTURE_FILE = os.path.join(SCRIPT_DIR, "pvsyst-extensions", "pvcollada_2.0_pvsyst_extensions_structure_1.0.sch")
-PVSYST_SCH_REFERENCES_FILE = os.path.join(SCRIPT_DIR, "pvsyst-extensions", "pvcollada_2.0_pvsyst_extensions_references_1.0.sch")
+PVSYST_XSD_FILE_PATH = os.path.join(SCRIPT_DIR, "extensions", "pvsyst", "pvcollada_2.0_pvsyst_schema_1.0.xsd")
+PVSYST_SCH_STRUCTURE_FILE = os.path.join(SCRIPT_DIR, "extensions", "pvsyst", "pvcollada_2.0_pvsyst_structure_1.0.sch")
+PVSYST_SCH_REFERENCES_FILE = os.path.join(SCRIPT_DIR, "extensions", "pvsyst", "pvcollada_2.0_pvsyst_references_1.0.sch")
 
 # Get XML file from command line or use default
 if len(sys.argv) > 1:

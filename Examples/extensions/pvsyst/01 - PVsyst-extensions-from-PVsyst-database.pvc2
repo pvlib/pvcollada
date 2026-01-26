@@ -471,7 +471,7 @@
 					</pv:circuit_root>
 				</pv:circuit>
 			</technique>
-			<technique profile="PVCollada-2.0-PVsyst-extensions">
+			<technique profile="PVCollada-2.0-PVsyst">
 				<pvsyst:components>
 					<pvsyst:modules>
 					    <!-- Module "ModuleModel1" data will be retrieved from PVsyst database -->

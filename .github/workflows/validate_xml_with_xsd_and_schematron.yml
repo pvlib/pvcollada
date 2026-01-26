@@ -67,9 +67,9 @@ jobs:
             schema/pvcollada_structure_2.0.sch
             schema/pvcollada_references_2.0.sch
             schema/pvcollada_business_2.0.sch
-            schema/pvsyst-extensions/pvcollada_2.0_pvsyst_extensions_schema_1.0.xsd
-            schema/pvsyst-extensions/pvcollada_2.0_pvsyst_extensions_structure_1.0.sch
-            schema/pvsyst-extensions/pvcollada_2.0_pvsyst_extensions_references_1.0.sch
+            schema/extensions/pvsyst/pvcollada_2.0_pvsyst_schema_1.0.xsd
+            schema/extensions/pvsyst/pvcollada_2.0_pvsyst_structure_1.0.sch
+            schema/extensions/pvsyst/pvcollada_2.0_pvsyst_references_1.0.sch
             schema/collada_schema_1_5.xsd
             .github/workflows/validate_xml_with_xsd_and_schematron.py
             ${{ matrix.xml_doc }}
@@ -108,18 +108,18 @@ jobs:
         run: |
           python3 "$GITHUB_WORKSPACE"/.github/workflows/validate_xml_with_xsd_and_schematron.py \
             "$GITHUB_WORKSPACE"/"${{ matrix.xml_doc }}" \
-            --xsd pvsyst-extensions/pvcollada_2.0_pvsyst_extensions_schema_1.0.xsd
+            --xsd extensions/pvsyst/pvcollada_2.0_pvsyst_schema_1.0.xsd
 
       - name: Validate against PVCollada extensions Structure Schematron
         working-directory: schema
         run: |
           python3 "$GITHUB_WORKSPACE"/.github/workflows/validate_xml_with_xsd_and_schematron.py \
             "$GITHUB_WORKSPACE"/"${{ matrix.xml_doc }}" \
-            --schematron pvsyst-extensions/pvcollada_2.0_pvsyst_extensions_structure_1.0.sch
+            --schematron extensions/pvsyst/pvcollada_2.0_pvsyst_structure_1.0.sch
 
       - name: Validate against PVCollada extensions References Schematron
         working-directory: schema
         run: |
           python3 "$GITHUB_WORKSPACE"/.github/workflows/validate_xml_with_xsd_and_schematron.py \
             "$GITHUB_WORKSPACE"/"${{ matrix.xml_doc }}" \
-            --schematron pvsyst-extensions/pvcollada_2.0_pvsyst_extensions_references_1.0.sch
+            --schematron extensions/pvsyst/pvcollada_2.0_pvsyst_references_1.0.sch

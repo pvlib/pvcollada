@@ -9,8 +9,8 @@
     <!-- Pattern: Technique profile validation -->
     <pattern id="technique_profile">
         <rule context="collada:technique[pvsyst:*]">
-            <assert test="@profile='PVCollada-2.0-PVsyst-extensions'">
-                Technique containing PVsyst specific elements must have profile='PVCollada-2.0-PVsyst-extensions'.
+            <assert test="@profile='PVCollada-2.0-PVsyst'">
+                Technique containing PVsyst specific elements must have profile='PVCollada-2.0-PVsyst'.
                 Found profile='<value-of select="@profile"/>'
             </assert>
         </rule>
@@ -19,9 +19,9 @@
     <!-- Pattern: Ensure no duplicate PVsyst techniques in same extra element -->
     <pattern id="no_duplicate_techniques">
         <rule context="collada:extra">
-            <assert test="count(collada:technique[@profile='PVCollada-2.0-PVsyst-extensions']) &lt;= 1">
-                Only one technique with profile='PVCollada-2.0-PVsyst-extensions' is allowed per extra element.
-                Found <value-of select="count(collada:technique[@profile='PVCollada-2.0-PVsyst-extensions'])"/> techniques.
+            <assert test="count(collada:technique[@profile='PVCollada-2.0-PVsyst']) &lt;= 1">
+                Only one technique with profile='PVCollada-2.0-PVsyst' is allowed per extra element.
+                Found <value-of select="count(collada:technique[@profile='PVCollada-2.0-PVsyst'])"/> techniques.
             </assert>
         </rule>
     </pattern>
@@ -37,7 +37,7 @@
     
     <!-- Pattern: Ensure unique top-level PVsyst specific elements in asset -->
     <pattern id="asset_unique_elements">
-        <rule context="collada:technique[@profile='PVCollada-2.0-PVsyst-extensions'][parent::collada:extra/parent::collada:asset]">
+        <rule context="collada:technique[@profile='PVCollada-2.0-PVsyst'][parent::collada:extra/parent::collada:asset]">
             <assert test="count(pvsyst:components) &lt;= 1">
                 Only one 'components' element is allowed in asset. Found <value-of select="count(pvsyst:components)"/>
             </assert>
@@ -46,7 +46,7 @@
 
 	<!-- Pattern: Validate only known PVsyst specific elements in asset -->
 	<pattern id="valid_asset_pvsyst_elements">
-		<rule context="collada:technique[@profile='PVCollada-2.0-PVsyst-extensions'][parent::collada:extra/parent::collada:asset]/pvsyst:*">
+		<rule context="collada:technique[@profile='PVCollada-2.0-PVsyst'][parent::collada:extra/parent::collada:asset]/pvsyst:*">
 			<assert test="self::pvsyst:components">
 				Unknown PVsyst element '<name/>' in asset technique. 
 				Allowed elements: components.
