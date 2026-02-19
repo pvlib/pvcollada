@@ -733,6 +733,11 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
             1.0</xs:documentation>
           </xs:annotation>
         </xs:element>
+        <xs:element name="local_projection" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">EPSG code for the projection to be used for the local coordinates that describe objects in the scene. Format as "ESPG:3857", for example, for Pseudo-Mercator.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
         <xs:element name="boundary" type="collada:sidref_type" minOccurs="0">
           <xs:annotation>
             <xs:documentation xml:lang="en">SIDREF for a COLLADA instance_geometry describing the project boundary.</xs:documentation>
