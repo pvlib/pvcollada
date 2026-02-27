@@ -11,24 +11,38 @@ The schema file is located at:
 schema/pvcollada_schema_2.0.xsd
 ```
 
-This schema imports the COLLADA schema (`collada_schema_1_5.xsd`) and defines enumerations and types specific to photovoltaic (PV) system design.
+This schema imports the COLLADA schema and defines enumerations and types specific to photovoltaic (PV) system design.
 
 ---
 
 ## 2. What Does the Schema Define?
 
 The schema:
-- **Imports** the COLLADA 1.5 schema.
-- **Defines enumerations** such as cell material, architecture, conductor material, power type, module type, inverter type, module orientation, and table type.  
+- **Imports** the COLLADA 1.5 schema (`collada_schema_1_5.xsd`).
+- **Defines enumerations** such as cell material, architecture, conductor material, power type, module type, inverter type, module orientation, and table type.
+- PVCollada data use the <extra> tag provided by COLLADA to allow extensions. Data described by the PVCollada 2.0 schema *must* be identified by profile="PVCollada-2.0".
   Example:
   ```xml
-  <xs:simpleType name="cell_material_enum">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="monoSi" />
-      <xs:enumeration value="polySi" />
-      ...
-    </xs:restriction>
-  </xs:simpleType>
+	<asset>
+		<coverage>
+			<geographic_location>
+				<longitude>15.3</longitude>
+				<latitude>10.1</latitude>
+				<altitude mode="absolute">150</altitude>
+			</geographic_location>
+		</coverage>
+		<unit meter="0.01" name="cm" />
+		<up_axis>Z_UP</up_axis>
+		<extra>
+			<technique profile="PVCollada-2.0">
+				<!-- software tag -->
+				<pv:software>
+					<pv:source>Helios 3D</pv:source>
+					<pv:target>PVsyst</pv:target>
+				</pv:software>
+			</technique>
+		</extra>
+	</asset>
   ```
 
 ---
@@ -88,10 +102,42 @@ Example:
 
 ## 5. Extending the Schema
 
-If you need to add new enumerations or elements:
-- Edit `schema/pvcollada_schema_2.0.xsd`.
-- Update or add example XML files to reflect the changes.
-- Run the validation script to confirm correctness.
+You can add custom elements to a PVCollada file. To do so:
+- create a schema (xsd) for the custom elements.
+- choose a namespace identifier. The namespace identifier *must* be unique within a PVCollada document.
+- choose a profile for the custom technique. The profile *must* be unique within a PVCollada document.
+The custom technique is added inside <extra> blocks, in parallel with the "PVCollada-2.0" technique.
+For example, PVsyst adds tags using schema https://www.pvsyst.com/pvcollada-2.0-extensions, namespace pvsyst, and profile "PVCollada-2.0-PVsyst".
+  ```xml
+  <COLLADA xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:pv="http://www.example.com/pvcollada" 
+	xmlns:pvsyst="https://www.pvsyst.com/pvcollada-2.0-extensions"
+	version="1.5.0" 
+	xmlns="http://www.collada.org/2008/03/COLLADASchema">	
+	<asset>
+		<coverage>
+			<geographic_location>
+				<longitude>15.3</longitude>
+				<latitude>10.1</latitude>
+				<altitude mode="absolute">150</altitude>
+			</geographic_location>
+		</coverage>
+		<extra>
+			<technique profile="PVCollada-2.0">
+				<!-- software tag -->
+				<pv:software>
+					<pv:source>Helios 3D</pv:source>
+					<pv:target>PVsyst</pv:target>
+				</pv:software>
+			</technique>
+			<technique profile="PVCollada-2.0-PVsyst">
+				<pvsyst:tag specific to PVsyst/>
+			</technique>
+		</extra>
+	</asset>
+  </COLLADA>
+  ```
 
 ---
 
