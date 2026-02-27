@@ -736,8 +736,8 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
         <xs:element name="local_projection" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:documentation xml:lang="en">ESPG code for the projection to be used with the local coordinates that describe objects in the scene. Format as "ESPG:3857", for example.
-			The geocoordinates of the origin of the local coordinate system is specified using WG84 latitude, longitude and altitude. These values must appear in the root <COLLADA><asset><coverage>
-			block of data. Specify altitude as height above sea level, i.e., <altitude mode="absolute">.
+			The geocoordinates of the origin of the local coordinate system is specified using WG84 latitude, longitude and altitude. These values must appear in the root &lt;COLLADA&gt;&lt;asset&gt;&lt;coverage&gt;
+			block of data. Specify altitude as height above sea level, i.e., &lt;altitude mode="absolute"&gt;.
 			The local coordinates of an object are distances in x, y, z from the origin. To apply the projection specified by the ESPG code, first convert the latitude longitude to
 			the corresponding point in the projection, then use that point in the translation of local coordinates to their projected positions.</xs:documentation>
           </xs:annotation>
