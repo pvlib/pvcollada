@@ -733,6 +733,15 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
             1.0</xs:documentation>
           </xs:annotation>
         </xs:element>
+        <xs:element name="local_projection" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">ESPG code for a projection to associate local coordinates (x,y,z) with geocoordinates (lat-long). Format as "ESPG:3857", for example.
+			The geocoordinates of the origin of the local coordinate system are specified in WG84 latitude, longitude and altitude in the root &lt;COLLADA&gt;&lt;asset&gt;&lt;coverage&gt;
+			block of data. Specify altitude as height above sea level, i.e., &lt;altitude mode="absolute"&gt;.
+			The local coordinates of an object are distances in x (East), y (North), z (Up) from the origin. Apply the projection specified by the ESPG code to convert the origin latitude longitude to
+			the corresponding point in the projection, use that point to map local coordinates to their projection coordinates and then their geocoordinates.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
         <xs:element name="boundary" type="collada:sidref_type" minOccurs="0">
           <xs:annotation>
             <xs:documentation xml:lang="en">SIDREF for a COLLADA instance_geometry describing the project boundary.</xs:documentation>
