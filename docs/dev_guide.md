@@ -1,6 +1,7 @@
-# Developer Guide: Using `pvcollada_schema_0.1.xsd`
+# Developer Guide: Using `pvcollada_schema_2.0.xsd`
 
-This guide explains how to use the `pvcollada_schema_0.1.xsd` XML schema file in the [pvlib/pvcollada](https://github.com/pvlib/pvcollada) repository to validate PVCollada XML files. The schema ensures that your XML files conform to the structure and enumerated types expected by the PVCollada format.
+This guide explains how to use the `pvcollada_schema_2.0.xsd` XML schema file in the [pvlib/pvcollada](https://github.com/pvlib/pvcollada) repository to validate PVCollada XML files. 
+The schema ensures that your PVCollada XML files conform to the structure and enumerated types expected by the PVCollada format.
 
 ---
 
@@ -15,12 +16,10 @@ This schema imports the COLLADA schema and defines enumerations and types specif
 
 ---
 
-## 2. What Does the Schema Define?
+## 2. Schema Basics
 
-The schema:
-- **Imports** the COLLADA 1.5 schema (`collada_schema_1_5.xsd`).
-- **Defines enumerations** such as cell material, architecture, conductor material, power type, module type, inverter type, module orientation, and table type.
-- PVCollada data use the <extra> tag provided by COLLADA to allow extensions. Data described by the PVCollada 2.0 schema *must* be identified by profile="PVCollada-2.0".
+The schema imports the COLLADA 1.5 schema (`collada_schema_1_5.xsd`).
+PVCollada data use the <extra> tags provided by COLLADA to allow extensions. Data described by the PVCollada 2.0 schema *must* be identified by profile="PVCollada-2.0".
   Example:
   ```xml
 	<asset>
@@ -47,9 +46,7 @@ The schema:
 
 ---
 
-## 3. Validating XML Files Against the Schema
-
-### Manually (using Python)
+## 3. Validating PVCollada XML Files
 
 A Python script is provided at `schema/validate.py` that uses `lxml` to validate an XML file.  
 **Example usage:**
@@ -73,17 +70,11 @@ else:
     for error in schema.error_log:
         print("  -", error.message)
 ```
-- Ensure you have `lxml` installed:  
-  ```
-  pip install lxml
-  ```
 
-### Automatically (using GitHub Actions)
-
-The repository includes a GitHub Actions workflow:  
+This validation is only a basic check for consistency against the schema. More extension validation can be done using schematron. The PVCollada repository includes a GitHub Actions workflow:  
 `.github/workflows/validate_xml_with_xsd_and_schematron.yml`
 
-This workflow automatically validates example PVCollada XML files on every push or pull request affecting relevant files.
+This workflow automatically validates the example PVCollada XML files on every push or pull request affecting relevant files.
 
 Key steps:
 - Installs Python and `lxml`.
