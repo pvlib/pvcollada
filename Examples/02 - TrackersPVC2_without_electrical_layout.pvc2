@@ -128,8 +128,8 @@
 				<source id="rack1MeshSource">
 					<float_array id="rack1FloatArray" count="12">
 						0 0 0
-						0 -1500 0
-						-400 -1500 0
+						0 -1528 0
+						-400 -1528 0
 						-400 0 0
 					</float_array>
 					<technique_common>
@@ -156,7 +156,7 @@
 						<pv:row_spacing>2</pv:row_spacing>
 						<pv:column_spacing>2</pv:column_spacing>
 						<pv:module_rows>2</pv:module_rows>
-						<pv:module_columns>6</pv:module_columns>
+						<pv:module_columns>15</pv:module_columns>
 						<pv:module_orientation>portrait</pv:module_orientation>
 						<pv:tracker_azimuth>0</pv:tracker_azimuth>
 						<pv:tracker_slope>0</pv:tracker_slope>
@@ -206,8 +206,8 @@
 					<pv:gap>
 						<pv:type>joint</pv:type>
 						<pv:rigid>false</pv:rigid>
-						<pv:width>20</pv:width>
-						<pv:joint_angle>3</pv:joint_angle>
+						<pv:width>50</pv:width>
+						<pv:joint_angle>0</pv:joint_angle>
 					</pv:gap>
 				</technique>
 			</extra>
@@ -247,7 +247,7 @@
 					<pv:gap>
 						<pv:type>motor</pv:type>
 						<pv:rigid>true</pv:rigid>
-						<pv:width>50</pv:width>
+						<pv:width>200</pv:width>
 					</pv:gap>
 				</technique>
 			</extra>
@@ -340,7 +340,7 @@
 			</node>
 			<!-- We instantiate the second post using a translation -->
 			<node>
-				<translate>-200 -1400 0</translate>
+				<translate>-200 -1428 0</translate>
 				<instance_geometry url="#PostModel1">
 					<bind_material>
 						<technique_common>
@@ -357,7 +357,7 @@
 			</node>
 			<!-- We instantiate the first joint gap using a translation -->
 			<node>
-				<translate>-200 -1550 140</translate>
+				<translate>-200 -1578 140</translate>
 				<instance_geometry url="#JointGapModel1">
 					<bind_material>
 						<technique_common>
@@ -374,7 +374,7 @@
 			</node>
 			<!-- We instantiate the third post using a translation -->
 			<node>
-				<translate>-200 -1650 0</translate>
+				<translate>-200 -1678 0</translate>
 				<instance_geometry url="#PostModel1">
 					<bind_material>
 						<technique_common>
@@ -391,7 +391,7 @@
 			</node>
 			<!-- We instantiate the second rack using a translation -->
 			<node>
-				<translate>0 -1550 150</translate>
+				<translate>0 -1578 150</translate>
 				<instance_geometry url="#RackModel1">
 					<bind_material>
 						<technique_common>
@@ -408,7 +408,7 @@
 			</node>
 			<!-- We instantiate the fourth post using a translation -->
 			<node>
-				<translate>-200 -2950 0</translate>
+				<translate>-200 -3006 0</translate>
 				<instance_geometry url="#PostModel1">
 					<bind_material>
 						<technique_common>
@@ -425,7 +425,7 @@
 			</node>
 			<!-- We instantiate the motor gap using a translation -->
 			<node>
-				<translate>-200 -3150 110</translate>
+				<translate>-200 -3206 110</translate>
 				<instance_geometry url="#MotorGapModel1">
 					<bind_material>
 						<technique_common>
@@ -442,7 +442,7 @@
 			</node>
 			<!-- We instantiate the fifth post using a translation -->
 			<node>
-				<translate>-200 -3350 0</translate>
+				<translate>-200 -3406 0</translate>
 				<instance_geometry url="#PostModel1">
 					<bind_material>
 						<technique_common>
@@ -459,7 +459,7 @@
 			</node>
 			<!-- We instantiate the third rack using a translation -->
 			<node>
-				<translate>0 -3250 150</translate>
+				<translate>0 -3306 150</translate>
 				<instance_geometry url="#RackModel1">
 					<bind_material>
 						<technique_common>
@@ -476,7 +476,7 @@
 			</node>
 			<!-- We instantiate the sixth post using a translation -->
 			<node>
-				<translate>-200 -4650 0</translate>
+				<translate>-200 -4734 0</translate>
 				<instance_geometry url="#PostModel1">
 					<bind_material>
 						<technique_common>
@@ -493,7 +493,7 @@
 			</node>
 			<!-- We instantiate the second joint gap using a translation -->
 			<node>
-				<translate>-200 -4800 140</translate>
+				<translate>-200 -4884 140</translate>
 				<instance_geometry url="#JointGapModel1">
 					<bind_material>
 						<technique_common>
@@ -510,7 +510,7 @@
 			</node>
 			<!-- We instantiate the seventh post using a translation -->
 			<node>
-				<translate>-200 -4900 0</translate>
+				<translate>-200 -4984 0</translate>
 				<instance_geometry url="#PostModel1">
 					<bind_material>
 						<technique_common>
@@ -527,7 +527,7 @@
 			</node>
 			<!-- We instantiate the fourth rack using a translation -->
 			<node>
-				<translate>0 -4800 150</translate>
+				<translate>0 -4884 150</translate>
 				<instance_geometry url="#RackModel1">
 					<bind_material>
 						<technique_common>
@@ -544,7 +544,7 @@
 			</node>
 			<!-- We instantiate the eighth post using a translation -->
 			<node>
-				<translate>-200 -6100 0</translate>
+				<translate>-200 -6212 0</translate>
 				<instance_geometry url="#PostModel1">
 					<bind_material>
 						<technique_common>
@@ -564,6 +564,8 @@
 					<!-- table tag -->
 					<pv:table>
 						<pv:type>tracker</pv:type>
+						<pv:tracker_type>single_axis</pv:tracker_type>
+						<pv:tracker_max_rotation>-45.0 45.0</pv:tracker_max_rotation>
 					</pv:table>
 				</technique>
 			</extra>
