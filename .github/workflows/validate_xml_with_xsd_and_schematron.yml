@@ -63,14 +63,14 @@ jobs:
         uses: actions/checkout@v4
         with:
           sparse-checkout: |
-            schema/pvcollada_schema_2.0.xsd
-            schema/pvcollada_structure_2.0.sch
-            schema/pvcollada_references_2.0.sch
-            schema/pvcollada_business_2.0.sch
-            schema/extensions/pvsyst/pvcollada_2.0_pvsyst_schema_1.0.xsd
-            schema/extensions/pvsyst/pvcollada_2.0_pvsyst_structure_1.0.sch
-            schema/extensions/pvsyst/pvcollada_2.0_pvsyst_references_1.0.sch
-            schema/collada_schema_1_5.xsd
+            schema/PVCollada_2.0/pvcollada_schema_2.0.xsd
+            schema/PVCollada_2.0/pvcollada_structure_2.0.sch
+            schema/PVCollada_2.0/pvcollada_references_2.0.sch
+            schema/PVCollada_2.0/pvcollada_business_2.0.sch
+            schema/PVCollada_2.0/extensions/pvsyst/pvcollada_2.0_pvsyst_schema_1.0.xsd
+            schema/PVCollada_2.0/extensions/pvsyst/pvcollada_2.0_pvsyst_structure_1.0.sch
+            schema/PVCollada_2.0/extensions/pvsyst/pvcollada_2.0_pvsyst_references_1.0.sch
+            schema/PVCollada_2.0/collada_schema_1_5.xsd
             .github/workflows/validate_xml_with_xsd_and_schematron.py
             ${{ matrix.xml_doc }}
           sparse-checkout-cone-mode: false
@@ -80,46 +80,46 @@ jobs:
         run: |
           python3 "$GITHUB_WORKSPACE"/.github/workflows/validate_xml_with_xsd_and_schematron.py \
             "$GITHUB_WORKSPACE"/"${{ matrix.xml_doc }}" \
-            --xsd pvcollada_schema_2.0.xsd
+            --xsd PVCollada_2.0/pvcollada_schema_2.0.xsd
 
       - name: Validate against PVCollada Structure Schematron
         working-directory: schema
         run: |
           python3 "$GITHUB_WORKSPACE"/.github/workflows/validate_xml_with_xsd_and_schematron.py \
             "$GITHUB_WORKSPACE"/"${{ matrix.xml_doc }}" \
-            --schematron pvcollada_structure_2.0.sch
+            --schematron PVCollada_2.0/pvcollada_structure_2.0.sch
 
       - name: Validate against PVCollada References Schematron
         working-directory: schema
         run: |
           python3 "$GITHUB_WORKSPACE"/.github/workflows/validate_xml_with_xsd_and_schematron.py \
             "$GITHUB_WORKSPACE"/"${{ matrix.xml_doc }}" \
-            --schematron pvcollada_references_2.0.sch
+            --schematron PVCollada_2.0/pvcollada_references_2.0.sch
 
       - name: Validate against PVCollada Business Rules Schematron
         working-directory: schema
         run: |
           python3 "$GITHUB_WORKSPACE"/.github/workflows/validate_xml_with_xsd_and_schematron.py \
             "$GITHUB_WORKSPACE"/"${{ matrix.xml_doc }}" \
-            --schematron pvcollada_business_2.0.sch
+            --schematron PVCollada_2.0/pvcollada_business_2.0.sch
             
       - name: Validate against PVsyst extensions XSD Schema
         working-directory: schema
         run: |
           python3 "$GITHUB_WORKSPACE"/.github/workflows/validate_xml_with_xsd_and_schematron.py \
             "$GITHUB_WORKSPACE"/"${{ matrix.xml_doc }}" \
-            --xsd extensions/pvsyst/pvcollada_2.0_pvsyst_schema_1.0.xsd
+            --xsd PVCollada_2.0/extensions/pvsyst/pvcollada_2.0_pvsyst_schema_1.0.xsd
 
       - name: Validate against PVCollada extensions Structure Schematron
         working-directory: schema
         run: |
           python3 "$GITHUB_WORKSPACE"/.github/workflows/validate_xml_with_xsd_and_schematron.py \
             "$GITHUB_WORKSPACE"/"${{ matrix.xml_doc }}" \
-            --schematron extensions/pvsyst/pvcollada_2.0_pvsyst_structure_1.0.sch
+            --schematron PVCollada_2.0/extensions/pvsyst/pvcollada_2.0_pvsyst_structure_1.0.sch
 
       - name: Validate against PVCollada extensions References Schematron
         working-directory: schema
         run: |
           python3 "$GITHUB_WORKSPACE"/.github/workflows/validate_xml_with_xsd_and_schematron.py \
             "$GITHUB_WORKSPACE"/"${{ matrix.xml_doc }}" \
-            --schematron extensions/pvsyst/pvcollada_2.0_pvsyst_references_1.0.sch
+            --schematron PVCollada_2.0/extensions/pvsyst/pvcollada_2.0_pvsyst_references_1.0.sch
