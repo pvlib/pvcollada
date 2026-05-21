@@ -913,7 +913,8 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
         </xs:element>
         <xs:element name="azimuth" type="collada:float_type" minOccurs="0">
           <xs:annotation>
-            <xs:documentation>The azimuth of a fixed rack (in °). Azimuth defines the direction that the modules face.</xs:documentation>
+            <xs:documentation>The azimuth of the modules on a fixed rack (in °). Azimuth is in [0°, 360°) and is clockwise from geographic North (e.g., 90° is East and 180° is South).
+			Azimuth is the direction of the projection to the horizontal plane of the rack's normal vector.</xs:documentation>
           </xs:annotation>
         </xs:element>
         <xs:element name="slope" type="collada:float_type" minOccurs="0">
