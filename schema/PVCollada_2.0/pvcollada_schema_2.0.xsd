@@ -537,7 +537,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       <xs:element name="circuit_root" type="circuit_root_type" />
     </xs:sequence>
   </xs:complexType>
-  <!-- circuit_root must have exactly one input -->
+  <!-- circuit_root can have one or multiple inputs of the same type -->
   <xs:complexType name="circuit_root_type">
     <xs:sequence>
       <xs:element name="connected_to" type="xs:string" minOccurs="0">
@@ -546,9 +546,16 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
         </xs:annotation>
       </xs:element>
       <xs:choice>
-        <xs:element name="instance_transformer" type="instance_transformer_type" />
-        <xs:element name="instance_combiner_ac" type="instance_combiner_ac_type" />
-        <xs:element name="instance_inverter" type="instance_inverter_type" />
+        <!-- Allow one or more of the same type, but not a mix -->
+        <xs:sequence>
+          <xs:element name="instance_transformer" type="instance_transformer_type" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:sequence>
+          <xs:element name="instance_combiner_ac" type="instance_combiner_ac_type" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:sequence>
+          <xs:element name="instance_inverter" type="instance_inverter_type" maxOccurs="unbounded"/>
+        </xs:sequence>
       </xs:choice>
     </xs:sequence>
   </xs:complexType>
@@ -688,14 +695,12 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
   </xs:complexType>
   <!-- module_layout: must describe position (row, column) and position in string -->
   <xs:complexType name="module_layout_type">
-    <xs:sequence>
-      <xs:element name="position_in_string" type="xs:integer" />
-      <xs:element name="row" type="xs:integer" />
-      <xs:element name="column" type="xs:integer" />
-    </xs:sequence>
+    <xs:attribute name="position_in_string" type="xs:integer" use="required" />
+    <xs:attribute name="row" type="xs:integer" use="required" />
+    <xs:attribute name="column" type="xs:integer" use="required" />
     <xs:attribute name="url" type="xs:string" use="required" />
   </xs:complexType>
-	<!-- asset objects -->
+  <!-- asset objects -->
   <xs:element name="software">
     <xs:annotation>
       <xs:documentation>This tag should only appear in the extra/technique section of the Collada/asset tag.</xs:documentation>

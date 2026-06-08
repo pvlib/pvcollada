@@ -158,7 +158,7 @@
 						<pv:module_rows>2</pv:module_rows>
 						<pv:module_columns>15</pv:module_columns>
 						<pv:module_orientation>portrait</pv:module_orientation>
-						<pv:tracker_azimuth>0</pv:tracker_azimuth>
+						<pv:tracker_azimuth>180</pv:tracker_azimuth>
 						<pv:tracker_slope>0</pv:tracker_slope>
 						<pv:module_id>ModuleModel1</pv:module_id>
 					</pv:rack>
