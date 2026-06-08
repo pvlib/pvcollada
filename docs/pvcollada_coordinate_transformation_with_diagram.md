@@ -3,26 +3,28 @@
 
 ## ENU Coordinate Frame
 
-PVCollada uses a local **East‑North‑Up (ENU)** coordinate system:
+PVCollada uses a local, topocentric **East‑North‑Up (ENU)** coordinate system:
 
 - **x** → East  
 - **y** → North  
 - **z** → Up  
 
-The origin `(0,0,0)` corresponds to the latitude and longitude stored in the COLLADA document.
+The topocentric origin `(0,0,0)` corresponds to the point described by the
+latitude, longitude and altitude stored in the COLLADA document.
 
 ## Example Geometry
 
-Cube definition:
+Cube definition in local coordinates:
 
 - lower corner `(1,1,1)`
 - size `(3,2,1)`
 
-Origin location:
+Assume that the topocentric coordinate origin is at the this geolocation:
 
 - Albuquerque, NM, USA  
 - Latitude `35.0845`  
-- Longitude `-106.651`  
+- Longitude `-106.651`
+- Altitude `1619`
 - Projection `EPSG:32613`
 
 ## Diagram
@@ -33,36 +35,108 @@ The diagram shows the cube in the local coordinate system along with the ENU axe
 
 ## Computed Geographic Coordinates
 
-| x | y | z | latitude | longitude | height |
-|---|---|---|---|---|---|
-| 1 | 1 | 1 | 35.08450916 | -106.65098922 | 1 |
-| 4 | 1 | 1 | 35.08450961 | -106.65095632 | 1 |
-| 1 | 3 | 1 | 35.08452719 | -106.65098958 | 1 |
-| 4 | 3 | 1 | 35.08452764 | -106.65095668 | 1 |
-| 1 | 1 | 2 | 35.08450916 | -106.65098922 | 2 |
-| 4 | 1 | 2 | 35.08450961 | -106.65095632 | 2 |
-| 1 | 3 | 2 | 35.08452719 | -106.65098958 | 2 |
-| 4 | 3 | 2 | 35.08452764 | -106.65095668 | 2 |
+The geocoordinate of the cube are computed using the python library pymap3d.
 
-## Python Example
+|          x |          y |          z |    latitude |     longitude |      altitude |
+|-----------:|-----------:|-----------:|------------:|--------------:|--------------:|
+| 1.00000000 | 1.00000000 | 1.00000000 | 35.08450901 | -106.65098904 | 1620.00000016 |
+| 4.00000000 | 1.00000000 | 1.00000000 | 35.08453605 | -106.65098904 | 1620.00000134 |
+| 1.00000000 | 3.00000000 | 1.00000000 | 35.08450901 | -106.65096711 | 1620.00000078 |
+| 4.00000000 | 3.00000000 | 1.00000000 | 35.08453605 | -106.65096711 | 1620.00000196 |
+| 1.00000000 | 1.00000000 | 2.00000000 | 35.08450901 | -106.65098904 | 1621.00000016 |
+| 4.00000000 | 1.00000000 | 2.00000000 | 35.08453605 | -106.65098904 | 1621.00000134 |
+| 1.00000000 | 3.00000000 | 2.00000000 | 35.08450901 | -106.65096711 | 1621.00000078 |
+| 4.00000000 | 3.00000000 | 2.00000000 | 35.08453605 | -106.65096711 | 1621.00000196 |
+ 
+## Python Examples
 
 ```python
-from pyproj import Transformer
+# Using pymap3d
+
+import pandas as pd
+import pymap3d as pm
 
 lat0 = 35.0845
 lon0 = -106.651
+alt0 = 1619.0
 
-transformer_to_utm = Transformer.from_crs("EPSG:4326","EPSG:32613",always_xy=True)
-transformer_to_wgs = Transformer.from_crs("EPSG:32613","EPSG:4326",always_xy=True)
+# Local coordinates of corners of the cube
+coords = pd.DataFrame(
+    columns=['x', 'y', 'z'],
+    data=[[1., 1., 1.],
+          [4., 1., 1.],
+          [1., 3., 1.],
+          [4., 3., 1.],
+          [1., 1., 2.],
+          [4., 1., 2.],
+          [1., 3., 2.],
+          [4., 3., 2.]]
+    )
 
-E0,N0 = transformer_to_utm.transform(lon0,lat0)
+# Translate the cube to geocoordinates
 
-x,y,z = 1,1,1
+lat, lon, alt = pm.enu2geodetic(coords['y'], coords['x'], coords['z'],
+                                lat0, lon0, alt0)
 
-E = E0 + x
-N = N0 + y
+coords['lat'] = lat
+coords['lon'] = lon
+coords['alt'] = alt
 
-lon,lat = transformer_to_wgs.transform(E,N)
+print('Topocentric to Geodetic coordinates')
+print(coords.to_markdown(index=False))
 
-print(lat,lon)
+```
+
+```python
+# Using pyproj
+
+import pandas as pd
+import pyproj
+
+
+# 1. Define the origin of your local topocentric system (tangent plane)
+lat_0 = 35.0845   # Latitude of origin (degrees)
+lon_0 = -106.651 # Longitude of origin (degrees)
+h_0 = 1619.0      # Ellipsoidal height of origin (meters)
+
+# 2. Build an inverse PROJ pipeline conversion string
+# We use +inv because we are starting with topocentric coordinates and going backward
+pipeline_str = (
+    f"+proj=pipeline "
+    f"+step +inv +proj=topocentric +lat_0={lat_0} +lon_0={lon_0} +h_0={h_0} +ellps=WGS84 "
+    f"+step +inv +proj=cart +ellps=WGS84 "
+    f"+step +proj=unitconvert +xy_in=rad +xy_out=deg "
+    f"+step +proj=axisswap +order=2,1"
+)
+
+# 3. Create the transformer from the pipeline definition
+transformer = pyproj.Transformer.from_pipeline(pipeline_str)
+
+# 4. Input topocentric local data (East, North, Up in meters)
+coords = pd.DataFrame(
+    columns=['x', 'y', 'z'],
+    data=[[1., 1., 1.],
+          [4., 1., 1.],
+          [1., 3., 1.],
+          [4., 3., 1.],
+          [1., 1., 2.],
+          [4., 1., 2.],
+          [1., 3., 2.],
+          [4., 3., 2.]]
+    )
+
+# Translate the cube to geocoordinates
+
+# 5. Transform the coordinates
+# Note: The output layout matches traditional GIS structure (Longitude, Latitude, Height)
+lon, lat, alt = transformer.transform(
+    coords['x'], coords['y'], coords['z'])
+
+coords['latitude'] = lat
+coords['longitude'] = lon
+coords['altitude'] = alt
+
+print('Topocentric to Geodetic coordinates')
+print(coords.to_markdown(index=False, floatfmt=".8f"))
+
 ```
