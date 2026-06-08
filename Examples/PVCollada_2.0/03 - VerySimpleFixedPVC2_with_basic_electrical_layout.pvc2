@@ -89,26 +89,10 @@
 										<pv:module_array>
 											<!-- Cable between the string and the inverter -->
 											<pv:cable_to_parent url="#CableModel1" length="3" id="cableInstance2" />
-											<pv:module_layout url="#rackId1">
-												<pv:position_in_string>1</pv:position_in_string>
-												<pv:row>1</pv:row>
-												<pv:column>1</pv:column>
-											</pv:module_layout>
-											<pv:module_layout url="#rackId1">
-												<pv:position_in_string>2</pv:position_in_string>
-												<pv:row>1</pv:row>
-												<pv:column>2</pv:column>
-											</pv:module_layout>
-											<pv:module_layout url="#rackId1">
-												<pv:position_in_string>3</pv:position_in_string>
-												<pv:row>1</pv:row>
-												<pv:column>3</pv:column>
-											</pv:module_layout>
-											<pv:module_layout url="#rackId1">
-												<pv:position_in_string>4</pv:position_in_string>
-												<pv:row>1</pv:row>
-												<pv:column>4</pv:column>
-											</pv:module_layout>
+											<pv:module_layout url="#rackId1" position_in_string="1" row="1" column="1" />
+											<pv:module_layout url="#rackId1" position_in_string="2" row="1" column="2" />
+											<pv:module_layout url="#rackId1" position_in_string="3" row="1" column="3" />
+											<pv:module_layout url="#rackId1" position_in_string="4" row="1" column="4" />
 										</pv:module_array>
 									</pv:string>
 								</pv:mppt>
@@ -119,26 +103,10 @@
 										<pv:module_array>
 											<!-- Cable between the string and the inverter -->
 											<pv:cable_to_parent url="#CableModel1" length="4" id="cableInstance3" />
-											<pv:module_layout url="#rackId2">
-												<pv:position_in_string>1</pv:position_in_string>
-												<pv:row>1</pv:row>
-												<pv:column>1</pv:column>
-											</pv:module_layout>
-											<pv:module_layout url="#rackId2">
-												<pv:position_in_string>2</pv:position_in_string>
-												<pv:row>1</pv:row>
-												<pv:column>2</pv:column>
-											</pv:module_layout>
-											<pv:module_layout url="#rackId2">
-												<pv:position_in_string>3</pv:position_in_string>
-												<pv:row>1</pv:row>
-												<pv:column>3</pv:column>
-											</pv:module_layout>
-											<pv:module_layout url="#rackId2">
-												<pv:position_in_string>4</pv:position_in_string>
-												<pv:row>1</pv:row>
-												<pv:column>4</pv:column>
-											</pv:module_layout>
+											<pv:module_layout url="#rackId2" position_in_string="1" row="1" column="1" />
+											<pv:module_layout url="#rackId2" position_in_string="2" row="1" column="2" />
+											<pv:module_layout url="#rackId2" position_in_string="3" row="1" column="3" />
+											<pv:module_layout url="#rackId2" position_in_string="4" row="1" column="4" />
 										</pv:module_array>
 									</pv:string>
 								</pv:mppt>
@@ -149,26 +117,10 @@
 										<pv:module_array>
 											<!-- Cable between the string and the inverter -->
 											<pv:cable_to_parent url="#CableModel1" length="5" id="cableInstance4" />
-											<pv:module_layout url="#rackId3">
-												<pv:position_in_string>1</pv:position_in_string>
-												<pv:row>1</pv:row>
-												<pv:column>1</pv:column>
-											</pv:module_layout>
-											<pv:module_layout url="#rackId3">
-												<pv:position_in_string>2</pv:position_in_string>
-												<pv:row>1</pv:row>
-												<pv:column>2</pv:column>
-											</pv:module_layout>
-											<pv:module_layout url="#rackId3">
-												<pv:position_in_string>3</pv:position_in_string>
-												<pv:row>1</pv:row>
-												<pv:column>3</pv:column>
-											</pv:module_layout>
-											<pv:module_layout url="#rackId3">
-												<pv:position_in_string>4</pv:position_in_string>
-												<pv:row>1</pv:row>
-												<pv:column>4</pv:column>
-											</pv:module_layout>
+											<pv:module_layout url="#rackId3" position_in_string="1" row="1" column="1" />
+											<pv:module_layout url="#rackId3" position_in_string="2" row="1" column="2" />
+											<pv:module_layout url="#rackId3" position_in_string="3" row="1" column="3" />
+											<pv:module_layout url="#rackId3" position_in_string="4" row="1" column="4" />
 										</pv:module_array>
 									</pv:string>
 								</pv:mppt>
@@ -286,7 +238,7 @@
 						<pv:module_columns>7</pv:module_columns>
 						<pv:module_orientation>landscape</pv:module_orientation>
 						<pv:tilt>23.50</pv:tilt>
-						<pv:azimuth>0</pv:azimuth>
+						<pv:azimuth>180</pv:azimuth>
 						<pv:module_id>ModuleModel1</pv:module_id>
 					</pv:rack>
 				</technique>
