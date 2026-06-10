@@ -913,13 +913,13 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
         </xs:element>
         <xs:element name="tilt" type="collada:float_type" minOccurs="0">
           <xs:annotation>
-            <xs:documentation>The tilt from horizontal of a fixed rack (in °)</xs:documentation>
+            <xs:documentation>The nominal, or design, tilt from horizontal of a fixed rack (in °)</xs:documentation>
           </xs:annotation>
         </xs:element>
         <xs:element name="azimuth" type="collada:float_type" minOccurs="0">
           <xs:annotation>
-            <xs:documentation>The azimuth of the modules on a fixed rack (in °). Azimuth is in [0°, 360°) and is clockwise from geographic North (e.g., 90° is East and 180° is South).
-			Azimuth is the direction of the projection to the horizontal plane of the rack's normal vector.</xs:documentation>
+            <xs:documentation>The nominal, or design, azimuth of the modules on a fixed rack (in °). Azimuth is in [0°, 360°) and is clockwise from geographic North (e.g., 90° is East and 180° is South).
+			Azimuth is the direction in the horizontal plane of the rack's front surface.</xs:documentation>
           </xs:annotation>
         </xs:element>
         <xs:element name="slope" type="collada:float_type" minOccurs="0">
@@ -934,13 +934,13 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
         </xs:element>
         <xs:element name="tracker_azimuth" type="collada:float_type" minOccurs="0">
           <xs:annotation>
-            <xs:documentation>The azimuth of a tracker torque tube (in °). Azimuth defines the sign of the rack rotation angle.
+            <xs:documentation>The nominal, or design, azimuth of a tracker torque tube (in °). Azimuth defines the sign of the rack rotation angle.
 						Rotation is a right-hand rotation around the azimuth axis. For example, a positive rotation for azimuth=180° is to the west.</xs:documentation>
           </xs:annotation>
         </xs:element>
         <xs:element name="tracker_slope" type="collada:float_type" minOccurs="0">
           <xs:annotation>
-            <xs:documentation>The slope of a tracker torque tube (in °) in the direction of the azimuth.</xs:documentation>
+            <xs:documentation>The nominal, or design, slope of a tracker torque tube (in °) in the direction of the nominal azimuth.</xs:documentation>
           </xs:annotation>
         </xs:element>
         <xs:element name="tracker_height" type="collada:float_type" minOccurs="0">
