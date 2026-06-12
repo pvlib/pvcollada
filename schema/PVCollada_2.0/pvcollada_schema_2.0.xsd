@@ -891,9 +891,37 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
             <xs:documentation>Spacing between modules in the row direction</xs:documentation>
           </xs:annotation>
         </xs:element>
+        <xs:element name="row_start_overhang" type="collada:float_type" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Spacing between the start of the structure and the first module in the row direction.
+            Only needed if the structure extends beyond the module area. Must be greater than or equal to 0; defaults to 0 if not specified.
+            Depending on the software, this spacing is also known as an overhang or a frame.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="row_end_overhang" type="collada:float_type" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Spacing between the end of the last module and the end of the structure in the row direction.
+            Only needed if the structure extends beyond the module area. Must be greater than or equal to 0; defaults to 0 if not specified.
+            Depending on the software, this spacing is also known as an overhang or a frame.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
         <xs:element name="column_spacing" type="collada:float_type" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Spacing between modules in the column direction</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="column_start_overhang" type="collada:float_type" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Spacing between the start of the structure and the first module in the column direction.
+            Only needed if the structure extends beyond the module area. Must be greater than or equal to 0; defaults to 0 if not specified.
+            Depending on the software, this spacing is also known as an overhang or a frame.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="column_end_overhang" type="collada:float_type" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Spacing between the end of the last module and the end of the structure in the column direction.
+            Only needed if the structure extends beyond the module area. Must be greater than or equal to 0; defaults to 0 if not specified.
+            Depending on the software, this spacing is also known as an overhang or a frame.</xs:documentation>
           </xs:annotation>
         </xs:element>
         <xs:element name="module_rows" type="xs:positiveInteger" minOccurs="0">
