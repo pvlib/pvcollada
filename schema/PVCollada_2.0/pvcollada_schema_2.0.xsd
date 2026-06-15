@@ -38,6 +38,10 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
     <xs:restriction base="xs:string">
       <xs:enumeration value="monofacial" />
       <xs:enumeration value="bifacial" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="module_architecture_enum" final="restriction">
+    <xs:restriction base="xs:string">
       <xs:enumeration value="cpv" />
       <xs:enumeration value="shingle" />
     </xs:restriction>
@@ -127,6 +131,11 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
       <xs:element name="module_type" type="module_type_enum" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Module type.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="module_architecture" type="module_architecture_enum" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Module architecture.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="nom_power" type="xs:float">
