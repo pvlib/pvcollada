@@ -1,5 +1,5 @@
 
-# PVCollada Coordinates and Coordinate Transformation Guide
+# Guide to Coordinates and Coordinate Transformations
 
 ## ENU Coordinate Frame
 
