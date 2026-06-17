@@ -37,6 +37,18 @@
 			</assert>
 		</rule>
 	</pattern>
+	
+	<!-- Pattern: Ensure altitude mode is absolute -->
+	<pattern id="altitude_mode_requirement">
+		<rule context="collada:altitude">
+			<assert test="@mode">
+				altitude element must have a 'mode' attribute
+			</assert>
+			<assert test="not(@mode) or @mode = 'absolute'">
+				altitude 'mode' attribute must have value 'absolute'. Found '<value-of select="@mode"/>'
+			</assert>
+		</rule>
+	</pattern>
     
     <!-- Pattern: Asset-level PVCollada elements placement -->
     <pattern id="asset_pvcollada_placement">
