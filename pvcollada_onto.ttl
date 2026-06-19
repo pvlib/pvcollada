@@ -1,0 +1,1710 @@
+###############################################################################
+#  PV-Collada Ontology  —  pvcollada_onto.ttl
+#  Derived from: pvcollada_schema_2.0.xsd  +  pvcollada_business_2.0.sch
+#                pvcollada_references_2.0.sch
+#
+#  Conforms to:
+#    OWL 2 Web Ontology Language (W3C, Second Edition)
+#    MDS-Onto FindTheDocs conventions  https://cwrusdle.bitbucket.io/
+#
+#  Namespace:  pvc:  <https://cwrusdle.bitbucket.io/mds/builtenv/pvcollada/>
+#  Domain:     mds:builtenv
+#  Sub-domain: pvcollada
+#
+#  MDS-Onto reconciliation (v0.3.1.31):
+#    Class hierarchy bridges:
+#      pvc:Module        rdfs:subClassOf mds:PhotovoltaicModule
+#      pvc:Inverter      rdfs:subClassOf mds:Inverter
+#      pvc:Rack          rdfs:subClassOf mds:Racking
+#      pvc:Project       rdfs:subClassOf mds:PhotovoltaicSite
+#    Enumeration close-matches:
+#      pvc:CellArchitecture  skos:closeMatch  mds:CellTechnology / mds:CellTechnologyType
+#      pvc:RackType          skos:closeMatch  mds:RackingType
+#    Named individual:
+#      pvc:PERC              skos:exactMatch  mds:PassivatedEmitterRearCell
+#    Data property links (rdfs:seeAlso → MDS measurement class):
+#      pvc:nomPower / iSc / iMpp / vOc / vMpp / tCoefPower / tCoefIsc /
+#      tCoefVoc / numCells / numCellsSeries / numStrings / manufacturer
+###############################################################################
+
+@prefix :    <https://cwrusdle.bitbucket.io/mds/builtenv/pvcollada/> .
+@prefix pvc: <https://cwrusdle.bitbucket.io/mds/builtenv/pvcollada/> .
+@prefix mds: <https://cwrusdle.bitbucket.io/mds/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix unit: <http://qudt.org/vocab/unit/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix cco:  <http://www.ontologyrepository.com/CommonCoreOntologies/> .
+
+
+###############################################################################
+#  O N T O L O G Y   H E A D E R
+###############################################################################
+
+<https://cwrusdle.bitbucket.io/mds/builtenv/pvcollada/>
+    a owl:Ontology ;
+    owl:versionIRI <https://cwrusdle.bitbucket.io/mds/builtenv/pvcollada/0.1.0> ;
+    owl:imports <https://cwrusdle.bitbucket.io/mds/> ;
+    rdfs:label "PV-Collada Ontology"@en ;
+    skos:definition
+        """OWL 2 ontology derived from the PV-Collada 2.0 XSD schema. Provides vocabulary for PV system circuit topology, physical layout geometry, and component product data, within the MDS-Onto builtenv domain."""@en ;
+    skos:scopeNote
+        """Covers three interlocking layers: (1) a product library of typed PV components (modules, inverters, cables, etc.); (2) a circuit topology describing how those components are wired together; and (3) a physical 3-D layout associating circuit positions with geometric rack instances. ModuleLayout is the cross-domain bridge between layers 2 and 3."""@en ;
+    rdfs:seeAlso <http://www.example.com/pvcollada> ;
+    cco:ont00001754 "https://github.com/ucf-photovoltaics/pv-ontology"^^xsd:anyURI .
+
+
+###############################################################################
+#  A B S T R A C T   P A R E N T   C L A S S E S
+###############################################################################
+
+pvc:PVColladaEntity
+    a owl:Class ;
+    rdfs:label "PV-Collada Entity"@en ;
+    skos:definition
+        "Abstract root class for all entities described in the PV-Collada schema."@en ;
+    mds:hasDomain    "builtenv"^^xsd:string ;
+    mds:hasSubDomain "pvcollada"^^xsd:string .
+
+pvc:PVComponent
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVColladaEntity ;
+    rdfs:label "PV Component"@en ;
+    skos:definition
+        """A typed product specification for a physical PV balance-of-system component, as declared in the PV-Collada components library."""@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Characterization"^^xsd:string .
+
+pvc:CircuitInstance
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVColladaEntity ;
+    rdfs:label "Circuit Instance"@en ;
+    skos:definition
+        """An instantiated element in the electrical circuit topology of a PV system, referencing a PVComponent product specification."""@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Simulation"^^xsd:string .
+
+pvc:PhysicalAsset
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVColladaEntity ;
+    rdfs:label "Physical Asset"@en ;
+    skos:definition
+        """A physical or geometric object in the 3-D layout of a PV installation, represented in the COLLADA scene graph."""@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Simulation"^^xsd:string .
+
+
+###############################################################################
+#  E N U M E R A T I O N   C L A S S E S   &   N A M E D   I N D I V I D U A L S
+#
+#  XSD simpleType restrictions are modelled as owl:Class + owl:oneOf individuals.
+###############################################################################
+
+# ── CellMaterial ─────────────────────────────────────────────────────────────
+
+pvc:CellMaterial
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVColladaEntity ;
+    rdfs:label "Cell Material"@en ;
+    skos:definition
+        "Enumeration of absorber semiconductor materials used in PV cells."@en ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:oneOf ( pvc:MonoSi pvc:PolySi pvc:ASi pvc:CdTe ) ] ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Characterization"^^xsd:string .
+
+pvc:MonoSi  a owl:NamedIndividual , pvc:CellMaterial ;
+    rdfs:label "monocrystalline silicon"@en ;
+    skos:altLabel "monoSi"@en .
+
+pvc:PolySi  a owl:NamedIndividual , pvc:CellMaterial ;
+    rdfs:label "polycrystalline silicon"@en ;
+    skos:altLabel "polySi"@en .
+
+pvc:ASi     a owl:NamedIndividual , pvc:CellMaterial ;
+    rdfs:label "amorphous silicon"@en ;
+    skos:altLabel "aSi"@en .
+
+pvc:CdTe    a owl:NamedIndividual , pvc:CellMaterial ;
+    rdfs:label "cadmium telluride"@en ;
+    skos:altLabel "cdTe"@en .
+
+# ── CellArchitecture ─────────────────────────────────────────────────────────
+
+pvc:CellArchitecture
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVColladaEntity ;
+    rdfs:label "Cell Architecture"@en ;
+    skos:definition
+        "Enumeration of cell junction or contact architectures used in PV modules."@en ;
+    skos:closeMatch mds:CellTechnology , mds:CellTechnologyType ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:oneOf ( pvc:SingleJunction pvc:Heterojunction pvc:IBC
+                    pvc:PERC pvc:TOPcon pvc:TandemPerovskite ) ] ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Characterization"^^xsd:string .
+
+pvc:SingleJunction    a owl:NamedIndividual , pvc:CellArchitecture ;
+    rdfs:label "single junction"@en ; skos:altLabel "single_junction"@en .
+pvc:Heterojunction    a owl:NamedIndividual , pvc:CellArchitecture ;
+    rdfs:label "heterojunction"@en .
+pvc:IBC               a owl:NamedIndividual , pvc:CellArchitecture ;
+    rdfs:label "interdigitated back contact"@en ; skos:altLabel "IBC"@en .
+pvc:PERC              a owl:NamedIndividual , pvc:CellArchitecture ;
+    rdfs:label "passivated emitter and rear cell"@en ; skos:altLabel "PERC"@en ;
+    skos:exactMatch mds:PassivatedEmitterRearCell .
+pvc:TOPcon            a owl:NamedIndividual , pvc:CellArchitecture ;
+    rdfs:label "tunnel oxide passivated contact"@en ; skos:altLabel "TOPcon"@en .
+pvc:TandemPerovskite  a owl:NamedIndividual , pvc:CellArchitecture ;
+    rdfs:label "tandem perovskite"@en ; skos:altLabel "tandem-perovskite"@en .
+
+# ── ModuleType ───────────────────────────────────────────────────────────────
+
+pvc:ModuleType
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVColladaEntity ;
+    rdfs:label "Module Type"@en ;
+    skos:definition "Enumeration of PV module form-factor types."@en ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:oneOf ( pvc:Monofacial pvc:Bifacial pvc:CPV pvc:Shingle ) ] ;
+    mds:hasDomain "builtenv"^^xsd:string ; mds:hasSubDomain "pvcollada"^^xsd:string .
+
+pvc:Monofacial  a owl:NamedIndividual , pvc:ModuleType ;
+    rdfs:label "monofacial module"@en ; skos:altLabel "monofacial"@en .
+pvc:Bifacial    a owl:NamedIndividual , pvc:ModuleType ;
+    rdfs:label "bifacial module"@en ; skos:altLabel "bifacial"@en .
+pvc:CPV         a owl:NamedIndividual , pvc:ModuleType ;
+    rdfs:label "concentrating photovoltaic module"@en ; skos:altLabel "cpv"@en .
+pvc:Shingle     a owl:NamedIndividual , pvc:ModuleType ;
+    rdfs:label "shingle module"@en ; skos:altLabel "shingle"@en .
+
+# ── InverterType ─────────────────────────────────────────────────────────────
+
+pvc:InverterType
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVColladaEntity ;
+    rdfs:label "Inverter Type"@en ;
+    skos:definition "Enumeration of PV inverter deployment topologies."@en ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:oneOf ( pvc:CentralInverter pvc:StringInverter pvc:Microinverter ) ] ;
+    mds:hasDomain "builtenv"^^xsd:string ; mds:hasSubDomain "pvcollada"^^xsd:string .
+
+pvc:CentralInverter  a owl:NamedIndividual , pvc:InverterType ;
+    rdfs:label "central inverter"@en ; skos:altLabel "central"@en .
+pvc:StringInverter   a owl:NamedIndividual , pvc:InverterType ;
+    rdfs:label "string inverter"@en ; skos:altLabel "string"@en .
+pvc:Microinverter    a owl:NamedIndividual , pvc:InverterType ;
+    rdfs:label "microinverter"@en .
+
+# ── RackType ─────────────────────────────────────────────────────────────────
+
+pvc:RackType
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVColladaEntity ;
+    rdfs:label "Rack Type"@en ;
+    skos:definition "Enumeration of rack mounting strategies."@en ;
+    skos:closeMatch mds:RackingType ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:oneOf ( pvc:FixedTilt pvc:TrackerRackType ) ] ;
+    mds:hasDomain "builtenv"^^xsd:string ; mds:hasSubDomain "pvcollada"^^xsd:string .
+
+pvc:FixedTilt        a owl:NamedIndividual , pvc:RackType ;
+    rdfs:label "fixed tilt"@en ; skos:altLabel "fixed_tilt"@en .
+pvc:TrackerRackType  a owl:NamedIndividual , pvc:RackType ;
+    rdfs:label "tracker rack"@en ; skos:altLabel "tracker"@en .
+
+# ── TableType ────────────────────────────────────────────────────────────────
+
+pvc:TableType
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVColladaEntity ;
+    rdfs:label "Table Type"@en ;
+    skos:definition "Enumeration of table mounting types."@en ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:oneOf ( pvc:FixedTable pvc:TrackerTable ) ] ;
+    mds:hasDomain "builtenv"^^xsd:string ; mds:hasSubDomain "pvcollada"^^xsd:string .
+
+pvc:FixedTable    a owl:NamedIndividual , pvc:TableType ;
+    rdfs:label "fixed table"@en ; skos:altLabel "fixed"@en .
+pvc:TrackerTable  a owl:NamedIndividual , pvc:TableType ;
+    rdfs:label "tracker table"@en ; skos:altLabel "tracker"@en .
+
+# ── TrackerType ──────────────────────────────────────────────────────────────
+
+pvc:TrackerType
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVColladaEntity ;
+    rdfs:label "Tracker Type"@en ;
+    skos:definition "Enumeration of solar tracker axis configurations."@en ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:oneOf ( pvc:SingleAxisTracker pvc:DualAxisTracker ) ] ;
+    mds:hasDomain "builtenv"^^xsd:string ; mds:hasSubDomain "pvcollada"^^xsd:string .
+
+pvc:SingleAxisTracker  a owl:NamedIndividual , pvc:TrackerType ;
+    rdfs:label "single axis tracker"@en ; skos:altLabel "single_axis"@en .
+pvc:DualAxisTracker    a owl:NamedIndividual , pvc:TrackerType ;
+    rdfs:label "dual axis tracker"@en ; skos:altLabel "dual_axis"@en .
+
+# ── TorqueTubeShape ──────────────────────────────────────────────────────────
+
+pvc:TorqueTubeShape
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVColladaEntity ;
+    rdfs:label "Torque Tube Shape"@en ;
+    skos:definition
+        "Enumeration of cross-sectional shapes for a single-axis tracker torque tube."@en ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:oneOf ( pvc:CircularTube pvc:RectangularTube pvc:OctagonalTube ) ] ;
+    mds:hasDomain "builtenv"^^xsd:string ; mds:hasSubDomain "pvcollada"^^xsd:string .
+
+pvc:CircularTube    a owl:NamedIndividual , pvc:TorqueTubeShape ;
+    rdfs:label "circular torque tube"@en ; skos:altLabel "circle"@en .
+pvc:RectangularTube a owl:NamedIndividual , pvc:TorqueTubeShape ;
+    rdfs:label "rectangular torque tube"@en ; skos:altLabel "rectangle"@en .
+pvc:OctagonalTube   a owl:NamedIndividual , pvc:TorqueTubeShape ;
+    rdfs:label "octagonal torque tube"@en ; skos:altLabel "octogon"@en .
+
+# ── DriveType ────────────────────────────────────────────────────────────────
+
+pvc:DriveType
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVColladaEntity ;
+    rdfs:label "Drive Type"@en ;
+    skos:definition
+        "Enumeration of drive coupling configurations for single-axis trackers."@en ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:oneOf ( pvc:IndependentDrive pvc:LinkedDrive ) ] ;
+    mds:hasDomain "builtenv"^^xsd:string ; mds:hasSubDomain "pvcollada"^^xsd:string .
+
+pvc:IndependentDrive  a owl:NamedIndividual , pvc:DriveType ;
+    rdfs:label "independent drive"@en ; skos:altLabel "independent"@en .
+pvc:LinkedDrive       a owl:NamedIndividual , pvc:DriveType ;
+    rdfs:label "linked drive"@en ; skos:altLabel "linked"@en .
+
+# ── PostType ─────────────────────────────────────────────────────────────────
+
+pvc:PostType
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVColladaEntity ;
+    rdfs:label "Post Type"@en ;
+    skos:definition "Enumeration of structural post functions."@en ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:oneOf ( pvc:RackPost pvc:TrackerPost pvc:FencePost ) ] ;
+    mds:hasDomain "builtenv"^^xsd:string ; mds:hasSubDomain "pvcollada"^^xsd:string .
+
+pvc:RackPost    a owl:NamedIndividual , pvc:PostType ;
+    rdfs:label "rack post"@en ; skos:altLabel "rack"@en .
+pvc:TrackerPost a owl:NamedIndividual , pvc:PostType ;
+    rdfs:label "tracker post"@en ; skos:altLabel "tracker"@en .
+pvc:FencePost   a owl:NamedIndividual , pvc:PostType ;
+    rdfs:label "fence post"@en ; skos:altLabel "fence"@en .
+
+# ── PostShape ────────────────────────────────────────────────────────────────
+
+pvc:PostShape
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVColladaEntity ;
+    rdfs:label "Post Shape"@en ;
+    skos:definition "Enumeration of structural post cross-section shapes."@en ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:oneOf ( pvc:RectangularPost pvc:CircularPost pvc:HShapePost ) ] ;
+    mds:hasDomain "builtenv"^^xsd:string ; mds:hasSubDomain "pvcollada"^^xsd:string .
+
+pvc:RectangularPost  a owl:NamedIndividual , pvc:PostShape ;
+    rdfs:label "rectangular post"@en ; skos:altLabel "rectangle"@en .
+pvc:CircularPost     a owl:NamedIndividual , pvc:PostShape ;
+    rdfs:label "circular post"@en ; skos:altLabel "circle"@en .
+pvc:HShapePost       a owl:NamedIndividual , pvc:PostShape ;
+    rdfs:label "H-shape post"@en ; skos:altLabel "h-shape"@en .
+
+# ── PostInclination ──────────────────────────────────────────────────────────
+
+pvc:PostInclination
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVColladaEntity ;
+    rdfs:label "Post Inclination"@en ;
+    skos:definition "Enumeration of post installation inclination modes."@en ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:oneOf ( pvc:VerticalPost pvc:PerpendicularPost ) ] ;
+    mds:hasDomain "builtenv"^^xsd:string ; mds:hasSubDomain "pvcollada"^^xsd:string .
+
+pvc:VerticalPost      a owl:NamedIndividual , pvc:PostInclination ;
+    rdfs:label "vertical post"@en ; skos:altLabel "vertical"@en .
+pvc:PerpendicularPost a owl:NamedIndividual , pvc:PostInclination ;
+    rdfs:label "perpendicular post"@en ; skos:altLabel "perpendicular"@en .
+
+# ── GapType ──────────────────────────────────────────────────────────────────
+
+pvc:GapType
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVColladaEntity ;
+    rdfs:label "Gap Type"@en ;
+    skos:definition
+        "Enumeration of gap categories between racks on a tracker torque tube."@en ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:oneOf ( pvc:MotorGap pvc:JointGap ) ] ;
+    mds:hasDomain "builtenv"^^xsd:string ; mds:hasSubDomain "pvcollada"^^xsd:string .
+
+pvc:MotorGap  a owl:NamedIndividual , pvc:GapType ;
+    rdfs:label "motor gap"@en ; skos:altLabel "motor"@en .
+pvc:JointGap  a owl:NamedIndividual , pvc:GapType ;
+    rdfs:label "joint gap"@en ; skos:altLabel "joint"@en .
+
+# ── ModuleOrientation ────────────────────────────────────────────────────────
+
+pvc:ModuleOrientation
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVColladaEntity ;
+    rdfs:label "Module Orientation"@en ;
+    skos:definition "Enumeration of module mounting orientations on a rack."@en ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:oneOf ( pvc:Portrait pvc:Landscape ) ] ;
+    mds:hasDomain "builtenv"^^xsd:string ; mds:hasSubDomain "pvcollada"^^xsd:string .
+
+pvc:Portrait   a owl:NamedIndividual , pvc:ModuleOrientation ;
+    rdfs:label "portrait orientation"@en ; skos:altLabel "portrait"@en .
+pvc:Landscape  a owl:NamedIndividual , pvc:ModuleOrientation ;
+    rdfs:label "landscape orientation"@en ; skos:altLabel "landscape"@en .
+
+# ── ConductorMaterial ────────────────────────────────────────────────────────
+
+pvc:ConductorMaterial
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVColladaEntity ;
+    rdfs:label "Conductor Material"@en ;
+    skos:definition "Enumeration of cable conductor materials."@en ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:oneOf ( pvc:CopperConductor pvc:AluminumConductor ) ] ;
+    mds:hasDomain "builtenv"^^xsd:string ; mds:hasSubDomain "pvcollada"^^xsd:string .
+
+pvc:CopperConductor    a owl:NamedIndividual , pvc:ConductorMaterial ;
+    rdfs:label "copper conductor"@en ; skos:altLabel "copper"@en .
+pvc:AluminumConductor  a owl:NamedIndividual , pvc:ConductorMaterial ;
+    rdfs:label "aluminum conductor"@en ; skos:altLabel "aluminum"@en .
+
+# ── PowerType ────────────────────────────────────────────────────────────────
+
+pvc:PowerType
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVColladaEntity ;
+    rdfs:label "Power Type"@en ;
+    skos:definition "Enumeration of electrical power type (AC or DC) for cables."@en ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:oneOf ( pvc:ACPower pvc:DCPower ) ] ;
+    mds:hasDomain "builtenv"^^xsd:string ; mds:hasSubDomain "pvcollada"^^xsd:string .
+
+pvc:ACPower  a owl:NamedIndividual , pvc:PowerType ;
+    rdfs:label "alternating current"@en ; skos:altLabel "ac"@en .
+pvc:DCPower  a owl:NamedIndividual , pvc:PowerType ;
+    rdfs:label "direct current"@en ; skos:altLabel "dc"@en .
+
+# ── EfficiencyStandardType  (inline enum in XSD inverter_type_object) ─────
+
+pvc:EfficiencyStandardType
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVColladaEntity ;
+    rdfs:label "Efficiency Standard Type"@en ;
+    skos:definition
+        "Enumeration of rating standards used for inverter efficiency measurement."@en ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:oneOf ( pvc:CECEfficiency pvc:EUEfficiency ) ] ;
+    mds:hasDomain "builtenv"^^xsd:string ; mds:hasSubDomain "pvcollada"^^xsd:string .
+
+pvc:CECEfficiency  a owl:NamedIndividual , pvc:EfficiencyStandardType ;
+    rdfs:label "CEC efficiency standard"@en ; skos:altLabel "CEC"@en .
+pvc:EUEfficiency   a owl:NamedIndividual , pvc:EfficiencyStandardType ;
+    rdfs:label "EU efficiency standard"@en ; skos:altLabel "EU"@en .
+
+
+###############################################################################
+#  C O M P O N E N T   T Y P E   C L A S S E S
+#  (product library — XSD complexTypes ending in _type_object)
+###############################################################################
+
+pvc:Module
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVComponent ,
+                    mds:PhotovoltaicModule ;
+    rdfs:label "PV Module Product"@en ;
+    skos:definition
+        """Product-level specification for a PV module, capturing its physical dimensions, electrical parameters at STC, and cell technology."""@en ;
+    skos:scopeNote
+        """Corresponds to module_type_object in pvcollada_schema_2.0.xsd. Declared as a subclass of mds:PhotovoltaicModule to align with the MDS-Onto builtenv PV-module hierarchy."""@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Characterization"^^xsd:string .
+
+pvc:Inverter
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVComponent ,
+                    mds:Inverter ;
+    rdfs:label "PV Inverter Product"@en ;
+    skos:definition
+        """Product-level specification for a PV inverter, capturing its AC/DC power ratings, MPPT voltage window, efficiency, and parasitic consumption."""@en ;
+    skos:scopeNote
+        """Corresponds to inverter_type_object. Declared as a subclass of mds:Inverter to align with MDS-Onto."""@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Characterization"^^xsd:string .
+
+pvc:MPPTUnit
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVComponent ;
+    rdfs:label "MPPT Unit Product"@en ;
+    skos:definition
+        """Product-level specification for a single maximum-power-point-tracking channel on an inverter, recording the number of parallel input strings."""@en ;
+    skos:scopeNote "Corresponds to mppt_type_object."@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Characterization"^^xsd:string .
+
+pvc:Transformer
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVComponent ;
+    rdfs:label "Transformer Product"@en ;
+    skos:definition
+        """Product-level specification for an AC step-up or isolation transformer, including rated power, voltage ratio, efficiency, and loss parameters."""@en ;
+    skos:scopeNote "Corresponds to transformer_type_object."@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Characterization"^^xsd:string .
+
+pvc:Cable
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVComponent ;
+    rdfs:label "Cable Product"@en ;
+    skos:definition
+        """Product-level specification for a PV cable, including cross-sectional area, conductor count, material, and electrical resistance."""@en ;
+    skos:scopeNote "Corresponds to cable_type_object."@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Characterization"^^xsd:string .
+
+pvc:DCCombiner
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVComponent ;
+    rdfs:label "DC Combiner Product"@en ;
+    skos:definition
+        "Product-level specification for a DC string combiner box."@en ;
+    skos:scopeNote "Corresponds to combiner_dc_type_object."@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Characterization"^^xsd:string .
+
+pvc:ACCombiner
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVComponent ;
+    rdfs:label "AC Combiner Product"@en ;
+    skos:definition
+        "Product-level specification for an AC inverter combiner panel."@en ;
+    skos:scopeNote "Corresponds to combiner_ac_type_object."@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Characterization"^^xsd:string .
+
+pvc:Optimizer
+    a owl:Class ;
+    rdfs:subClassOf pvc:PVComponent ;
+    rdfs:label "Power Optimizer Product"@en ;
+    skos:definition
+        "Product-level specification for a module-level power optimizer."@en ;
+    skos:scopeNote "Corresponds to optimizer_type_object."@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Characterization"^^xsd:string .
+
+
+###############################################################################
+#  C I R C U I T   I N S T A N C E   C L A S S E S
+###############################################################################
+
+pvc:Circuit
+    a owl:Class ;
+    rdfs:subClassOf pvc:CircuitInstance ;
+    rdfs:label "Circuit"@en ;
+    skos:definition
+        """The complete electrical circuit description of a PV system, rooted at a single circuit_root element that is a transformer, AC combiner, or inverter."""@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Simulation"^^xsd:string .
+
+pvc:InverterInstance
+    a owl:Class ;
+    rdfs:subClassOf pvc:CircuitInstance ;
+    rdfs:label "Inverter Instance"@en ;
+    skos:definition
+        """An instance of an inverter in the electrical circuit, referencing a product inverter specification and containing MPPT inputs."""@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Simulation"^^xsd:string .
+
+pvc:TransformerInstance
+    a owl:Class ;
+    rdfs:subClassOf pvc:CircuitInstance ;
+    rdfs:label "Transformer Instance"@en ;
+    skos:definition
+        "An instance of a transformer in the electrical circuit."@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Simulation"^^xsd:string .
+
+pvc:ACCombinerInstance
+    a owl:Class ;
+    rdfs:subClassOf pvc:CircuitInstance ;
+    rdfs:label "AC Combiner Instance"@en ;
+    skos:definition
+        "An instance of an AC combiner panel in the electrical circuit."@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Simulation"^^xsd:string .
+
+pvc:DCCombinerInstance
+    a owl:Class ;
+    rdfs:subClassOf pvc:CircuitInstance ;
+    rdfs:label "DC Combiner Instance"@en ;
+    skos:definition
+        "An instance of a DC combiner box in the electrical circuit."@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Simulation"^^xsd:string .
+
+pvc:MPPTInput
+    a owl:Class ;
+    rdfs:subClassOf pvc:CircuitInstance ;
+    rdfs:label "MPPT Input"@en ;
+    skos:definition
+        """A single MPPT channel instance within an inverter circuit instance, containing one or more strings or DC combiners."""@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Simulation"^^xsd:string .
+
+pvc:String
+    a owl:Class ;
+    rdfs:subClassOf pvc:CircuitInstance ;
+    rdfs:label "PV String"@en ;
+    skos:definition
+        """A series-connected string of PV modules, containing either a module array or an optimizer array."""@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Simulation"^^xsd:string .
+
+pvc:ModuleArray
+    a owl:Class ;
+    rdfs:subClassOf pvc:CircuitInstance ;
+    rdfs:label "Module Array"@en ;
+    skos:definition
+        """An ordered collection of modules within a string, each described by a ModuleLayout that maps a circuit position to a physical rack cell."""@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Simulation"^^xsd:string .
+
+pvc:OptimizerArray
+    a owl:Class ;
+    rdfs:subClassOf pvc:CircuitInstance ;
+    rdfs:label "Optimizer Array"@en ;
+    skos:definition
+        "An ordered collection of power optimizer instances within a string."@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Simulation"^^xsd:string .
+
+pvc:OptimizerInstance
+    a owl:Class ;
+    rdfs:subClassOf pvc:CircuitInstance ;
+    rdfs:label "Optimizer Instance"@en ;
+    skos:definition
+        """An instance of a power optimizer in the circuit, connected via cable_to_parent and optionally cable_to_neighbor."""@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Simulation"^^xsd:string .
+
+pvc:ModuleLayout
+    a owl:Class ;
+    rdfs:subClassOf pvc:CircuitInstance ;
+    rdfs:label "Module Layout"@en ;
+    skos:definition
+        """Cross-domain bridge entity that maps a module's position in the electrical circuit (position_in_string) to its physical location on a rack (row, column) via a reference to an instance_rack_ref."""@en ;
+    skos:scopeNote
+        """This is the key join point between circuit topology and physical 3-D layout in PV-Collada."""@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Simulation"^^xsd:string .
+
+pvc:CableTo
+    a owl:Class ;
+    rdfs:subClassOf pvc:CircuitInstance ;
+    rdfs:label "Cable To"@en ;
+    skos:definition
+        """A directed cable connection from a circuit instance to its electrical parent, carrying a reference to the cable product and the installed length."""@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Simulation"^^xsd:string .
+
+
+###############################################################################
+#  P H Y S I C A L   A S S E T   C L A S S E S
+###############################################################################
+
+pvc:Project
+    a owl:Class ;
+    rdfs:subClassOf pvc:PhysicalAsset ,
+                    mds:PhotovoltaicSite ;
+    rdfs:label "PV Project"@en ;
+    skos:definition
+        """Top-level project metadata for a PV-Collada file, recording system capacity, string and module counts, geographic projection, and boundary."""@en ;
+    skos:scopeNote
+        """Declared as a subclass of mds:PhotovoltaicSite; the pvc:Project adds schema-level attributes (capacity, module/string counts, projection)."""@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Simulation"^^xsd:string .
+
+pvc:Rack
+    a owl:Class ;
+    rdfs:subClassOf pvc:PhysicalAsset ,
+                    mds:Racking ;
+    rdfs:label "PV Rack"@en ;
+    skos:definition
+        """A co-planar group of modules mounted in a fixed or tracker configuration, described by a COLLADA geometry rectangle representing the rack surface."""@en ;
+    skos:scopeNote
+        """Declared as a subclass of mds:Racking. Business rule (Schematron): if rack_type = fixed_tilt then azimuth and tilt are required and tracker fields are forbidden; if rack_type = tracker then tracker_azimuth is required and fixed-tilt fields are forbidden. See pvc:FixedTiltRack and pvc:TrackerRack subclasses."""@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Simulation"^^xsd:string .
+
+# Schematron conditional requirements → OWL 2 subclass restrictions
+
+pvc:FixedTiltRack
+    a owl:Class ;
+    rdfs:subClassOf pvc:Rack ,
+        [ a owl:Restriction ;
+          owl:onProperty pvc:hasRackType ;
+          owl:hasValue pvc:FixedTilt ] ,
+        [ a owl:Restriction ;
+          owl:onProperty pvc:azimuth ;
+          owl:minCardinality "1"^^xsd:nonNegativeInteger ] ,
+        [ a owl:Restriction ;
+          owl:onProperty pvc:tilt ;
+          owl:minCardinality "1"^^xsd:nonNegativeInteger ] ;
+    rdfs:label "Fixed Tilt Rack"@en ;
+    skos:definition
+        """A rack mounted at a fixed tilt angle; requires azimuth and tilt, and must not carry tracker geometry fields."""@en ;
+    mds:hasDomain "builtenv"^^xsd:string ; mds:hasSubDomain "pvcollada"^^xsd:string .
+
+pvc:TrackerRack
+    a owl:Class ;
+    rdfs:subClassOf pvc:Rack ,
+        [ a owl:Restriction ;
+          owl:onProperty pvc:hasRackType ;
+          owl:hasValue pvc:TrackerRackType ] ,
+        [ a owl:Restriction ;
+          owl:onProperty pvc:trackerAzimuth ;
+          owl:minCardinality "1"^^xsd:nonNegativeInteger ] ;
+    rdfs:label "Tracker Rack"@en ;
+    skos:definition
+        """A rack mounted on a solar tracker; requires tracker_azimuth, and must not carry fixed-tilt geometry fields."""@en ;
+    mds:hasDomain "builtenv"^^xsd:string ; mds:hasSubDomain "pvcollada"^^xsd:string .
+
+owl:AllDisjointClasses
+    a owl:AllDisjointClasses ;
+    owl:members ( pvc:FixedTiltRack pvc:TrackerRack ) .
+
+pvc:Table
+    a owl:Class ;
+    rdfs:subClassOf pvc:PhysicalAsset ;
+    rdfs:label "PV Table"@en ;
+    skos:definition
+        """A group of mechanically linked racks in a single row, potentially including posts and gaps. When the table is a tracker, all constituent racks share the same rotation around the tracker axis."""@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Simulation"^^xsd:string .
+
+pvc:Post
+    a owl:Class ;
+    rdfs:subClassOf pvc:PhysicalAsset ;
+    rdfs:label "Structural Post"@en ;
+    skos:definition
+        """A vertical structural member that supports a rack, tracker torque tube, or fence, driven into or anchored to the ground."""@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Simulation"^^xsd:string .
+
+pvc:Gap
+    a owl:Class ;
+    rdfs:subClassOf pvc:PhysicalAsset ;
+    rdfs:label "Tracker Gap"@en ;
+    skos:definition
+        """A space between two racks on a single-axis tracker torque tube, occupied by a motor drive or a flexible joint."""@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Simulation"^^xsd:string .
+
+pvc:Terrain
+    a owl:Class ;
+    rdfs:subClassOf pvc:PhysicalAsset ;
+    rdfs:label "Terrain"@en ;
+    skos:definition
+        "A triangulated 3-D surface model representing the site terrain."@en ;
+    mds:hasDomain     "builtenv"^^xsd:string ;
+    mds:hasSubDomain  "pvcollada"^^xsd:string ;
+    mds:hasStudyStage "Simulation"^^xsd:string .
+
+
+###############################################################################
+#  O B J E C T   P R O P E R T I E S
+###############################################################################
+
+pvc:hasRackType
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:Rack ;
+    rdfs:range  pvc:RackType ;
+    rdfs:label "has rack type"@en ;
+    skos:definition "Associates a rack with its mounting type (fixed_tilt or tracker)."@en .
+
+pvc:hasTableType
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:Table ;
+    rdfs:range  pvc:TableType ;
+    rdfs:label "has table type"@en ;
+    skos:definition "Associates a table with its mounting type (fixed or tracker)."@en .
+
+pvc:hasTrackerType
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:Table ;
+    rdfs:range  pvc:TrackerType ;
+    rdfs:label "has tracker type"@en ;
+    skos:definition "Associates a tracker table with its axis configuration."@en .
+
+pvc:hasTorqueTubeShape
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:Table ;
+    rdfs:range  pvc:TorqueTubeShape ;
+    rdfs:label "has torque tube shape"@en ;
+    skos:definition "Associates a single-axis tracker table with its torque tube cross-section shape."@en .
+
+pvc:hasDriveType
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:Table ;
+    rdfs:range  pvc:DriveType ;
+    rdfs:label "has drive type"@en ;
+    skos:definition "Associates a single-axis tracker table with its drive coupling type."@en .
+
+pvc:hasModuleOrientation
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:Rack ;
+    rdfs:range  pvc:ModuleOrientation ;
+    rdfs:label "has module orientation"@en ;
+    skos:definition "Associates a rack with the mounting orientation of its modules."@en .
+
+pvc:hasCellMaterial
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:Module ;
+    rdfs:range  pvc:CellMaterial ;
+    rdfs:label "has cell material"@en ;
+    skos:definition "Specifies the semiconductor absorber material of the cells in a module."@en .
+
+pvc:hasCellArchitecture
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:Module ;
+    rdfs:range  pvc:CellArchitecture ;
+    rdfs:label "has cell architecture"@en ;
+    skos:definition "Specifies the cell junction or contact architecture used in a module."@en .
+
+pvc:hasModuleType
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:Module ;
+    rdfs:range  pvc:ModuleType ;
+    rdfs:label "has module type"@en ;
+    skos:definition "Associates a module product with its form-factor type."@en .
+
+pvc:hasInverterType
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:Inverter ;
+    rdfs:range  pvc:InverterType ;
+    rdfs:label "has inverter type"@en ;
+    skos:definition "Associates an inverter product with its deployment topology."@en .
+
+pvc:hasConductorMaterial
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:Cable ;
+    rdfs:range  pvc:ConductorMaterial ;
+    rdfs:label "has conductor material"@en ;
+    skos:definition "Specifies the conductor material of a cable product."@en .
+
+pvc:hasPowerType
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:Cable ;
+    rdfs:range  pvc:PowerType ;
+    rdfs:label "has power type"@en ;
+    skos:definition "Associates a cable with its power type (AC or DC)."@en .
+
+pvc:hasEfficiencyStandardType
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:Inverter ;
+    rdfs:range  pvc:EfficiencyStandardType ;
+    rdfs:label "has efficiency standard type"@en ;
+    skos:definition "Specifies the rating standard (CEC or EU) used to compute the efficiency_standard_value."@en .
+
+pvc:hasPostType
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:Post ;
+    rdfs:range  pvc:PostType ;
+    rdfs:label "has post type"@en ;
+    skos:definition "Associates a post with its structural function (rack, tracker, fence)."@en .
+
+pvc:hasPostShape
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:Post ;
+    rdfs:range  pvc:PostShape ;
+    rdfs:label "has post shape"@en ;
+    skos:definition "Associates a post with its cross-section shape."@en .
+
+pvc:hasPostInclination
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:Post ;
+    rdfs:range  pvc:PostInclination ;
+    rdfs:label "has post inclination"@en ;
+    skos:definition "Associates a post with its installation inclination (vertical or perpendicular)."@en .
+
+pvc:hasGapType
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:Gap ;
+    rdfs:range  pvc:GapType ;
+    rdfs:label "has gap type"@en ;
+    skos:definition "Associates a gap with its function (motor or joint)."@en .
+
+pvc:referencesModule
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:Rack ;
+    rdfs:range  pvc:Module ;
+    rdfs:label "references module"@en ;
+    skos:definition
+        """Links a rack to the module product specification it holds, via the module_id IDREF in the PV-Collada schema."""@en .
+
+pvc:referencesRack
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:ModuleLayout ;
+    rdfs:range  pvc:Rack ;
+    rdfs:label "references rack"@en ;
+    skos:definition
+        """Cross-domain bridge property: links a circuit ModuleLayout to the physical rack instance (via instance_rack_ref) that holds the module."""@en ;
+    skos:scopeNote
+        "This is the critical join between circuit topology and physical layout."@en .
+
+pvc:referencesInverterProduct
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:InverterInstance ;
+    rdfs:range  pvc:Inverter ;
+    rdfs:label "references inverter product"@en ;
+    skos:definition "Links a circuit inverter instance to its product specification."@en .
+
+pvc:referencesTransformerProduct
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:TransformerInstance ;
+    rdfs:range  pvc:Transformer ;
+    rdfs:label "references transformer product"@en ;
+    skos:definition "Links a circuit transformer instance to its product specification."@en .
+
+pvc:referencesACCombinerProduct
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:ACCombinerInstance ;
+    rdfs:range  pvc:ACCombiner ;
+    rdfs:label "references AC combiner product"@en ;
+    skos:definition "Links a circuit AC combiner instance to its product specification."@en .
+
+pvc:referencesDCCombinerProduct
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:DCCombinerInstance ;
+    rdfs:range  pvc:DCCombiner ;
+    rdfs:label "references DC combiner product"@en ;
+    skos:definition "Links a circuit DC combiner instance to its product specification."@en .
+
+pvc:referencesOptimizerProduct
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:OptimizerInstance ;
+    rdfs:range  pvc:Optimizer ;
+    rdfs:label "references optimizer product"@en ;
+    skos:definition "Links a circuit optimizer instance to its product specification."@en .
+
+pvc:referencesCableProduct
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:CableTo ;
+    rdfs:range  pvc:Cable ;
+    rdfs:label "references cable product"@en ;
+    skos:definition "Links a CableTo connection to the cable product it uses."@en .
+
+pvc:hasMPPTUnit
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:Inverter ;
+    rdfs:range  pvc:MPPTUnit ;
+    rdfs:label "has MPPT unit"@en ;
+    skos:definition "Associates an inverter product with its MPPT channel specifications."@en .
+
+pvc:hasMPPTInput
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:InverterInstance ;
+    rdfs:range  pvc:MPPTInput ;
+    rdfs:label "has MPPT input"@en ;
+    skos:definition "Associates a circuit inverter instance with its MPPT channel instances."@en .
+
+pvc:hasString
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:MPPTInput ;
+    rdfs:range  pvc:String ;
+    rdfs:label "has string"@en ;
+    skos:definition "Associates an MPPT input with its connected PV strings."@en .
+
+pvc:hasDCCombinerInput
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:MPPTInput ;
+    rdfs:range  pvc:DCCombinerInstance ;
+    rdfs:label "has DC combiner input"@en ;
+    skos:definition "Associates an MPPT input with a DC combiner that aggregates strings."@en .
+
+pvc:hasModuleArray
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:String ;
+    rdfs:range  pvc:ModuleArray ;
+    rdfs:label "has module array"@en ;
+    skos:definition "Associates a string with its module array (direct-wire configuration)."@en .
+
+pvc:hasOptimizerArray
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:String ;
+    rdfs:range  pvc:OptimizerArray ;
+    rdfs:label "has optimizer array"@en ;
+    skos:definition "Associates a string with its optimizer array (optimized configuration)."@en .
+
+pvc:hasModuleLayout
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:ModuleArray ;
+    rdfs:range  pvc:ModuleLayout ;
+    rdfs:label "has module layout"@en ;
+    skos:definition
+        """Associates a module array with its constituent ModuleLayout entries, each describing the position of one module in the string and in the rack."""@en .
+
+pvc:hasCableToParent
+    a owl:ObjectProperty ;
+    rdfs:range  pvc:CableTo ;
+    rdfs:label "has cable to parent"@en ;
+    skos:definition
+        """Associates a circuit instance with the cable that connects it to its electrical parent node."""@en .
+
+pvc:hasCableToNeighbor
+    a owl:ObjectProperty ;
+    rdfs:domain pvc:OptimizerInstance ;
+    rdfs:range  pvc:CableTo ;
+    rdfs:label "has cable to neighbor"@en ;
+    skos:definition
+        """Associates an optimizer instance with the cable that daisy-chains it to an adjacent optimizer."""@en .
+
+
+###############################################################################
+#  D A T A   P R O P E R T I E S
+#
+#  Convention: property name = lowerCamelCase from XSD element name.
+#  Units recorded in skos:scopeNote and (where QUDT units are available) via
+#  qudt:applicableUnit; the runtime value carries the raw numeric literal.
+###############################################################################
+
+# ── Shared ───────────────────────────────────────────────────────────────────
+
+pvc:manufacturer
+    a owl:DatatypeProperty ;
+    rdfs:label "manufacturer"@en ;
+    rdfs:range xsd:string ;
+    skos:definition "Name of the product manufacturer."@en ;
+    rdfs:seeAlso mds:Manufacturer .
+    # mds:Manufacturer is a class (reified entity); pvc:manufacturer is a
+    # datatype property carrying the manufacturer name string directly.
+
+pvc:productName
+    a owl:DatatypeProperty ;
+    rdfs:label "product name"@en ;
+    rdfs:range xsd:string ;
+    skos:definition "Model name of the product (e.g., 'Q.Tron Classic 440W')."@en .
+
+# ── Module data properties ────────────────────────────────────────────────────
+
+pvc:nomPower
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Module ;
+    rdfs:range  xsd:float ;
+    rdfs:label "nominal power"@en ;
+    skos:definition "Module power at Standard Test Conditions (STC)."@en ;
+    skos:scopeNote  "Unit: W"@en ;
+    qudt:applicableUnit unit:W ;
+    rdfs:seeAlso mds:NameplateMaximumPower .
+
+pvc:moduleLength
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Module ;
+    rdfs:range  xsd:float ;
+    rdfs:label "module length"@en ;
+    skos:definition "Length of the module in the longest dimension."@en ;
+    skos:scopeNote  "Unit: mm"@en ;
+    qudt:applicableUnit unit:MilliM .
+
+pvc:moduleWidth
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Module ;
+    rdfs:range  xsd:float ;
+    rdfs:label "module width"@en ;
+    skos:definition "Width of the module orthogonal to its longest dimension."@en ;
+    skos:scopeNote  "Unit: mm"@en ;
+    qudt:applicableUnit unit:MilliM .
+
+pvc:moduleDepth
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Module ;
+    rdfs:range  xsd:float ;
+    rdfs:label "module depth"@en ;
+    skos:definition "Depth (thickness) of the module."@en ;
+    skos:scopeNote  "Unit: mm"@en ;
+    qudt:applicableUnit unit:MilliM .
+
+pvc:numCells
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Module ;
+    rdfs:range  xsd:positiveInteger ;
+    rdfs:label "number of cells"@en ;
+    skos:definition "Total number of PV cells in the module."@en ;
+    rdfs:seeAlso mds:CellNumber .
+
+pvc:numCellsLength
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Module ;
+    rdfs:range  xsd:positiveInteger ;
+    rdfs:label "number of cells in length"@en ;
+    skos:definition "Number of cells arranged along the length dimension."@en .
+
+pvc:numCellsWidth
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Module ;
+    rdfs:range  xsd:positiveInteger ;
+    rdfs:label "number of cells in width"@en ;
+    skos:definition "Number of cells arranged along the width dimension."@en .
+
+pvc:numCellsSeries
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Module ;
+    rdfs:range  xsd:positiveInteger ;
+    rdfs:label "cells in series per string"@en ;
+    skos:definition "Number of series-connected cells in a single internal string."@en ;
+    rdfs:seeAlso mds:CellNumberPerString , mds:NumberOfCellsPerString .
+
+pvc:numStrings
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Module ;
+    rdfs:range  xsd:positiveInteger ;
+    rdfs:label "number of internal strings"@en ;
+    skos:definition "Number of parallel internal cell strings within the module."@en ;
+    rdfs:seeAlso mds:ModuleParallelStringsNumber , mds:NumberStrings .
+
+pvc:bifacialFactor
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Module ;
+    rdfs:range  xsd:float ;
+    rdfs:label "bifaciality factor"@en ;
+    skos:definition "Ratio of rear-side to front-side quantum efficiency for bifacial modules (dimensionless, 0–1)."@en .
+
+pvc:tCoefPower
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Module ;
+    rdfs:range  xsd:float ;
+    rdfs:label "temperature coefficient of power"@en ;
+    skos:definition "Change in maximum power per degree Celsius."@en ;
+    skos:scopeNote  "Unit: %/°C"@en ;
+    rdfs:seeAlso mds:ModuleTemperatureCoefficientPower .
+
+pvc:tCoefIsc
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Module ;
+    rdfs:range  xsd:float ;
+    rdfs:label "temperature coefficient of short-circuit current"@en ;
+    skos:definition "Change in short-circuit current per degree Celsius."@en ;
+    skos:scopeNote  "Unit: A/°C"@en ;
+    rdfs:seeAlso mds:ModuleTemperatureCoefficientCurrent .
+
+pvc:tCoefVoc
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Module ;
+    rdfs:range  xsd:float ;
+    rdfs:label "temperature coefficient of open-circuit voltage"@en ;
+    skos:definition "Change in open-circuit voltage per degree Celsius."@en ;
+    skos:scopeNote  "Unit: V/°C"@en ;
+    rdfs:seeAlso mds:ModuleTemperatureCoefficientVoltage .
+
+pvc:iSc
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Module ;
+    rdfs:range  xsd:float ;
+    rdfs:label "short-circuit current at STC"@en ;
+    skos:definition "Module short-circuit current at Standard Test Conditions."@en ;
+    skos:scopeNote  "Unit: A"@en ;
+    qudt:applicableUnit unit:A ;
+    rdfs:seeAlso mds:ShortCircuitCurrent , mds:NameplateShortCircuitCurrent .
+
+pvc:iMpp
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Module ;
+    rdfs:range  xsd:float ;
+    rdfs:label "current at maximum power point at STC"@en ;
+    skos:definition "Module current at the maximum power point under STC."@en ;
+    skos:scopeNote  "Unit: A"@en ;
+    qudt:applicableUnit unit:A ;
+    rdfs:seeAlso mds:CurrentAtMaximumPower , mds:NameplateCurrentAtMaximumPower .
+
+pvc:vOc
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Module ;
+    rdfs:range  xsd:float ;
+    rdfs:label "open-circuit voltage at STC"@en ;
+    skos:definition "Module open-circuit voltage at Standard Test Conditions."@en ;
+    skos:scopeNote  "Unit: V"@en ;
+    qudt:applicableUnit unit:V ;
+    rdfs:seeAlso mds:OpenCircuitVoltage , mds:NameplateOpenCircuitVoltage .
+
+pvc:vMpp
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Module ;
+    rdfs:range  xsd:float ;
+    rdfs:label "voltage at maximum power point at STC"@en ;
+    skos:definition "Module voltage at the maximum power point under STC."@en ;
+    skos:scopeNote  "Unit: V"@en ;
+    qudt:applicableUnit unit:V ;
+    rdfs:seeAlso mds:VoltageAtMaximumPower .
+
+# ── Inverter data properties ──────────────────────────────────────────────────
+
+pvc:nomPowerAC
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Inverter ;
+    rdfs:range  xsd:float ;
+    rdfs:label "nominal AC power"@en ;
+    skos:definition "Inverter AC output power at rating conditions."@en ;
+    skos:scopeNote  "Unit: W"@en ;
+    qudt:applicableUnit unit:W .
+
+pvc:nomPowerDC
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Inverter ;
+    rdfs:range  xsd:float ;
+    rdfs:label "nominal DC power"@en ;
+    skos:definition "Inverter DC input power at rating conditions."@en ;
+    skos:scopeNote  "Unit: W"@en ;
+    qudt:applicableUnit unit:W .
+
+pvc:capacityAC
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Inverter ;
+    rdfs:range  xsd:float ;
+    rdfs:label "maximum AC capacity"@en ;
+    skos:definition "Maximum inverter AC output power."@en ;
+    skos:scopeNote  "Unit: W"@en ;
+    qudt:applicableUnit unit:W .
+
+pvc:capacityDC
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Inverter ;
+    rdfs:range  xsd:float ;
+    rdfs:label "maximum DC capacity"@en ;
+    skos:definition "Maximum inverter DC input power."@en ;
+    skos:scopeNote  "Unit: W"@en ;
+    qudt:applicableUnit unit:W .
+
+pvc:vMppMin
+    a owl:DatatypeProperty ;
+    rdfs:range  xsd:float ;
+    rdfs:label "minimum MPPT voltage"@en ;
+    skos:definition "Minimum DC voltage for MPPT tracking."@en ;
+    skos:scopeNote  "Unit: V"@en ;
+    qudt:applicableUnit unit:V .
+
+pvc:vMppMax
+    a owl:DatatypeProperty ;
+    rdfs:range  xsd:float ;
+    rdfs:label "maximum MPPT voltage"@en ;
+    skos:definition "Maximum DC voltage for MPPT tracking."@en ;
+    skos:scopeNote  "Unit: V"@en ;
+    qudt:applicableUnit unit:V .
+
+pvc:vMppNom
+    a owl:DatatypeProperty ;
+    rdfs:range  xsd:float ;
+    rdfs:label "nominal MPPT voltage"@en ;
+    skos:definition "Nominal DC voltage for MPPT tracking."@en ;
+    skos:scopeNote  "Unit: V"@en ;
+    qudt:applicableUnit unit:V .
+
+pvc:iMaxDC
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Inverter ;
+    rdfs:range  xsd:float ;
+    rdfs:label "maximum DC current"@en ;
+    skos:definition "Maximum DC input current to the inverter."@en ;
+    skos:scopeNote  "Unit: A"@en ;
+    qudt:applicableUnit unit:A .
+
+pvc:mpptCount
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Inverter ;
+    rdfs:range  xsd:positiveInteger ;
+    rdfs:label "MPPT count"@en ;
+    skos:definition "Number of MPPT channels on the inverter."@en .
+
+pvc:vOutAC
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Inverter ;
+    rdfs:range  xsd:float ;
+    rdfs:label "nominal AC output voltage"@en ;
+    skos:definition "Nominal AC output voltage of the inverter."@en ;
+    skos:scopeNote  "Unit: V"@en ;
+    qudt:applicableUnit unit:V .
+
+pvc:selfConsumption
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Inverter ;
+    rdfs:range  xsd:float ;
+    rdfs:label "self consumption"@en ;
+    skos:definition "Power consumed by the inverter during normal operation."@en ;
+    skos:scopeNote  "Unit: W"@en ;
+    qudt:applicableUnit unit:W .
+
+pvc:nightTare
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Inverter ;
+    rdfs:range  xsd:float ;
+    rdfs:label "night tare power"@en ;
+    skos:definition "Standby power consumed by the inverter when not generating."@en ;
+    skos:scopeNote  "Unit: W"@en ;
+    qudt:applicableUnit unit:W .
+
+pvc:efficiency
+    a owl:DatatypeProperty ;
+    rdfs:range  xsd:float ;
+    rdfs:label "efficiency"@en ;
+    skos:definition "Maximum efficiency as AC output power / DC input power."@en ;
+    skos:scopeNote  "Unit: %; range 0–100"@en .
+
+pvc:efficiencyStandardValue
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Inverter ;
+    rdfs:range  xsd:float ;
+    rdfs:label "efficiency standard value"@en ;
+    skos:definition "Weighted efficiency computed per the standard specified by efficiencyStandardType."@en ;
+    skos:scopeNote  "Unit: %; range 0–100"@en .
+
+# ── MPPT unit data properties ─────────────────────────────────────────────────
+
+pvc:inputCount
+    a owl:DatatypeProperty ;
+    rdfs:range  xsd:positiveInteger ;
+    rdfs:label "input count"@en ;
+    skos:definition "Number of parallel inputs (strings) that can be connected."@en .
+
+# ── Transformer data properties ───────────────────────────────────────────────
+
+pvc:vIn
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Transformer ;
+    rdfs:range  xsd:float ;
+    rdfs:label "nominal input voltage"@en ;
+    skos:definition "Nominal AC input voltage of the transformer."@en ;
+    skos:scopeNote  "Unit: V"@en ;
+    qudt:applicableUnit unit:V .
+
+pvc:vOut
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Transformer ;
+    rdfs:range  xsd:float ;
+    rdfs:label "nominal output voltage"@en ;
+    skos:definition "Nominal AC output voltage of the transformer."@en ;
+    skos:scopeNote  "Unit: V"@en ;
+    qudt:applicableUnit unit:V .
+
+pvc:ironLoss
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Transformer ;
+    rdfs:range  xsd:float ;
+    rdfs:label "iron core loss"@en ;
+    skos:definition "No-load loss in the transformer iron core, independent of output current."@en ;
+    skos:scopeNote  "Unit: W"@en ;
+    qudt:applicableUnit unit:W .
+
+pvc:copperLoss
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Transformer ;
+    rdfs:range  xsd:float ;
+    rdfs:label "winding resistance (copper loss)"@en ;
+    skos:definition "Equivalent series resistance used to compute winding (copper) losses."@en ;
+    skos:scopeNote  "Unit: Ω"@en ;
+    qudt:applicableUnit unit:OHM .
+
+pvc:nightDisconnect
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Transformer ;
+    rdfs:range  xsd:boolean ;
+    rdfs:label "night disconnect"@en ;
+    skos:definition "True if the transformer automatically disconnects from the grid at night."@en .
+
+# ── Cable data properties ─────────────────────────────────────────────────────
+
+pvc:crossSection
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Cable ;
+    rdfs:range  xsd:float ;
+    rdfs:label "cross-section area"@en ;
+    skos:definition "Conductor cross-sectional area."@en ;
+    skos:scopeNote  "Unit: mm²"@en .
+
+pvc:numConductors
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Cable ;
+    rdfs:range  xsd:positiveInteger ;
+    rdfs:label "number of conductors"@en ;
+    skos:definition "Number of electrical conductors in the cable."@en .
+
+pvc:resistance
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Cable ;
+    rdfs:range  xsd:float ;
+    rdfs:label "resistance per unit length"@en ;
+    skos:definition "DC electrical resistance per kilometre of cable."@en ;
+    skos:scopeNote  "Unit: Ω/km"@en .
+
+pvc:impedance
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Cable ;
+    rdfs:range  xsd:float ;
+    rdfs:label "impedance per unit length"@en ;
+    skos:definition "AC impedance per kilometre of cable."@en ;
+    skos:scopeNote  "Unit: Ω/km"@en .
+
+# ── Rack data properties ──────────────────────────────────────────────────────
+
+pvc:rowSpacing
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Rack ;
+    rdfs:range  xsd:float ;
+    rdfs:label "row spacing"@en ;
+    skos:definition "Spacing between modules in the row direction on a rack."@en .
+
+pvc:columnSpacing
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Rack ;
+    rdfs:range  xsd:float ;
+    rdfs:label "column spacing"@en ;
+    skos:definition "Spacing between modules in the column direction on a rack."@en .
+
+pvc:moduleRows
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Rack ;
+    rdfs:range  xsd:positiveInteger ;
+    rdfs:label "module rows"@en ;
+    skos:definition "Number of rows of modules on the rack."@en .
+
+pvc:moduleColumns
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Rack ;
+    rdfs:range  xsd:positiveInteger ;
+    rdfs:label "module columns"@en ;
+    skos:definition "Number of columns of modules on the rack."@en .
+
+pvc:tilt
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Rack ;
+    rdfs:range  xsd:float ;
+    rdfs:label "rack tilt"@en ;
+    skos:definition "Tilt angle from horizontal of a fixed rack."@en ;
+    skos:scopeNote  "Unit: °; applies to FixedTiltRack only."@en .
+
+pvc:azimuth
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Rack ;
+    rdfs:range  xsd:float ;
+    rdfs:label "rack azimuth"@en ;
+    skos:definition "Azimuth angle of a fixed rack (direction modules face)."@en ;
+    skos:scopeNote  "Unit: °; applies to FixedTiltRack only."@en .
+
+pvc:slope
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Rack ;
+    rdfs:range  xsd:float ;
+    rdfs:label "rack slope"@en ;
+    skos:definition "Slope of a fixed rack in the direction 90° counterclockwise from azimuth."@en ;
+    skos:scopeNote  "Unit: °"@en .
+
+pvc:heightAboveGround
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Rack ;
+    rdfs:range  xsd:float ;
+    rdfs:label "height above ground"@en ;
+    skos:definition "Height of the lower edge of a fixed rack above ground level."@en .
+
+pvc:trackerAzimuth
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Rack ;
+    rdfs:range  xsd:float ;
+    rdfs:label "tracker azimuth"@en ;
+    skos:definition
+        """Azimuth of a tracker torque tube. Rotation is a right-hand rotation around this axis; e.g., positive rotation at azimuth 180° is westward."""@en ;
+    skos:scopeNote  "Unit: °; applies to TrackerRack only."@en .
+
+pvc:trackerSlope
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Rack ;
+    rdfs:range  xsd:float ;
+    rdfs:label "tracker slope"@en ;
+    skos:definition "Slope of a tracker torque tube in the direction of its azimuth."@en ;
+    skos:scopeNote  "Unit: °"@en .
+
+pvc:trackerHeight
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Rack ;
+    rdfs:range  xsd:float ;
+    rdfs:label "tracker height"@en ;
+    skos:definition "Height of the tracker torque tube centre above ground."@en .
+
+pvc:rackOffset
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Rack ;
+    rdfs:range  xsd:float ;
+    rdfs:label "rack offset"@en ;
+    skos:definition "Distance from the rack surface to the tracker torque tube centre."@en .
+
+# ── Table data properties ─────────────────────────────────────────────────────
+
+pvc:trackerMaxRotation
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Table ;
+    rdfs:range  xsd:string ;
+    rdfs:label "tracker maximum rotation"@en ;
+    skos:definition
+        """Pair of values (negative, positive) giving the nominal maximum rotation angles from horizontal for a single-axis tracker, e.g., '-45 45'."""@en ;
+    skos:scopeNote "Unit: °; encoded as two space-separated floats."@en .
+
+pvc:trackerTorqueTubeDiameter
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Table ;
+    rdfs:range  xsd:float ;
+    rdfs:label "torque tube diameter"@en ;
+    skos:definition "Nominal diameter of the single-axis tracker torque tube."@en .
+
+pvc:trackerMaxGapAngle
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Table ;
+    rdfs:range  xsd:float ;
+    rdfs:label "maximum gap angle"@en ;
+    skos:definition "Maximum angle formed in the torque axis at a gap between racks."@en ;
+    skos:scopeNote  "Unit: °"@en .
+
+# ── Post data properties ──────────────────────────────────────────────────────
+
+pvc:postDepth
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Post ;
+    rdfs:range  xsd:float ;
+    rdfs:label "post underground depth"@en ;
+    skos:definition "Nominal depth of the post driven underground."@en .
+
+pvc:postLength
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Post ;
+    rdfs:range  xsd:float ;
+    rdfs:label "post total length"@en ;
+    skos:definition "Total length of the post including the underground portion."@en .
+
+pvc:postDiameter
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Post ;
+    rdfs:range  xsd:float ;
+    rdfs:label "post diameter"@en ;
+    skos:definition "Diameter of the post cross-section."@en .
+
+# ── Gap data properties ───────────────────────────────────────────────────────
+
+pvc:rigid
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Gap ;
+    rdfs:range  xsd:boolean ;
+    rdfs:label "rigid"@en ;
+    skos:definition "True if the gap is rigid; false if it allows torque tube flexion."@en .
+
+pvc:gapWidth
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Gap ;
+    rdfs:range  xsd:float ;
+    rdfs:label "gap width"@en ;
+    skos:definition "Nominal width of the gap between the two adjacent racks."@en .
+
+pvc:jointAngle
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Gap ;
+    rdfs:range  xsd:float ;
+    rdfs:label "joint angle"@en ;
+    skos:definition "Maximum flexion angle of a non-rigid joint gap."@en ;
+    skos:scopeNote  "Unit: °"@en .
+
+# ── Terrain data properties ───────────────────────────────────────────────────
+
+pvc:vertexCount
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Terrain ;
+    rdfs:range  xsd:positiveInteger ;
+    rdfs:label "vertex count"@en ;
+    skos:definition "Number of vertices in the triangulated terrain surface mesh."@en .
+
+pvc:triangleCount
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Terrain ;
+    rdfs:range  xsd:positiveInteger ;
+    rdfs:label "triangle count"@en ;
+    skos:definition "Number of triangular faces in the terrain surface mesh."@en .
+
+# ── Project data properties ───────────────────────────────────────────────────
+
+pvc:projectName
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Project ;
+    rdfs:range  xsd:string ;
+    rdfs:label "project name"@en ;
+    skos:definition "Name of the PV project."@en .
+
+pvc:drawing
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Project ;
+    rdfs:range  xsd:string ;
+    rdfs:label "drawing reference"@en ;
+    skos:definition "Drawing or document reference associated with the project."@en .
+
+pvc:company
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Project ;
+    rdfs:range  xsd:string ;
+    rdfs:label "company"@en ;
+    skos:definition "Name of the company or organisation responsible for the project."@en .
+
+pvc:country
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Project ;
+    rdfs:range  xsd:string ;
+    rdfs:label "country"@en ;
+    skos:definition "ISO 3166 alpha-2 or alpha-3 country code for the project location."@en .
+
+pvc:timezone
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Project ;
+    rdfs:range  xsd:string ;
+    rdfs:label "timezone"@en ;
+    skos:definition "IANA timezone string for the project location (e.g., 'America/Phoenix')."@en .
+
+pvc:timezoneOffset
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Project ;
+    rdfs:range  xsd:float ;
+    rdfs:label "timezone offset"@en ;
+    skos:definition "UTC offset in hours; positive values are East of UTC."@en ;
+    skos:scopeNote  "Unit: h"@en .
+
+pvc:localProjection
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Project ;
+    rdfs:range  xsd:string ;
+    rdfs:label "local projection"@en ;
+    skos:definition
+        """EPSG code for the coordinate projection used to relate local (x,y,z) coordinates to geocoordinates (e.g., 'EPSG:3857')."""@en .
+
+pvc:moduleCount
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Project ;
+    rdfs:range  xsd:positiveInteger ;
+    rdfs:label "module count"@en ;
+    skos:definition "Total number of PV modules in the system."@en .
+
+pvc:tableCount
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Project ;
+    rdfs:range  xsd:positiveInteger ;
+    rdfs:label "table count"@en ;
+    skos:definition "Total number of tables in the physical layout."@en .
+
+pvc:stringCount
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Project ;
+    rdfs:range  xsd:positiveInteger ;
+    rdfs:label "string count"@en ;
+    skos:definition "Total number of series-connected module strings."@en .
+
+pvc:systemCapacityDC
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Project ;
+    rdfs:range  xsd:float ;
+    rdfs:label "system DC capacity"@en ;
+    skos:definition "Total DC nameplate capacity of the PV system at STC."@en ;
+    skos:scopeNote  "Unit: W"@en ;
+    qudt:applicableUnit unit:W .
+
+pvc:systemCapacityAC
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Project ;
+    rdfs:range  xsd:float ;
+    rdfs:label "system AC capacity"@en ;
+    skos:definition "Total AC capacity at the inverter rating condition."@en ;
+    skos:scopeNote  "Unit: W"@en ;
+    qudt:applicableUnit unit:W .
+
+pvc:interconnectionLimit
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:Project ;
+    rdfs:range  xsd:float ;
+    rdfs:label "interconnection limit"@en ;
+    skos:definition "AC power limit imposed by the grid interconnection agreement."@en ;
+    skos:scopeNote  "Unit: W"@en ;
+    qudt:applicableUnit unit:W .
+
+# ── CableTo data properties ───────────────────────────────────────────────────
+
+pvc:cableLength
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:CableTo ;
+    rdfs:range  xsd:decimal ;
+    rdfs:label "cable length"@en ;
+    skos:definition "Installed length of this cable run."@en ;
+    skos:scopeNote  "Unit: m (assumed SI default; verify against project file)"@en .
+
+# ── ModuleLayout data properties ──────────────────────────────────────────────
+
+pvc:positionInString
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:ModuleLayout ;
+    rdfs:range  xsd:integer ;
+    rdfs:label "position in string"@en ;
+    skos:definition "Sequential index of this module within its series string (1-based)."@en .
+
+pvc:rackRow
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:ModuleLayout ;
+    rdfs:range  xsd:integer ;
+    rdfs:label "rack row"@en ;
+    skos:definition "Row index of the module slot on the physical rack."@en .
+
+pvc:rackColumn
+    a owl:DatatypeProperty ;
+    rdfs:domain pvc:ModuleLayout ;
+    rdfs:range  xsd:integer ;
+    rdfs:label "rack column"@en ;
+    skos:definition "Column index of the module slot on the physical rack."@en .
+
+###############################################################################
+#  E N D   O F   F I L E
+###############################################################################
