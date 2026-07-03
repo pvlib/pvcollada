@@ -206,10 +206,10 @@
 			<mesh>
 				<source id="rack1MeshSource">
 					<float_array id="rack1FloatArray" count="12">
-						0 0 0
-						-1394 0 0
-						-1394 -460 200
-						0 -460 200
+						0 0 200
+						-1394 0 200
+						-1394 -460 0
+						0 -460 0
 					</float_array>
 					<technique_common>
 						<accessor count="4" source="#rack1FloatArray" stride="3">

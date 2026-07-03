@@ -140,26 +140,30 @@
 							<pv:efficiency_standard_type>EU</pv:efficiency_standard_type>
 						</pv:inverter>
 						<pv:inverter id="InverterModel1">
-							<!-- An inverter with 1 entry in mppts and 1 entry in temperature_derate -->
+							<!-- An inverter with 2 entries in mppts and 1 entry in temperature_derate -->
 							<pv:manufacturer>Generic</pv:manufacturer>
-							<pv:name>Generic 2kW inverter</pv:name>
+							<pv:name>Generic 50kW inverter</pv:name>
 							<pv:inverter_type>string</pv:inverter_type>
-							<pv:nom_power_ac>2000</pv:nom_power_ac>
-							<pv:nom_power_dc>2050</pv:nom_power_dc>
-							<pv:capacity_ac>2000</pv:capacity_ac>
-							<pv:capacity_dc>2050</pv:capacity_dc>
-							<pv:v_mpp_min>40</pv:v_mpp_min>
-							<pv:v_mpp_max>560</pv:v_mpp_max>
-							<pv:v_mpp_nom>360</pv:v_mpp_nom>
-							<pv:i_max_dc>9.10</pv:i_max_dc>
-							<pv:mppt_count>1</pv:mppt_count>
+							<pv:nom_power_ac>50000</pv:nom_power_ac>
+							<pv:nom_power_dc>55000</pv:nom_power_dc>
+							<pv:capacity_ac>50000</pv:capacity_ac>
+							<pv:capacity_dc>60000</pv:capacity_dc>
+							<pv:v_mpp_min>200</pv:v_mpp_min>
+							<pv:v_mpp_max>1000</pv:v_mpp_max>
+							<pv:v_mpp_nom>600</pv:v_mpp_nom>
+							<pv:i_max_dc>30</pv:i_max_dc>
+							<pv:mppt_count>2</pv:mppt_count>
 							<pv:mppts>
 								<!-- inverter MPPT tag -->
 								<pv:mppt sid="MPPT1">
-									<pv:input_count>4</pv:input_count>
+									<pv:input_count>2</pv:input_count>
+								</pv:mppt>
+								<!-- inverter MPPT tag -->
+								<pv:mppt sid="MPPT2">
+									<pv:input_count>2</pv:input_count>
 								</pv:mppt>
 							</pv:mppts>
-							<pv:v_out_ac>230</pv:v_out_ac>
+							<pv:v_out_ac>400</pv:v_out_ac>
 							<pv:self_consumption>5</pv:self_consumption>
 							<pv:night_tare>3</pv:night_tare>
 							<pv:temperature_derate>
@@ -303,12 +307,12 @@
 						<pv:cable id="ACCableModel1">
 							<pv:manufacturer>Generic</pv:manufacturer>
 							<pv:name>Generic cable</pv:name>
-							<pv:cross_section>2.5</pv:cross_section>
+							<pv:cross_section>25</pv:cross_section>
 							<pv:num_conductors>3</pv:num_conductors>
 							<pv:material>copper</pv:material>
 							<pv:power_type>ac</pv:power_type>
-							<pv:resistance>10</pv:resistance>
-							<pv:impedance>25</pv:impedance>
+							<pv:resistance>1.0</pv:resistance>
+							<pv:impedance>2.5</pv:impedance>
 						</pv:cable>
 					</pv:cables>
 				</pv:components>
@@ -334,37 +338,133 @@
 													<pv:module_layout url="#rackId1" position_in_string="2" row="1" column="2" />
 													<pv:module_layout url="#rackId1" position_in_string="3" row="1" column="3" />
 													<pv:module_layout url="#rackId1" position_in_string="4" row="1" column="4" />
-													<pv:module_layout url="#rackId2" position_in_string="1" row="1" column="1" />
-													<pv:module_layout url="#rackId2" position_in_string="2" row="1" column="2" />
-													<pv:module_layout url="#rackId2" position_in_string="3" row="1" column="3" />
-													<pv:module_layout url="#rackId2" position_in_string="4" row="1" column="4" />
+													<pv:module_layout url="#rackId1" position_in_string="5" row="1" column="5" />
+													<pv:module_layout url="#rackId1" position_in_string="6" row="1" column="6" />
+													<pv:module_layout url="#rackId1" position_in_string="7" row="1" column="7" />
+													<pv:module_layout url="#rackId1" position_in_string="8" row="1" column="8" />
+													<pv:module_layout url="#rackId1" position_in_string="9" row="1" column="9" />
+													<pv:module_layout url="#rackId1" position_in_string="10" row="1" column="10" />
+													<pv:module_layout url="#rackId1" position_in_string="11" row="2" column="10" />
+													<pv:module_layout url="#rackId1" position_in_string="12" row="2" column="9" />
+													<pv:module_layout url="#rackId1" position_in_string="13" row="2" column="8" />
+													<pv:module_layout url="#rackId1" position_in_string="14" row="2" column="7" />
+													<pv:module_layout url="#rackId1" position_in_string="15" row="2" column="6" />
+													<pv:module_layout url="#rackId1" position_in_string="16" row="2" column="5" />
+													<pv:module_layout url="#rackId1" position_in_string="17" row="2" column="4" />
+													<pv:module_layout url="#rackId1" position_in_string="18" row="2" column="3" />
+													<pv:module_layout url="#rackId1" position_in_string="19" row="2" column="2" />
+													<pv:module_layout url="#rackId1" position_in_string="20" row="2" column="1" />
+													<pv:module_layout url="#rackId2" position_in_string="21" row="1" column="1" />
+													<pv:module_layout url="#rackId2" position_in_string="22" row="1" column="2" />
+													<pv:module_layout url="#rackId2" position_in_string="23" row="1" column="3" />
+													<pv:module_layout url="#rackId2" position_in_string="24" row="1" column="4" />
+													<pv:module_layout url="#rackId2" position_in_string="25" row="1" column="5" />
+													<pv:module_layout url="#rackId2" position_in_string="26" row="1" column="6" />
+													<pv:module_layout url="#rackId2" position_in_string="27" row="1" column="7" />
+													<pv:module_layout url="#rackId2" position_in_string="28" row="1" column="8" />
+													<pv:module_layout url="#rackId2" position_in_string="29" row="1" column="9" />
+													<pv:module_layout url="#rackId2" position_in_string="30" row="1" column="10" />
+													<pv:module_layout url="#rackId2" position_in_string="31" row="2" column="10" />
+													<pv:module_layout url="#rackId2" position_in_string="32" row="2" column="9" />
+													<pv:module_layout url="#rackId2" position_in_string="33" row="2" column="8" />
+													<pv:module_layout url="#rackId2" position_in_string="34" row="2" column="7" />
+													<pv:module_layout url="#rackId2" position_in_string="35" row="2" column="6" />
+													<pv:module_layout url="#rackId2" position_in_string="36" row="2" column="5" />
+													<pv:module_layout url="#rackId2" position_in_string="37" row="2" column="4" />
+													<pv:module_layout url="#rackId2" position_in_string="38" row="2" column="3" />
+													<pv:module_layout url="#rackId2" position_in_string="39" row="2" column="2" />
+													<pv:module_layout url="#rackId2" position_in_string="40" row="2" column="1" />
 												</pv:inputs>
 											</pv:instance_optimizer>
 											<pv:instance_optimizer url="#OptimizerModel1" id="InstanceOptimizer2" name="Instance Optimizer #2">
 												<pv:cable_to_neighbor url="#DCCableModel1" length="5" id="cableInstance11"/>
 												<pv:cable_to_neighbor url="#DCCableModel1" length="5" id="cableInstance12"/>
 												<pv:inputs>
-													<pv:module_layout url="#rackId3" position_in_string="1" row="1" column="1" />
-													<pv:module_layout url="#rackId3" position_in_string="2" row="1" column="2" />
-													<pv:module_layout url="#rackId3" position_in_string="3" row="1" column="3" />
-													<pv:module_layout url="#rackId3" position_in_string="4" row="1" column="4" />
-													<pv:module_layout url="#rackId4" position_in_string="1" row="1" column="1" />
-													<pv:module_layout url="#rackId4" position_in_string="2" row="1" column="2" />
-													<pv:module_layout url="#rackId4" position_in_string="3" row="1" column="3" />
-													<pv:module_layout url="#rackId4" position_in_string="4" row="1" column="4" />
+													<pv:module_layout url="#rackId3" position_in_string="41" row="1" column="1" />
+													<pv:module_layout url="#rackId3" position_in_string="42" row="1" column="2" />
+													<pv:module_layout url="#rackId3" position_in_string="43" row="1" column="3" />
+													<pv:module_layout url="#rackId3" position_in_string="44" row="1" column="4" />
+													<pv:module_layout url="#rackId3" position_in_string="45" row="1" column="5" />
+													<pv:module_layout url="#rackId3" position_in_string="46" row="1" column="6" />
+													<pv:module_layout url="#rackId3" position_in_string="47" row="1" column="7" />
+													<pv:module_layout url="#rackId3" position_in_string="48" row="1" column="8" />
+													<pv:module_layout url="#rackId3" position_in_string="49" row="1" column="9" />
+													<pv:module_layout url="#rackId3" position_in_string="50" row="1" column="10" />
+													<pv:module_layout url="#rackId3" position_in_string="51" row="2" column="10" />
+													<pv:module_layout url="#rackId3" position_in_string="52" row="2" column="9" />
+													<pv:module_layout url="#rackId3" position_in_string="53" row="2" column="8" />
+													<pv:module_layout url="#rackId3" position_in_string="54" row="2" column="7" />
+													<pv:module_layout url="#rackId3" position_in_string="55" row="2" column="6" />
+													<pv:module_layout url="#rackId3" position_in_string="56" row="2" column="5" />
+													<pv:module_layout url="#rackId3" position_in_string="57" row="2" column="4" />
+													<pv:module_layout url="#rackId3" position_in_string="58" row="2" column="3" />
+													<pv:module_layout url="#rackId3" position_in_string="59" row="2" column="2" />
+													<pv:module_layout url="#rackId3" position_in_string="60" row="2" column="1" />
+													<pv:module_layout url="#rackId4" position_in_string="61" row="1" column="1" />
+													<pv:module_layout url="#rackId4" position_in_string="62" row="1" column="2" />
+													<pv:module_layout url="#rackId4" position_in_string="63" row="1" column="3" />
+													<pv:module_layout url="#rackId4" position_in_string="64" row="1" column="4" />
+													<pv:module_layout url="#rackId4" position_in_string="65" row="1" column="5" />
+													<pv:module_layout url="#rackId4" position_in_string="66" row="1" column="6" />
+													<pv:module_layout url="#rackId4" position_in_string="67" row="1" column="7" />
+													<pv:module_layout url="#rackId4" position_in_string="68" row="1" column="8" />
+													<pv:module_layout url="#rackId4" position_in_string="69" row="1" column="9" />
+													<pv:module_layout url="#rackId4" position_in_string="70" row="1" column="10" />
+													<pv:module_layout url="#rackId4" position_in_string="71" row="2" column="10" />
+													<pv:module_layout url="#rackId4" position_in_string="72" row="2" column="9" />
+													<pv:module_layout url="#rackId4" position_in_string="73" row="2" column="8" />
+													<pv:module_layout url="#rackId4" position_in_string="74" row="2" column="7" />
+													<pv:module_layout url="#rackId4" position_in_string="75" row="2" column="6" />
+													<pv:module_layout url="#rackId4" position_in_string="76" row="2" column="5" />
+													<pv:module_layout url="#rackId4" position_in_string="77" row="2" column="4" />
+													<pv:module_layout url="#rackId4" position_in_string="78" row="2" column="3" />
+													<pv:module_layout url="#rackId4" position_in_string="79" row="2" column="2" />
+													<pv:module_layout url="#rackId4" position_in_string="80" row="2" column="1" />
 												</pv:inputs>
 											</pv:instance_optimizer>
 											<pv:instance_optimizer url="#OptimizerModel1" id="InstanceOptimizer3">
 												<pv:cable_to_neighbor url="#DCCableModel1" length="5" id="cableInstance20"/>
 												<pv:inputs>
-													<pv:module_layout url="#rackId5" position_in_string="1" row="1" column="1" />
-													<pv:module_layout url="#rackId5" position_in_string="2" row="1" column="2" />
-													<pv:module_layout url="#rackId5" position_in_string="3" row="1" column="3" />
-													<pv:module_layout url="#rackId5" position_in_string="4" row="1" column="4" />
-													<pv:module_layout url="#rackId6" position_in_string="1" row="1" column="1" />
-													<pv:module_layout url="#rackId6" position_in_string="2" row="1" column="2" />
-													<pv:module_layout url="#rackId6" position_in_string="3" row="1" column="3" />
-													<pv:module_layout url="#rackId6" position_in_string="4" row="1" column="4" />
+													<pv:module_layout url="#rackId5" position_in_string="81" row="1" column="1" />
+													<pv:module_layout url="#rackId5" position_in_string="82" row="1" column="2" />
+													<pv:module_layout url="#rackId5" position_in_string="83" row="1" column="3" />
+													<pv:module_layout url="#rackId5" position_in_string="84" row="1" column="4" />
+													<pv:module_layout url="#rackId5" position_in_string="85" row="1" column="5" />
+													<pv:module_layout url="#rackId5" position_in_string="86" row="1" column="6" />
+													<pv:module_layout url="#rackId5" position_in_string="87" row="1" column="7" />
+													<pv:module_layout url="#rackId5" position_in_string="88" row="1" column="8" />
+													<pv:module_layout url="#rackId5" position_in_string="89" row="1" column="9" />
+													<pv:module_layout url="#rackId5" position_in_string="90" row="1" column="10" />
+													<pv:module_layout url="#rackId5" position_in_string="91" row="2" column="10" />
+													<pv:module_layout url="#rackId5" position_in_string="92" row="2" column="9" />
+													<pv:module_layout url="#rackId5" position_in_string="93" row="2" column="8" />
+													<pv:module_layout url="#rackId5" position_in_string="94" row="2" column="7" />
+													<pv:module_layout url="#rackId5" position_in_string="95" row="2" column="6" />
+													<pv:module_layout url="#rackId5" position_in_string="96" row="2" column="5" />
+													<pv:module_layout url="#rackId5" position_in_string="97" row="2" column="4" />
+													<pv:module_layout url="#rackId5" position_in_string="98" row="2" column="3" />
+													<pv:module_layout url="#rackId5" position_in_string="99" row="2" column="2" />
+													<pv:module_layout url="#rackId5" position_in_string="100" row="2" column="1" />
+													<pv:module_layout url="#rackId6" position_in_string="101" row="1" column="1" />
+													<pv:module_layout url="#rackId6" position_in_string="102" row="1" column="2" />
+													<pv:module_layout url="#rackId6" position_in_string="103" row="1" column="3" />
+													<pv:module_layout url="#rackId6" position_in_string="104" row="1" column="4" />
+													<pv:module_layout url="#rackId6" position_in_string="105" row="1" column="5" />
+													<pv:module_layout url="#rackId6" position_in_string="106" row="1" column="6" />
+													<pv:module_layout url="#rackId6" position_in_string="107" row="1" column="7" />
+													<pv:module_layout url="#rackId6" position_in_string="108" row="1" column="8" />
+													<pv:module_layout url="#rackId6" position_in_string="109" row="1" column="9" />
+													<pv:module_layout url="#rackId6" position_in_string="110" row="1" column="10" />
+													<pv:module_layout url="#rackId6" position_in_string="111" row="2" column="10" />
+													<pv:module_layout url="#rackId6" position_in_string="112" row="2" column="9" />
+													<pv:module_layout url="#rackId6" position_in_string="113" row="2" column="8" />
+													<pv:module_layout url="#rackId6" position_in_string="114" row="2" column="7" />
+													<pv:module_layout url="#rackId6" position_in_string="115" row="2" column="6" />
+													<pv:module_layout url="#rackId6" position_in_string="116" row="2" column="5" />
+													<pv:module_layout url="#rackId6" position_in_string="117" row="2" column="4" />
+													<pv:module_layout url="#rackId6" position_in_string="118" row="2" column="3" />
+													<pv:module_layout url="#rackId6" position_in_string="119" row="2" column="2" />
+													<pv:module_layout url="#rackId6" position_in_string="120" row="2" column="1" />
 												</pv:inputs>
 											</pv:instance_optimizer>
 										</pv:optimizer_array>
@@ -386,7 +486,7 @@
 					<pvsyst:inverters>
 					    <!-- Inverter "InverterModel1" data will be retrieved from PVsyst database -->
 						<pvsyst:inverter inverter_id="InverterModel1">
-							<pvsyst:ond_file_name>Generic_2kW.OND</pvsyst:ond_file_name>
+							<pvsyst:ond_file_name>Generic_50kW.OND</pvsyst:ond_file_name>
 						</pvsyst:inverter>
 					</pvsyst:inverters>
 					<pvsyst:optimizers>
@@ -474,10 +574,10 @@
 			<mesh>
 				<source id="rack1MeshSource">
 					<float_array id="rack1FloatArray" count="12">
-						0 0 0
-						-1500 0 0
-						-1500 -500 200
-						0 -500 200
+						0 0 151.68
+						-1045 0 151.68
+						-1045 -379.19 0
+						0 -379.19 0
 					</float_array>
 					<technique_common>
 						<accessor count="4" source="#rack1FloatArray" stride="3">
@@ -500,10 +600,10 @@
 					<!-- rack tag -->
 					<pv:rack>
 						<pv:rack_type>fixed_tilt</pv:rack_type>
-						<pv:row_spacing>20</pv:row_spacing>
-						<pv:column_spacing>20</pv:column_spacing>
-						<pv:module_rows>1</pv:module_rows>
-						<pv:module_columns>4</pv:module_columns>
+						<pv:row_spacing>10</pv:row_spacing>
+						<pv:column_spacing>5</pv:column_spacing>
+						<pv:module_rows>2</pv:module_rows>
+						<pv:module_columns>10</pv:module_columns>
 						<pv:module_orientation>portrait</pv:module_orientation>
 						<pv:tilt>21.8</pv:tilt>
 						<pv:azimuth>180</pv:azimuth>

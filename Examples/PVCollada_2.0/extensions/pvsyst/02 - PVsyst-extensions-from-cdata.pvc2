@@ -62,8 +62,8 @@
 							<pv:name>Generic 400W bifacial</pv:name>
 							<pv:module_type>bifacial</pv:module_type>
 							<pv:nom_power>400</pv:nom_power>
-							<pv:length>1992</pv:length>
-							<pv:width>1000</pv:width>
+							<pv:length>2094</pv:length>
+							<pv:width>1134</pv:width>
 							<pv:depth>6</pv:depth>
 							<pv:num_cells>72</pv:num_cells>
 							<pv:num_cells_length>12</pv:num_cells_length>
@@ -139,26 +139,30 @@
 							<pv:efficiency_standard_type>EU</pv:efficiency_standard_type>
 						</pv:inverter>
 						<pv:inverter id="InverterModel1">
-						    <!-- An inverter with 1 entry in mppts and 1 entry in temperature_derate -->
+						    <!-- An inverter with 2 entries in mppts and 1 entry in temperature_derate -->
 							<pv:manufacturer>Generic</pv:manufacturer>
-							<pv:name>Generic 2kW inverter</pv:name>
+							<pv:name>Generic 9kW inverter</pv:name>
 							<pv:inverter_type>string</pv:inverter_type>
-							<pv:nom_power_ac>2000</pv:nom_power_ac>
-							<pv:nom_power_dc>2050</pv:nom_power_dc>
-							<pv:capacity_ac>2000</pv:capacity_ac>
-							<pv:capacity_dc>2050</pv:capacity_dc>
-							<pv:v_mpp_min>40</pv:v_mpp_min>
-							<pv:v_mpp_max>560</pv:v_mpp_max>
-							<pv:v_mpp_nom>360</pv:v_mpp_nom>
-							<pv:i_max_dc>9.10</pv:i_max_dc>
-							<pv:mppt_count>1</pv:mppt_count>
+							<pv:nom_power_ac>9000</pv:nom_power_ac>
+							<pv:nom_power_dc>10500</pv:nom_power_dc>
+							<pv:capacity_ac>10000</pv:capacity_ac>
+							<pv:capacity_dc>11000</pv:capacity_dc>
+							<pv:v_mpp_min>150</pv:v_mpp_min>
+							<pv:v_mpp_max>750</pv:v_mpp_max>
+							<pv:v_mpp_nom>400</pv:v_mpp_nom>
+							<pv:i_max_dc>38</pv:i_max_dc>
+							<pv:mppt_count>2</pv:mppt_count>
 							<pv:mppts>
 							    <!-- inverter MPPT tag -->
 								<pv:mppt sid="MPPT1">
-									<pv:input_count>1</pv:input_count>
+									<pv:input_count>2</pv:input_count>
+								</pv:mppt>
+							    <!-- inverter MPPT tag -->
+								<pv:mppt sid="MPPT2">
+									<pv:input_count>3</pv:input_count>
 								</pv:mppt>
 							</pv:mppts>
-							<pv:v_out_ac>230</pv:v_out_ac>
+							<pv:v_out_ac>400</pv:v_out_ac>
 							<pv:self_consumption>5</pv:self_consumption>
 							<pv:night_tare>3</pv:night_tare>
 							<pv:temperature_derate>
@@ -289,12 +293,12 @@
 						<pv:cable id="ACCableModel1">
 							<pv:manufacturer>Generic</pv:manufacturer>
 							<pv:name>Generic cable</pv:name>
-							<pv:cross_section>2.5</pv:cross_section>
+							<pv:cross_section>10</pv:cross_section>
 							<pv:num_conductors>3</pv:num_conductors>
 							<pv:material>copper</pv:material>
 							<pv:power_type>ac</pv:power_type>
-							<pv:resistance>10</pv:resistance>
-							<pv:impedance>25</pv:impedance>
+							<pv:resistance>2.5</pv:resistance>
+							<pv:impedance>6.25</pv:impedance>
 						</pv:cable>
 					</pv:cables>
 				</pv:components>
@@ -322,15 +326,38 @@
 											<pv:mppts>
 												<!-- mppt tag -->
 												<pv:mppt url="#MPPT1">
-													<!-- first string tag => the string connected to this mppt input -->
-													<pv:string id="string1">
+													<!-- string A (row 1) -->
+													<pv:string id="string1a">
 														<pv:module_array>
 															<!-- Cable between the module_array and the inverter -->
 															<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance4" />
-															<pv:module_layout url="#rackId1" position_in_string="1" row="1" column="1" />
-															<pv:module_layout url="#rackId1" position_in_string="2" row="1" column="2" />
-															<pv:module_layout url="#rackId1" position_in_string="3" row="1" column="3" />
-															<pv:module_layout url="#rackId1" position_in_string="4" row="1" column="4" />
+																<pv:module_layout url="#rackId1" position_in_string="1" row="1" column="1" />
+																<pv:module_layout url="#rackId1" position_in_string="2" row="1" column="2" />
+																<pv:module_layout url="#rackId1" position_in_string="3" row="1" column="3" />
+																<pv:module_layout url="#rackId1" position_in_string="4" row="1" column="4" />
+																<pv:module_layout url="#rackId1" position_in_string="5" row="1" column="5" />
+																<pv:module_layout url="#rackId1" position_in_string="6" row="1" column="6" />
+																<pv:module_layout url="#rackId1" position_in_string="7" row="1" column="7" />
+																<pv:module_layout url="#rackId1" position_in_string="8" row="1" column="8" />
+																<pv:module_layout url="#rackId1" position_in_string="9" row="1" column="9" />
+																<pv:module_layout url="#rackId1" position_in_string="10" row="1" column="10" />
+														</pv:module_array>
+													</pv:string>
+													<!-- string B (row 2) -->
+													<pv:string id="string1b">
+														<pv:module_array>
+															<!-- Cable between the module_array and the inverter -->
+															<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance4b" />
+																<pv:module_layout url="#rackId1" position_in_string="1" row="2" column="1" />
+																<pv:module_layout url="#rackId1" position_in_string="2" row="2" column="2" />
+																<pv:module_layout url="#rackId1" position_in_string="3" row="2" column="3" />
+																<pv:module_layout url="#rackId1" position_in_string="4" row="2" column="4" />
+																<pv:module_layout url="#rackId1" position_in_string="5" row="2" column="5" />
+																<pv:module_layout url="#rackId1" position_in_string="6" row="2" column="6" />
+																<pv:module_layout url="#rackId1" position_in_string="7" row="2" column="7" />
+																<pv:module_layout url="#rackId1" position_in_string="8" row="2" column="8" />
+																<pv:module_layout url="#rackId1" position_in_string="9" row="2" column="9" />
+																<pv:module_layout url="#rackId1" position_in_string="10" row="2" column="10" />
 														</pv:module_array>
 													</pv:string>
 												</pv:mppt>
@@ -344,15 +371,38 @@
 											<pv:mppts>
 												<!-- mppt tag -->
 												<pv:mppt url="#MPPT1">
-													<!-- second string tag => the string connected to this mppt input -->
-													<pv:string id="string2">
+													<!-- string A (row 1) -->
+													<pv:string id="string2a">
 														<pv:module_array>
 															<!-- Cable between the module_array and the inverter -->
 															<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance10" />
-															<pv:module_layout url="#rackId2" position_in_string="1" row="1" column="1" />
-															<pv:module_layout url="#rackId2" position_in_string="2" row="1" column="2" />
-															<pv:module_layout url="#rackId2" position_in_string="3" row="1" column="3" />
-															<pv:module_layout url="#rackId2" position_in_string="4" row="1" column="4" />
+																<pv:module_layout url="#rackId2" position_in_string="1" row="1" column="1" />
+																<pv:module_layout url="#rackId2" position_in_string="2" row="1" column="2" />
+																<pv:module_layout url="#rackId2" position_in_string="3" row="1" column="3" />
+																<pv:module_layout url="#rackId2" position_in_string="4" row="1" column="4" />
+																<pv:module_layout url="#rackId2" position_in_string="5" row="1" column="5" />
+																<pv:module_layout url="#rackId2" position_in_string="6" row="1" column="6" />
+																<pv:module_layout url="#rackId2" position_in_string="7" row="1" column="7" />
+																<pv:module_layout url="#rackId2" position_in_string="8" row="1" column="8" />
+																<pv:module_layout url="#rackId2" position_in_string="9" row="1" column="9" />
+																<pv:module_layout url="#rackId2" position_in_string="10" row="1" column="10" />
+														</pv:module_array>
+													</pv:string>
+													<!-- string B (row 2) -->
+													<pv:string id="string2b">
+														<pv:module_array>
+															<!-- Cable between the module_array and the inverter -->
+															<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance10b" />
+																<pv:module_layout url="#rackId2" position_in_string="1" row="2" column="1" />
+																<pv:module_layout url="#rackId2" position_in_string="2" row="2" column="2" />
+																<pv:module_layout url="#rackId2" position_in_string="3" row="2" column="3" />
+																<pv:module_layout url="#rackId2" position_in_string="4" row="2" column="4" />
+																<pv:module_layout url="#rackId2" position_in_string="5" row="2" column="5" />
+																<pv:module_layout url="#rackId2" position_in_string="6" row="2" column="6" />
+																<pv:module_layout url="#rackId2" position_in_string="7" row="2" column="7" />
+																<pv:module_layout url="#rackId2" position_in_string="8" row="2" column="8" />
+																<pv:module_layout url="#rackId2" position_in_string="9" row="2" column="9" />
+																<pv:module_layout url="#rackId2" position_in_string="10" row="2" column="10" />
 														</pv:module_array>
 													</pv:string>
 												</pv:mppt>
@@ -366,15 +416,38 @@
 											<pv:mppts>
 												<!-- mppt tag -->
 												<pv:mppt url="#MPPT1">
-													<!-- third string tag => the string connected to this mppt input -->
-													<pv:string id="string3">
+													<!-- string A (row 1) -->
+													<pv:string id="string3a">
 														<pv:module_array>
 															<!-- Cable between the module_array and the inverter -->
 															<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance16" />
-															<pv:module_layout url="#rackId3" position_in_string="1" row="1" column="1" />
-															<pv:module_layout url="#rackId3" position_in_string="2" row="1" column="2" />
-															<pv:module_layout url="#rackId3" position_in_string="3" row="1" column="3" />
-															<pv:module_layout url="#rackId3" position_in_string="4" row="1" column="4" />
+																<pv:module_layout url="#rackId3" position_in_string="1" row="1" column="1" />
+																<pv:module_layout url="#rackId3" position_in_string="2" row="1" column="2" />
+																<pv:module_layout url="#rackId3" position_in_string="3" row="1" column="3" />
+																<pv:module_layout url="#rackId3" position_in_string="4" row="1" column="4" />
+																<pv:module_layout url="#rackId3" position_in_string="5" row="1" column="5" />
+																<pv:module_layout url="#rackId3" position_in_string="6" row="1" column="6" />
+																<pv:module_layout url="#rackId3" position_in_string="7" row="1" column="7" />
+																<pv:module_layout url="#rackId3" position_in_string="8" row="1" column="8" />
+																<pv:module_layout url="#rackId3" position_in_string="9" row="1" column="9" />
+																<pv:module_layout url="#rackId3" position_in_string="10" row="1" column="10" />
+														</pv:module_array>
+													</pv:string>
+													<!-- string B (row 2) -->
+													<pv:string id="string3b">
+														<pv:module_array>
+															<!-- Cable between the module_array and the inverter -->
+															<pv:cable_to_parent url="#DCCableModel1" length="3" id="cableInstance16b" />
+																<pv:module_layout url="#rackId3" position_in_string="1" row="2" column="1" />
+																<pv:module_layout url="#rackId3" position_in_string="2" row="2" column="2" />
+																<pv:module_layout url="#rackId3" position_in_string="3" row="2" column="3" />
+																<pv:module_layout url="#rackId3" position_in_string="4" row="2" column="4" />
+																<pv:module_layout url="#rackId3" position_in_string="5" row="2" column="5" />
+																<pv:module_layout url="#rackId3" position_in_string="6" row="2" column="6" />
+																<pv:module_layout url="#rackId3" position_in_string="7" row="2" column="7" />
+																<pv:module_layout url="#rackId3" position_in_string="8" row="2" column="8" />
+																<pv:module_layout url="#rackId3" position_in_string="9" row="2" column="9" />
+																<pv:module_layout url="#rackId3" position_in_string="10" row="2" column="10" />
 														</pv:module_array>
 													</pv:string>
 												</pv:mppt>
@@ -461,45 +534,45 @@ End of PVObject pvModule
 					<pvsyst:inverters>
 					    <!-- Inverter "InverterModel1" data will be retrieved from PVsyst database -->
 						<pvsyst:inverter inverter_id="InverterModel1">
-							<pvsyst:ond_file_name>MyGeneric_500kW.OND</pvsyst:ond_file_name>
-							<pvsyst:ond_file_content><![CDATA[PVObject_=pvGInverter
-  Comment=Generic	500 kWac central  inverter	Generic device
-  Version=8.0.18
+							<pvsyst:ond_file_name>Generic_9kW.OND</pvsyst:ond_file_name>
+							<pvsyst:ond_file_content><![CDATA[﻿PVObject_=pvGInverter
+  Comment=Generic	9 kWac inverter	Generic device
+  Version=8.1.4
   ParObj1=2025
-  Flags=$80000070
+  Flags=$803C0470
 
   PVObject_Commercial=pvCommercial
-    Flags=$0041
+    Flags=$41
     Manufacturer=Generic
-    Model=500 kWac central  inverter
+    Model=9 kWac inverter
     DataSource=Generic device
     YearBeg=2025
-    Width=3.000
-    Height=2.000
-    Depth=0.930
-    Weight=1000.000
+    Width=0.468
+    Height=0.613
+    Depth=0.242
+    Weight=35.000
     NPieces=100
-    PriceDate=16/01/26 11:10
+    PriceDate=02/07/26 17:14
     Remarks, Count=4
-      Str_1=Technology: 10 kHz, IGBT
-      Str_2=Protection: IP 20
-      Str_3=Control: LCD Graphic, datalogging
+      Str_1=Technology: 16 kHz, IGBT
+      Str_2=Protection: -25 - +60°C, IP 65:  outdoor installation
+      Str_3=Control: LCD, 2x16 char.
       Str_4=Generic device for DEMO
     End of Remarks=Generic device for DEMO
   End of PVObject pvCommercial
-  Transfo=LFTransfo
+  Transfo=Without
 
   Converter=TConverter
-    PNomConv=500.000
-    PMaxOUT=500.000
+    PNomConv=9.000
+    PMaxOUT=10.000
     VOutConv=400.0
-    VMppMin=325
-    VMPPMax=800
-    VmppNom=380.0
-    VAbsMax=1000
-    PSeuil=5000.00
-    EfficMax=97.50
-    EfficEuro=96.80
+    VMppMin=150
+    VMPPMax=750
+    VmppNom=450.0
+    VAbsMax=900
+    PSeuil=60.00
+    EfficMax=98.50
+    EfficEuro=98.00
     FResNorm=3.00
     ModeOper=MPPT
     CompPMax=Lim
@@ -507,44 +580,51 @@ End of PVObject pvModule
     MonoTri=Tri
     ModeAffEnum=Efficf_PIn
     UnitAffEnum=kW
-    PNomDC=625.000
-    PMaxDC=650.000
+    PNomDC=10.000
+    PMaxDC=12.000
     IDCMax=0.000
-    INomAC=721.688
+    IMaxDC=38.000
+    INomDC=34.000
+    INomAC=12.990
     TPNom=50.0
     TPMax=25.0
     TPLim1=60.0
-    PInEffMax =300000.000
-    PThreshEff=2765.93
+    TPLimAbs=70.0
+    PLim1=8.900
+    PLimAbs=4.000
+    PInEffMax =5400.000
+    PThreshEff=34.60
     HasdefaultPThresh=False
 
     ProfilPIO=TCubicProfile
       NPtsMax=11
       NPtsEff=8
-      LastCompile=$008D
+      LastCompile=$8D
       Mode=1
-      Point_1=5000,0
-      Point_2=15000,12185
-      Point_3=25000,22136
-      Point_4=50000,46977
-      Point_5=100000,96502
-      Point_6=150000,145816
-      Point_7=300000,292500
-      Point_8=500000,485138
-      Point_9=0,0
-      Point_10=0,0
-      Point_11=0,0
+      Point_1=60.0,0.0
+      Point_2=270.0,235.4
+      Point_3=450.0,415.2
+      Point_4=900.0,864.4
+      Point_5=1800.0,1760.7
+      Point_6=2700.0,2654.3
+      Point_7=5400.0,5319.0
+      Point_8=9000.0,8834.1
+      Point_9=0.0,0.0
+      Point_10=0.0,0.0
+      Point_11=0.0,0.0
     End of TCubicProfile
   End of TConverter
-  NbInputs=1
-  NbMPPT=1
+  NbInputs=5
+  NbMPPT=2
+  TanPhiMin=-0.395
+  TanPhiMax=0.395
   NbMSInterne=2
   MasterSlave=No_M_S
   IsolSurvey =Yes
   DC_Switch=Yes
   AC_Switch=Yes
   DiscAdjust=Yes
-  ENS_Protec=No
+  ENS_Protec=Yes
   MS_Thresh=0.8
 End of PVObject pvGInverter
 ]]></pvsyst:ond_file_content>
@@ -629,10 +709,10 @@ End of PVObject pvGInverter
 			<mesh>
 				<source id="rack1MeshSource">
 					<float_array id="rack1FloatArray" count="12">
-						0 0 0
-						-1500 0 0
-						-1500 -500 200
-						0 -500 200
+						0 0 159.25
+						-1179 0 159.25
+						-1179 -398.13 0
+						0 -398.13 0
 					</float_array>
 					<technique_common>
 						<accessor count="4" source="#rack1FloatArray" stride="3">
@@ -655,10 +735,10 @@ End of PVObject pvGInverter
 					<!-- rack tag -->
 					<pv:rack>
 						<pv:rack_type>fixed_tilt</pv:rack_type>
-						<pv:row_spacing>20</pv:row_spacing>
-						<pv:column_spacing>20</pv:column_spacing>
-						<pv:module_rows>1</pv:module_rows>
-						<pv:module_columns>4</pv:module_columns>
+						<pv:row_spacing>10</pv:row_spacing>
+						<pv:column_spacing>5</pv:column_spacing>
+						<pv:module_rows>2</pv:module_rows>
+						<pv:module_columns>10</pv:module_columns>
 						<pv:module_orientation>portrait</pv:module_orientation>
 						<pv:tilt>21.8</pv:tilt>
 						<pv:azimuth>180</pv:azimuth>
