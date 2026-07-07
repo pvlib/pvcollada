@@ -6,18 +6,18 @@
 	<asset>
 		<contributor>
 			<author>PVsyst</author>
-			<comments>PVC 2.0 sample file : 1 terrain and 3 trackers, all based on the same model (4 times the same rack, 2 joint gaps, 1 motor gap and 8 posts). No electrical components</comments>
+			<comments>PVC 2.0 sample file : 1 terrain and 3 trackers, all based on the same model (4 times the same rack, 2 joint gaps, 1 motor gap and 8 posts). Basic electrical components and circuit</comments>
 		</contributor>
 		<coverage>
-			<geographic_location>
-				<longitude>15.3</longitude>
-				<latitude>10.1</latitude>
-				<altitude mode="absolute">150</altitude>
+  			<geographic_location>
+		  		<longitude>15.3</longitude>
+	  			<latitude>10.1</latitude>
+				<altitude mode="absolute">150</altitude>		  
 			</geographic_location>
 		</coverage>
 		<created>2024-06-06T13:32:31Z</created>
-		<modified>2025-09-16T10:12:18Z</modified>
-		<unit meter="0.01" name="cm" />
+		<modified>2025-09-12T10:12:18Z</modified>
+		<unit meter="0.01" name="cm"/>
 		<up_axis>Z_UP</up_axis>
 		<extra>
 			<technique profile="PVCollada-2.0">
@@ -37,7 +37,7 @@
 				<pv:components>
 					<!-- List of modules -->
 					<pv:modules>
-						<!-- module tag. Would usually contain a link to a PAN file or its content as CDATA -->
+						<!-- module tag -->
 						<pv:module id="ModuleModel1">
 							<pv:manufacturer>Generic</pv:manufacturer>
 							<pv:name>Generic 300W bifacial</pv:name>
@@ -48,13 +48,253 @@
 							<pv:depth>6</pv:depth>
 						</pv:module>
 					</pv:modules>
+					<!-- List of inverters -->
+					<pv:inverters>
+						<!-- inverter tag -->
+						<pv:inverter id="InverterModel1">
+							<pv:manufacturer>Generic</pv:manufacturer>
+							<pv:name>Generic inverter</pv:name>
+							<pv:inverter_type>string</pv:inverter_type>
+							<pv:nom_power_ac>2000</pv:nom_power_ac>
+							<pv:nom_power_dc>2050</pv:nom_power_dc>
+							<pv:mppt_count>6</pv:mppt_count>
+						</pv:inverter>
+					</pv:inverters>
+					<!-- List of cables -->
+					<pv:cables>
+						<!-- cable tag -->
+						<!-- For this basic example we have 1 type of cable only, which is not realistic -->
+						<pv:cable id="CableModel1">
+							<pv:manufacturer>Generic</pv:manufacturer>
+							<pv:name>Generic cable</pv:name>
+							<pv:cross_section>2.5</pv:cross_section>
+							<pv:num_conductors>3</pv:num_conductors>
+						</pv:cable>
+					</pv:cables>
 				</pv:components>
+				<pv:circuit>
+					<!-- injection_point tag => Always the parent of the tree -->
+					<pv:circuit_root>
+						<!-- Inverter -->
+						<pv:instance_inverter url="#InverterModel1" id="inverterInstance1" name="Inverter #1">
+							<!-- Cable between the inverter and the injection point -->
+							<pv:cable_to_parent url="#CableModel1" length="10" id="cableInstance1" />
+							<!-- mppts tag -->
+							<pv:mppts>
+								<!-- first mppt tag -->
+								<pv:mppt>
+									<!-- first string tag => the string connected to this mppt input -->
+									<pv:string id="string1">
+										<pv:module_array>
+											<!-- Cable between the module_array and the inverter -->
+											<pv:cable_to_parent url="#CableModel1" length="3" id="cableInstance2" />
+											<pv:module_layout url="#rackId1-1" position_in_string="1" row="1" column="1" />
+											<pv:module_layout url="#rackId1-1" position_in_string="2" row="1" column="2" />
+											<pv:module_layout url="#rackId1-1" position_in_string="3" row="1" column="3" />
+											<pv:module_layout url="#rackId1-1" position_in_string="4" row="1" column="4" />
+											<pv:module_layout url="#rackId1-1" position_in_string="5" row="1" column="5" />
+											<pv:module_layout url="#rackId1-1" position_in_string="6" row="1" column="6" />
+											<pv:module_layout url="#rackId1-2" position_in_string="7" row="1" column="1" />
+											<pv:module_layout url="#rackId1-2" position_in_string="8" row="1" column="2" />
+											<pv:module_layout url="#rackId1-2" position_in_string="9" row="1" column="3" />
+											<pv:module_layout url="#rackId1-2" position_in_string="10" row="1" column="4" />
+											<pv:module_layout url="#rackId1-2" position_in_string="11" row="1" column="5" />
+											<pv:module_layout url="#rackId1-2" position_in_string="12" row="1" column="6" />
+											<pv:module_layout url="#rackId1-3" position_in_string="13" row="1" column="1" />
+											<pv:module_layout url="#rackId1-3" position_in_string="14" row="1" column="2" />
+											<pv:module_layout url="#rackId1-3" position_in_string="15" row="1" column="3" />
+											<pv:module_layout url="#rackId1-3" position_in_string="16" row="1" column="4" />
+											<pv:module_layout url="#rackId1-3" position_in_string="17" row="1" column="5" />
+											<pv:module_layout url="#rackId1-3" position_in_string="18" row="1" column="6" />
+											<pv:module_layout url="#rackId1-4" position_in_string="19" row="1" column="1" />
+											<pv:module_layout url="#rackId1-4" position_in_string="20" row="1" column="2" />
+											<pv:module_layout url="#rackId1-4" position_in_string="21" row="1" column="3" />
+											<pv:module_layout url="#rackId1-4" position_in_string="22" row="1" column="4" />
+											<pv:module_layout url="#rackId1-4" position_in_string="23" row="1" column="5" />
+											<pv:module_layout url="#rackId1-4" position_in_string="24" row="1" column="6" />
+										</pv:module_array>
+									</pv:string>
+								</pv:mppt>
+								<!-- second mppt tag -->
+								<pv:mppt>
+									<!-- second string tag => the string connected to this mppt input -->
+									<pv:string id="string2">
+										<pv:module_array>
+										<!-- Cable between the module_array and the inverter -->
+										<pv:cable_to_parent url="#CableModel1" length="3" id="cableInstance3"/>
+											<pv:module_layout url="#rackId1-1" position_in_string="1" row="2" column="1" />
+											<pv:module_layout url="#rackId1-1" position_in_string="2" row="2" column="2" />
+											<pv:module_layout url="#rackId1-1" position_in_string="3" row="2" column="3" />
+											<pv:module_layout url="#rackId1-1" position_in_string="4" row="2" column="4" />
+											<pv:module_layout url="#rackId1-1" position_in_string="5" row="2" column="5" />
+											<pv:module_layout url="#rackId1-1" position_in_string="6" row="2" column="6" />
+											<pv:module_layout url="#rackId1-2" position_in_string="7" row="2" column="1" />
+											<pv:module_layout url="#rackId1-2" position_in_string="8" row="2" column="2" />
+											<pv:module_layout url="#rackId1-2" position_in_string="9" row="2" column="3" />
+											<pv:module_layout url="#rackId1-2" position_in_string="10" row="2" column="4" />
+											<pv:module_layout url="#rackId1-2" position_in_string="11" row="2" column="5" />
+											<pv:module_layout url="#rackId1-2" position_in_string="12" row="2" column="6" />
+											<pv:module_layout url="#rackId1-3" position_in_string="13" row="2" column="1" />
+											<pv:module_layout url="#rackId1-3" position_in_string="14" row="2" column="2" />
+											<pv:module_layout url="#rackId1-3" position_in_string="15" row="2" column="3" />
+											<pv:module_layout url="#rackId1-3" position_in_string="16" row="2" column="4" />
+											<pv:module_layout url="#rackId1-3" position_in_string="17" row="2" column="5" />
+											<pv:module_layout url="#rackId1-3" position_in_string="18" row="2" column="6" />
+											<pv:module_layout url="#rackId1-4" position_in_string="19" row="2" column="1" />
+											<pv:module_layout url="#rackId1-4" position_in_string="20" row="2" column="2" />
+											<pv:module_layout url="#rackId1-4" position_in_string="21" row="2" column="3" />
+											<pv:module_layout url="#rackId1-4" position_in_string="22" row="2" column="4" />
+											<pv:module_layout url="#rackId1-4" position_in_string="23" row="2" column="5" />
+											<pv:module_layout url="#rackId1-4" position_in_string="24" row="2" column="6" />
+										</pv:module_array>
+									</pv:string>
+								</pv:mppt>
+								<!-- third mppt tag -->
+								<pv:mppt>
+									<!-- third string tag => the string connected to this mppt input -->
+									<pv:string id="string3">
+										<pv:module_array>
+											<!-- Cable between the module_array and the inverter -->
+											<pv:cable_to_parent url="#CableModel1" length="3" id="cableInstance4"/>
+											<pv:module_layout url="#rackId2-1" position_in_string="1" row="1" column="1" />
+											<pv:module_layout url="#rackId2-1" position_in_string="2" row="1" column="2" />
+											<pv:module_layout url="#rackId2-1" position_in_string="3" row="1" column="3" />
+											<pv:module_layout url="#rackId2-1" position_in_string="4" row="1" column="4" />
+											<pv:module_layout url="#rackId2-1" position_in_string="5" row="1" column="5" />
+											<pv:module_layout url="#rackId2-1" position_in_string="6" row="1" column="6" />
+											<pv:module_layout url="#rackId2-2" position_in_string="7" row="1" column="1" />
+											<pv:module_layout url="#rackId2-2" position_in_string="8" row="1" column="2" />
+											<pv:module_layout url="#rackId2-2" position_in_string="9" row="1" column="3" />
+											<pv:module_layout url="#rackId2-2" position_in_string="10" row="1" column="4" />
+											<pv:module_layout url="#rackId2-2" position_in_string="11" row="1" column="5" />
+											<pv:module_layout url="#rackId2-2" position_in_string="12" row="1" column="6" />
+											<pv:module_layout url="#rackId2-3" position_in_string="13" row="1" column="1" />
+											<pv:module_layout url="#rackId2-3" position_in_string="14" row="1" column="2" />
+											<pv:module_layout url="#rackId2-3" position_in_string="15" row="1" column="3" />
+											<pv:module_layout url="#rackId2-3" position_in_string="16" row="1" column="4" />
+											<pv:module_layout url="#rackId2-3" position_in_string="17" row="1" column="5" />
+											<pv:module_layout url="#rackId2-3" position_in_string="18" row="1" column="6" />
+											<pv:module_layout url="#rackId2-4" position_in_string="19" row="1" column="1" />
+											<pv:module_layout url="#rackId2-4" position_in_string="20" row="1" column="2" />
+											<pv:module_layout url="#rackId2-4" position_in_string="21" row="1" column="3" />
+											<pv:module_layout url="#rackId2-4" position_in_string="22" row="1" column="4" />
+											<pv:module_layout url="#rackId2-4" position_in_string="23" row="1" column="5" />
+											<pv:module_layout url="#rackId2-4" position_in_string="24" row="1" column="6" />
+										</pv:module_array>
+									</pv:string>
+								</pv:mppt>
+								<!-- fourth mppt tag -->
+								<pv:mppt>
+									<!-- fourth string tag => the string connected to this mppt input -->
+									<pv:string id="string4">
+										<pv:module_array>
+											<!-- Cable between the module_array and the inverter -->
+											<pv:cable_to_parent url="#CableModel1" length="3" id="cableInstance5"/>
+											<pv:module_layout url="#rackId2-1" position_in_string="1" row="2" column="1" />
+											<pv:module_layout url="#rackId2-1" position_in_string="2" row="2" column="2" />
+											<pv:module_layout url="#rackId2-1" position_in_string="3" row="2" column="3" />
+											<pv:module_layout url="#rackId2-1" position_in_string="4" row="2" column="4" />
+											<pv:module_layout url="#rackId2-1" position_in_string="5" row="2" column="5" />
+											<pv:module_layout url="#rackId2-1" position_in_string="6" row="2" column="6" />
+											<pv:module_layout url="#rackId2-2" position_in_string="7" row="2" column="1" />
+											<pv:module_layout url="#rackId2-2" position_in_string="8" row="2" column="2" />
+											<pv:module_layout url="#rackId2-2" position_in_string="9" row="2" column="3" />
+											<pv:module_layout url="#rackId2-2" position_in_string="10" row="2" column="4" />
+											<pv:module_layout url="#rackId2-2" position_in_string="11" row="2" column="5" />
+											<pv:module_layout url="#rackId2-2" position_in_string="12" row="2" column="6" />
+											<pv:module_layout url="#rackId2-3" position_in_string="13" row="2" column="1" />
+											<pv:module_layout url="#rackId2-3" position_in_string="14" row="2" column="2" />
+											<pv:module_layout url="#rackId2-3" position_in_string="15" row="2" column="3" />
+											<pv:module_layout url="#rackId2-3" position_in_string="16" row="2" column="4" />
+											<pv:module_layout url="#rackId2-3" position_in_string="17" row="2" column="5" />
+											<pv:module_layout url="#rackId2-3" position_in_string="18" row="2" column="6" />
+											<pv:module_layout url="#rackId2-4" position_in_string="19" row="2" column="1" />
+											<pv:module_layout url="#rackId2-4" position_in_string="20" row="2" column="2" />
+											<pv:module_layout url="#rackId2-4" position_in_string="21" row="2" column="3" />
+											<pv:module_layout url="#rackId2-4" position_in_string="22" row="2" column="4" />
+											<pv:module_layout url="#rackId2-4" position_in_string="23" row="2" column="5" />
+											<pv:module_layout url="#rackId2-4" position_in_string="24" row="2" column="6" />
+										</pv:module_array>
+									</pv:string>
+								</pv:mppt>
+								<!-- fifth mppt tag -->
+								<pv:mppt>
+									<!-- fifth string tag => the string connected to this mppt input -->
+									<pv:string id="string5">
+										<pv:module_array>
+										<!-- Cable between the module_array and the inverter -->
+										<pv:cable_to_parent url="#CableModel1" length="3" id="cableInstance6"/>
+										<pv:module_layout url="#rackId3-1" position_in_string="1" row="1" column="1" />
+										<pv:module_layout url="#rackId3-1" position_in_string="2" row="1" column="2" />
+										<pv:module_layout url="#rackId3-1" position_in_string="3" row="1" column="3" />
+										<pv:module_layout url="#rackId3-1" position_in_string="4" row="1" column="4" />
+										<pv:module_layout url="#rackId3-1" position_in_string="5" row="1" column="5" />
+										<pv:module_layout url="#rackId3-1" position_in_string="6" row="1" column="6" />
+										<pv:module_layout url="#rackId3-2" position_in_string="7" row="1" column="1" />
+										<pv:module_layout url="#rackId3-2" position_in_string="8" row="1" column="2" />
+										<pv:module_layout url="#rackId3-2" position_in_string="9" row="1" column="3" />
+										<pv:module_layout url="#rackId3-2" position_in_string="10" row="1" column="4" />
+										<pv:module_layout url="#rackId3-2" position_in_string="11" row="1" column="5" />
+										<pv:module_layout url="#rackId3-2" position_in_string="12" row="1" column="6" />
+										<pv:module_layout url="#rackId3-3" position_in_string="13" row="1" column="1" />
+										<pv:module_layout url="#rackId3-3" position_in_string="14" row="1" column="2" />
+										<pv:module_layout url="#rackId3-3" position_in_string="15" row="1" column="3" />
+										<pv:module_layout url="#rackId3-3" position_in_string="16" row="1" column="4" />
+										<pv:module_layout url="#rackId3-3" position_in_string="17" row="1" column="5" />
+										<pv:module_layout url="#rackId3-3" position_in_string="18" row="1" column="6" />
+										<pv:module_layout url="#rackId3-4" position_in_string="19" row="1" column="1" />
+										<pv:module_layout url="#rackId3-4" position_in_string="20" row="1" column="2" />
+										<pv:module_layout url="#rackId3-4" position_in_string="21" row="1" column="3" />
+										<pv:module_layout url="#rackId3-4" position_in_string="22" row="1" column="4" />
+										<pv:module_layout url="#rackId3-4" position_in_string="23" row="1" column="5" />
+										<pv:module_layout url="#rackId3-4" position_in_string="24" row="1" column="6" />
+										</pv:module_array>
+									</pv:string>
+								</pv:mppt>
+								<!-- sixth mppt tag -->
+								<pv:mppt>
+									<!-- sixth string tag => the string connected to this mppt input -->
+									<pv:string id="string6">
+										<pv:module_array>
+											<!-- Cable between the module_array and the inverter -->
+											<pv:cable_to_parent url="#CableModel1" length="3" id="cableInstance7"/>
+											<pv:module_layout url="#rackId3-1" position_in_string="1" row="2" column="1" />
+											<pv:module_layout url="#rackId3-1" position_in_string="2" row="2" column="2" />
+											<pv:module_layout url="#rackId3-1" position_in_string="3" row="2" column="3" />
+											<pv:module_layout url="#rackId3-1" position_in_string="4" row="2" column="4" />
+											<pv:module_layout url="#rackId3-1" position_in_string="5" row="2" column="5" />
+											<pv:module_layout url="#rackId3-1" position_in_string="6" row="2" column="6" />
+											<pv:module_layout url="#rackId3-2" position_in_string="7" row="2" column="1" />
+											<pv:module_layout url="#rackId3-2" position_in_string="8" row="2" column="2" />
+											<pv:module_layout url="#rackId3-2" position_in_string="9" row="2" column="3" />
+											<pv:module_layout url="#rackId3-2" position_in_string="10" row="2" column="4" />
+											<pv:module_layout url="#rackId3-2" position_in_string="11" row="2" column="5" />
+											<pv:module_layout url="#rackId3-2" position_in_string="12" row="2" column="6" />
+											<pv:module_layout url="#rackId3-3" position_in_string="13" row="2" column="1" />
+											<pv:module_layout url="#rackId3-3" position_in_string="14" row="2" column="2" />
+											<pv:module_layout url="#rackId3-3" position_in_string="15" row="2" column="3" />
+											<pv:module_layout url="#rackId3-3" position_in_string="16" row="2" column="4" />
+											<pv:module_layout url="#rackId3-3" position_in_string="17" row="2" column="5" />
+											<pv:module_layout url="#rackId3-3" position_in_string="18" row="2" column="6" />
+											<pv:module_layout url="#rackId3-4" position_in_string="19" row="2" column="1" />
+											<pv:module_layout url="#rackId3-4" position_in_string="20" row="2" column="2" />
+											<pv:module_layout url="#rackId3-4" position_in_string="21" row="2" column="3" />
+											<pv:module_layout url="#rackId3-4" position_in_string="22" row="2" column="4" />
+											<pv:module_layout url="#rackId3-4" position_in_string="23" row="2" column="5" />
+											<pv:module_layout url="#rackId3-4" position_in_string="24" row="2" column="6" />
+										</pv:module_array>
+									</pv:string>
+								</pv:mppt>
+							</pv:mppts>
+						</pv:instance_inverter>
+					</pv:circuit_root>
+				</pv:circuit>
 			</technique>
 		</extra>
 	</asset>
 	<library_materials>
 		<material id="Material1" name="Dummy Material">
-			<instance_effect url="#Material1EffectId" />
+			<instance_effect url="#Material1EffectId"/>
 		</material>
 	</library_materials>
 	<library_effects>
@@ -128,9 +368,9 @@
 				<source id="rack1MeshSource">
 					<float_array id="rack1FloatArray" count="12">
 						0 0 0
-						0 -1528 0
-						-400 -1528 0
-						-400 0 0
+						0 -1548 0
+						-423.4 -1548 0
+						-423.4 0 0
 					</float_array>
 					<technique_common>
 						<accessor count="4" source="#rack1FloatArray" stride="3">
@@ -153,8 +393,12 @@
 					<!-- rack tag -->
 					<pv:rack>
 						<pv:rack_type>tracker</pv:rack_type>
-						<pv:row_spacing>2</pv:row_spacing>
+						<pv:row_spacing>5</pv:row_spacing>
+						<pv:inset_first_row>10</pv:inset_first_row>
+						<pv:inset_last_row>10</pv:inset_last_row>
 						<pv:column_spacing>2</pv:column_spacing>
+						<pv:inset_first_column>10</pv:inset_first_column>
+						<pv:inset_last_column>10</pv:inset_last_column>
 						<pv:module_rows>2</pv:module_rows>
 						<pv:module_columns>15</pv:module_columns>
 						<pv:module_orientation>portrait</pv:module_orientation>
@@ -306,7 +550,7 @@
 		<node id="TrackerModel1">
 			<!-- We instantiate the first post using a translation -->
 			<node>
-				<translate>-200 -100 0</translate>
+				<translate>-211.7 -110 0</translate>
 				<instance_geometry url="#PostModel1">
 					<bind_material>
 						<technique_common>
@@ -340,7 +584,7 @@
 			</node>
 			<!-- We instantiate the second post using a translation -->
 			<node>
-				<translate>-200 -1428 0</translate>
+				<translate>-211.7 -1438 0</translate>
 				<instance_geometry url="#PostModel1">
 					<bind_material>
 						<technique_common>
@@ -357,7 +601,7 @@
 			</node>
 			<!-- We instantiate the first joint gap using a translation -->
 			<node>
-				<translate>-200 -1578 140</translate>
+				<translate>-211.7 -1598 140</translate>
 				<instance_geometry url="#JointGapModel1">
 					<bind_material>
 						<technique_common>
@@ -374,7 +618,7 @@
 			</node>
 			<!-- We instantiate the third post using a translation -->
 			<node>
-				<translate>-200 -1678 0</translate>
+				<translate>-211.7 -1708 0</translate>
 				<instance_geometry url="#PostModel1">
 					<bind_material>
 						<technique_common>
@@ -391,7 +635,7 @@
 			</node>
 			<!-- We instantiate the second rack using a translation -->
 			<node>
-				<translate>0 -1578 150</translate>
+				<translate>0 -1598 150</translate>
 				<instance_geometry url="#RackModel1">
 					<bind_material>
 						<technique_common>
@@ -408,7 +652,7 @@
 			</node>
 			<!-- We instantiate the fourth post using a translation -->
 			<node>
-				<translate>-200 -3006 0</translate>
+				<translate>-211.7 -3036 0</translate>
 				<instance_geometry url="#PostModel1">
 					<bind_material>
 						<technique_common>
@@ -425,7 +669,7 @@
 			</node>
 			<!-- We instantiate the motor gap using a translation -->
 			<node>
-				<translate>-200 -3206 110</translate>
+				<translate>-211.7 -3246 110</translate>
 				<instance_geometry url="#MotorGapModel1">
 					<bind_material>
 						<technique_common>
@@ -442,7 +686,7 @@
 			</node>
 			<!-- We instantiate the fifth post using a translation -->
 			<node>
-				<translate>-200 -3406 0</translate>
+				<translate>-211.7 -3456 0</translate>
 				<instance_geometry url="#PostModel1">
 					<bind_material>
 						<technique_common>
@@ -459,7 +703,7 @@
 			</node>
 			<!-- We instantiate the third rack using a translation -->
 			<node>
-				<translate>0 -3306 150</translate>
+				<translate>0 -3346 150</translate>
 				<instance_geometry url="#RackModel1">
 					<bind_material>
 						<technique_common>
@@ -476,7 +720,7 @@
 			</node>
 			<!-- We instantiate the sixth post using a translation -->
 			<node>
-				<translate>-200 -4734 0</translate>
+				<translate>-211.7 -4784 0</translate>
 				<instance_geometry url="#PostModel1">
 					<bind_material>
 						<technique_common>
@@ -493,7 +737,7 @@
 			</node>
 			<!-- We instantiate the second joint gap using a translation -->
 			<node>
-				<translate>-200 -4884 140</translate>
+				<translate>-211.7 -4944 140</translate>
 				<instance_geometry url="#JointGapModel1">
 					<bind_material>
 						<technique_common>
@@ -510,7 +754,7 @@
 			</node>
 			<!-- We instantiate the seventh post using a translation -->
 			<node>
-				<translate>-200 -4984 0</translate>
+				<translate>-211.7 -5054 0</translate>
 				<instance_geometry url="#PostModel1">
 					<bind_material>
 						<technique_common>
@@ -527,7 +771,7 @@
 			</node>
 			<!-- We instantiate the fourth rack using a translation -->
 			<node>
-				<translate>0 -4884 150</translate>
+				<translate>0 -4944 150</translate>
 				<instance_geometry url="#RackModel1">
 					<bind_material>
 						<technique_common>
@@ -544,7 +788,7 @@
 			</node>
 			<!-- We instantiate the eighth post using a translation -->
 			<node>
-				<translate>-200 -6312 0</translate>
+				<translate>-211.7 -6382 0</translate>
 				<instance_geometry url="#PostModel1">
 					<bind_material>
 						<technique_common>
@@ -579,7 +823,7 @@
 					<extra>
 						<technique profile="PVCollada-2.0">
 							<!-- instance_terrain tag, might not have any child tags at the start but can be useful in the future -->
-							<pv:instance_terrain id="InstanceTerrain" />
+							<pv:instance_terrain id="InstanceTerrain"/>
 						</technique>
 					</extra>
 				</instance_geometry>
@@ -640,6 +884,6 @@
 		</visual_scene>
 	</library_visual_scenes>
 	<scene>
-		<instance_visual_scene url="#VisualSceneModel" />
+		<instance_visual_scene url="#VisualSceneModel"/>
 	</scene>
 </COLLADA>

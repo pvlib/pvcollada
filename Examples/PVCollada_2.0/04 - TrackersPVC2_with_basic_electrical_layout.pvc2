@@ -784,7 +784,7 @@
 			</node>
 			<!-- We instantiate the eighth post using a translation -->
 			<node>
-				<translate>-200 -6212 0</translate>
+				<translate>-200 -6312 0</translate>
 				<instance_geometry url="#PostModel1">
 					<bind_material>
 						<technique_common>
