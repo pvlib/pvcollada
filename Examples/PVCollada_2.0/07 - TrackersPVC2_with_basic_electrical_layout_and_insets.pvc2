@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <COLLADA xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:pv="http://www.example.com/pvcollada"
-	version="1.5.0" xmlns="http://www.collada.org/2008/03/COLLADASchema">
+	xmlns:pv="https://pvcollada.org/2026/XMLSchema"
+	xmlns="http://www.collada.org/2008/03/COLLADASchema"
+	xsi:schemaLocation="https://pvcollada.org/2026/XMLSchema https://pvcollada.org/2026/XMLSchema
+	                    http://www.collada.org/2008/03/COLLADASchema https://www.khronos.org/files/collada_schema_1_5.xsd"
+	version="1.5.0">
 	<asset>
 		<contributor>
 			<author>PVsyst</author>

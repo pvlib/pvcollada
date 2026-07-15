@@ -3,7 +3,7 @@
     
     <title>PVCollada Reference Validation - Ensuring references are correct</title>
     
-    <ns prefix="pv" uri="http://www.example.com/pvcollada"/>
+    <ns prefix="pv" uri="https://pvcollada.org/2026/XMLSchema"/>
     <ns prefix="collada" uri="http://www.collada.org/2008/03/COLLADASchema"/>
     
     <!-- Pattern: Validate instance_terrain references -->

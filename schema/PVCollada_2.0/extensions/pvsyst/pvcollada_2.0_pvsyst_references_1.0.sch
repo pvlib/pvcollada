@@ -3,7 +3,7 @@
     
     <title>PVsyst extensions for PVCollada - Reference Validation - Ensuring references are correct</title>
     
-    <ns prefix="pv" uri="http://www.example.com/pvcollada"/>
+    <ns prefix="pv" uri="https://pvcollada.org/2026/XMLSchema"/>
     <ns prefix="pvsyst" uri="https://www.pvsyst.com/pvcollada-2.0-extensions"/>
     <ns prefix="collada" uri="http://www.collada.org/2008/03/COLLADASchema"/>
     

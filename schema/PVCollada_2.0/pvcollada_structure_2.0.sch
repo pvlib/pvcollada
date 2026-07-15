@@ -3,7 +3,7 @@
     
     <title>PVCollada Structural Rules - Element Placement Validation</title>
     
-    <ns prefix="pv" uri="http://www.example.com/pvcollada"/>
+    <ns prefix="pv" uri="https://pvcollada.org/2026/XMLSchema"/>
     <ns prefix="collada" uri="http://www.collada.org/2008/03/COLLADASchema"/>
     
     <!-- Pattern: Technique profile validation -->

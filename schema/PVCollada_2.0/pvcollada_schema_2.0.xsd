@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.com/pvcollada"
-xmlns="http://www.example.com/pvcollada" elementFormDefault="qualified"
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="https://pvcollada.org/2026/XMLSchema"
+xmlns="https://pvcollada.org/2026/XMLSchema" elementFormDefault="qualified"
 xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
   <xs:import namespace="http://www.collada.org/2008/03/COLLADASchema" schemaLocation="collada_schema_1_5.xsd" />
 	<!-- enumerations -->
