@@ -23,6 +23,7 @@ XML schemas and example files are provided to help users model PV systems in a s
 ## Documentation
 
 - [Coordinate system and tranformation](pvcollada_coordinate_transformation_with_diagram.md)
+- [Representing an east-west PV array](pvcollada_east_west_array.md)
 
 ## License
 
