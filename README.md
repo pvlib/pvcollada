@@ -6,11 +6,15 @@ PVCollada uses the COLLADA standard to describe photovoltaic (PV) power systems.
 
 PVCollada 2.0 is based on COLLADA 1.5. A PVCollada 2.0 document must be a valid COLLADA 1.5 document.
 
+PVCollada 2.0 files must be identified with the file extension ".pvc2". A zipped PVCollada 2.0 file must have the extension ".pvz2". Compliance with these extensions allows all applications to recognize PVCollada 2.0 files and to distinguish PVCollada 2.0 from PVCollada 1.4.1.
+
 PVCollada 2.0 uses COLLADA's <extra> elements to provide PV-specific elements that describe the physical components and the electrical and mechanical
 relationships among these components. PVCollada elements are located in <technique="pvcollada_20"> structures. PVCollada 2.0 documents can include custom elements in
 other <technique> structures.
 
 # PVCollada 1.4.1
+
+The older PVCollada format, which we term PVCollada 1.4.1, is identified by the file extension ".pvc".
 
 PVCollada 1.4.1 is a modification of the COLLADA 1.4.1 schema. A PVCollada 1.4.1 document is not a valid COLLADA document. Modifications from COLLADA 1.4.1 are:
 
