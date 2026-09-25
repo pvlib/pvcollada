@@ -1084,7 +1084,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
     <xs:annotation>
       <xs:documentation>This tag should only appear in the extra/technique section of a Collada geometry tag to define a model for a
       gap. A gap is a space between two racks on a tracker. The node may have one or more instance_geometry
-      descendant tags that contain an instance_gap tag.</xs:documentation>
+      descendant tags that contain an instance_gap tag. The geometries represent objects located in the gap, e.g., a motor.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
