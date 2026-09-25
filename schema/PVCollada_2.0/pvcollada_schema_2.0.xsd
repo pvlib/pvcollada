@@ -1084,7 +1084,7 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
     <xs:annotation>
       <xs:documentation>This tag should only appear in the extra/technique section of a Collada geometry tag to define a model for a
       gap. A gap is a space between two racks on a tracker. The node may have one or more instance_geometry
-      descendant tags that contain an instance_gap tag.</xs:documentation>
+      descendant tags that contain an instance_gap tag. The geometries represent objects located in the gap, e.g., a motor.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
@@ -1106,6 +1106,11 @@ xmlns:collada="http://www.collada.org/2008/03/COLLADASchema">
         <xs:element name="joint_angle" type="collada:float_type" minOccurs="0">
           <xs:annotation>
             <xs:documentation>The maximum angle formed in a flexible gap.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="rotate_with_tracker" type="xs:boolean" minOccurs="0" default="false">
+          <xs:annotation>
+            <xs:documentation>True if the geometries of this gap rotate with the tracker (for example a motor), false if they remain fixed. The value is false when this element is absent or empty.</xs:documentation>
           </xs:annotation>
         </xs:element>
       </xs:sequence>

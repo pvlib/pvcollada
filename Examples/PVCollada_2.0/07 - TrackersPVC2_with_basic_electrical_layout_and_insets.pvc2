@@ -495,6 +495,7 @@
 						<pv:type>motor</pv:type>
 						<pv:rigid>true</pv:rigid>
 						<pv:width>200</pv:width>
+						<pv:rotate_with_tracker>true</pv:rotate_with_tracker>
 					</pv:gap>
 				</technique>
 			</extra>
