@@ -40,8 +40,10 @@ print(f"SCH references file (for PVsyst extensions): {PVSYST_SCH_REFERENCES_FILE
 print("-" * 50)
 
 # Parse XML document once
+parser = etree.XMLParser(huge_tree=True)
+
 with open(XML_FILE_PATH, "rb") as xml:
-    xml_doc = etree.parse(xml)
+    xml_doc = etree.parse(xml, parser)
 
 # Validate against XSD
 with open(XSD_FILE_PATH, "rb") as xsd:
