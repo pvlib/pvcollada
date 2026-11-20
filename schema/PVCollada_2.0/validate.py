@@ -8,13 +8,15 @@ Usage:
 """
 import sys
 import os
+import argparse
 from lxml import etree, isoschematron
 
 # Get the directory where this script is located
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Default file paths
-DEFAULT_XML_FILE = os.path.join(SCRIPT_DIR, os.pardir, "Examples", "05 - VerySimpleFixedPVC2_with_electrical_layout.pvc2")
+DEFAULT_XML_FILE = os.path.join(SCRIPT_DIR, os.pardir, os.pardir, "Examples", "PVCollada_2.0",
+                                "05 - VerySimpleFixedPVC2_with_electrical_layout.pvc2")
 XSD_FILE_PATH = os.path.join(SCRIPT_DIR, "pvcollada_schema_2.0.xsd")
 SCH_STRUCTURE_FILE = os.path.join(SCRIPT_DIR, "pvcollada_structure_2.0.sch")
 SCH_REFERENCES_FILE = os.path.join(SCRIPT_DIR, "pvcollada_references_2.0.sch")
@@ -24,10 +26,31 @@ PVSYST_SCH_STRUCTURE_FILE = os.path.join(SCRIPT_DIR, "extensions", "pvsyst", "pv
 PVSYST_SCH_REFERENCES_FILE = os.path.join(SCRIPT_DIR, "extensions", "pvsyst", "pvcollada_2.0_pvsyst_references_1.0.sch")
 
 # Get XML file from command line or use default
-if len(sys.argv) > 1:
-    XML_FILE_PATH = sys.argv[1]
-else:
-    XML_FILE_PATH = DEFAULT_XML_FILE
+
+parser = argparse.ArgumentParser()
+
+# 1. Positional argument with a default value
+parser.add_argument(
+    "file_path",
+    nargs="?",
+    default=DEFAULT_XML_FILE,
+    help=f"Positional argument (default: {DEFAULT_XML_FILE})",
+)
+
+# 2. Keyword argument flag (--huge)
+parser.add_argument(
+    "--huge", action="store_true", help="Enable huge mode (default: False)"
+)
+
+args = parser.parse_args()
+
+XML_FILE_PATH = args.file_path
+huge = args.huge
+
+# if len(sys.argv) > 1:
+#     XML_FILE_PATH = sys.argv[1]
+# else:
+#     XML_FILE_PATH = DEFAULT_XML_FILE
 
 print(f"XML file: {XML_FILE_PATH}")
 print(f"XSD file: {XSD_FILE_PATH}")
@@ -40,8 +63,10 @@ print(f"SCH references file (for PVsyst extensions): {PVSYST_SCH_REFERENCES_FILE
 print("-" * 50)
 
 # Parse XML document once
+parser = etree.XMLParser(huge_tree=huge)
+
 with open(XML_FILE_PATH, "rb") as xml:
-    xml_doc = etree.parse(xml)
+    xml_doc = etree.parse(xml, parser)
 
 # Validate against XSD
 with open(XSD_FILE_PATH, "rb") as xsd:
