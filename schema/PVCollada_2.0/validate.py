@@ -5,8 +5,8 @@ Ensure the "lxml" package is installed in your environment.
 Usage:
     python validate.py                    # Uses hardcoded XML file
     python validate.py myfile.pvc2        # Validates specified file
+    python validate.py myfile.pvc2 --huge # Validates file if file size is very large
 """
-import sys
 import os
 import argparse
 from lxml import etree, isoschematron
